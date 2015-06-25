@@ -23,15 +23,67 @@ module.exports.passport = {
     strategy: require('passport-http-bearer').Strategy
   },
 
+
+
+  facebook: {
+    name: 'Facebook',
+    protocol: 'oauth2',
+    strategy: require('passport-facebook').Strategy,
+    options: {
+      clientID: '845947535495655',
+      clientSecret: 'f5ba13fc99e7a6b32fe46ce37b36050d',
+      scope: ['email']
+    }
+  },
+
+  google: {
+    name: 'Google',
+    protocol: 'oauth2',
+    strategy: require('passport-google-oauth').OAuth2Strategy,
+    options: {
+      clientID: '764010842907-4v2v8hbk1pgm092e27bqr2rskv93omts.apps.googleusercontent.com',
+      clientSecret: 'AH261OFR5JKvbDiWvPGQXcCS',
+        scope: ['email']
+    }
+  },
+
+
+
   twitter: {
     name: 'Twitter',
     protocol: 'oauth',
     strategy: require('passport-twitter').Strategy,
     options: {
-      consumerKey: 'your-consumer-key',
-      consumerSecret: 'your-consumer-secret'
+      consumerKey: 'z1X2qDLJ3AidM9cTa6f5lTxiS',
+      consumerSecret: 'I5j9IlvsDKzfCl8n18nhio0nZNhhDwX982jsyGBUErIANiVW0h'
     }
   },
+
+    vkontakte: {
+    name: 'Vkontakte',
+    protocol: 'oauth2',
+    strategy: require('passport-vkontakte').Strategy,
+    options: {
+      clientID: '4969237',
+      clientSecret: 'zmsBxTH8SYXfVh1tgtQQ'
+    }
+  },
+
+
+  linkedin: {
+    name: 'Linkedin',
+    protocol: 'oauth2',
+    strategy: require('passport-linkedin-oauth2').Strategy,
+    options: {
+      clientID: '77l7s00s83poej',
+      clientSecret: '16t1bEttzDlzMIv1',
+        scope: ['r_emailaddress'],
+        state: true
+    }
+  }
+
+
+
    /*
   github: {
     name: 'GitHub',
@@ -43,26 +95,6 @@ module.exports.passport = {
     }
   },
 
-  facebook: {
-    name: 'Facebook',
-    protocol: 'oauth2',
-    strategy: require('passport-facebook').Strategy,
-    options: {
-      clientID: 'your-client-id',
-      clientSecret: 'your-client-secret',
-      scope: ['email'] /!* email is necessary for login behavior *!/
-    }
-  },
-
-  google: {
-    name: 'Google',
-    protocol: 'oauth2',
-    strategy: require('passport-google-oauth').OAuth2Strategy,
-    options: {
-      clientID: 'your-client-id',
-      clientSecret: 'your-client-secret'
-    }
-  },
 
   cas: {
     name: 'CAS',

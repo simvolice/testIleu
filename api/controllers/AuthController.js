@@ -5,6 +5,8 @@
  * should look. It currently includes the minimum amount of functionality for
  * the basics of Passport.js to work.
  */
+var simple_recaptcha = require('simple-recaptcha-new');
+
 var AuthController = {
   /**
    * Render the login page
@@ -30,7 +32,19 @@ var AuthController = {
    * @param {Object} req
    * @param {Object} res
    */
-  login: function (req, res) {
+
+
+
+
+  login: function (req, res, next) {
+
+      if (req.user) {
+
+          return res.redirect('/');
+
+
+      }
+
     var strategies = sails.config.passport
       , providers  = {};
 
@@ -48,9 +62,15 @@ var AuthController = {
 
     // Render the `auth/login.ext` view
     res.view({
+
       providers : providers
     , errors    : req.flash('error')
     });
+
+
+
+
+
   },
 
   /**
@@ -68,12 +88,19 @@ var AuthController = {
    * @param {Object} res
    */
   logout: function (req, res) {
-    req.logout();
-    
-    // mark the user as logged out for auth purposes
-    req.session.authenticated = false;
-    
-    res.redirect('/');
+
+
+      if (!req.user) return res.redirect('/');
+
+      req.session.destroy();
+
+
+      res.clearCookie('ileu');
+
+      req.logout();
+
+
+      res.redirect('/');
   },
 
   /**
@@ -92,9 +119,19 @@ var AuthController = {
    * @param {Object} res
    */
   register: function (req, res) {
-    res.view({
+
+
+
+
+
+
+    res.view(
+   {
       errors: req.flash('error')
     });
+
+
+
   },
 
   /**
@@ -124,6 +161,9 @@ var AuthController = {
    * @param {Object} res
    */
   callback: function (req, res) {
+
+
+
     function tryAgain (err) {
 
       // Only certain error messages are returned via req.flash('error', someError)
@@ -145,7 +185,9 @@ var AuthController = {
 
       switch (action) {
         case 'register':
-          res.redirect('/register');
+
+
+            res.redirect('/register');
           break;
         case 'disconnect':
           res.redirect('back');
@@ -156,23 +198,47 @@ var AuthController = {
     }
 
     passport.callback(req, res, function (err, user, challenges, statuses) {
-      if (err || !user) {
+
+
+
+
+
+        if (err || !user) {
+
+
         return tryAgain(challenges);
       }
+
+
 
       req.login(user, function (err) {
         if (err) {
           return tryAgain(err);
         }
-        
-        // Mark the session as authenticated to work with default Sails sessionAuth.js policy
-        req.session.authenticated = true
-        
-        // Upon successful login, send the user to the homepage were req.user
+
+
+
+          if (req.body.noremember){
+              req.session.cookie.maxAge = 24 * 60 * 60 * 1000;
+
+
+
+              return res.redirect('/');
+
+
+
+          };
+
+          // Upon successful login, send the user to the homepage were req.user
         // will be available.
         res.redirect('/');
       });
     });
+
+
+
+
+
   },
 
   /**

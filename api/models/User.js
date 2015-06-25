@@ -1,12 +1,21 @@
-var User = {
-  // Enforce model schema in the case of schemaless databases
-  schema: true,
+
+module.exports = {
+
 
   attributes: {
     username  : { type: 'string', unique: true },
     email     : { type: 'email',  unique: true },
+      verificatedEmail: {type: 'boolean', defaultsTo: false},
+
     passports : { collection: 'Passport', via: 'user' }
   }
+
+
+
+
+
+
+
+
 };
 
-module.exports = User;

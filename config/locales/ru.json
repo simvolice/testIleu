@@ -10,5 +10,5 @@
   "Error.Passport.Username.Missing": "You need to supply a username",
   "Error.Passport.Password.Missing": "Oh no, you haven't set a password yet!",
   "Error.Passport.Generic": "Snap. Something went wrong with authorization.",
-  "Error.Access.Deniede":"Вы не залогинились"
+  "Error.Access.Deniede":"Вы не зарегестрированы в системе"
 }

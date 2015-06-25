@@ -3,6 +3,8 @@
     "modules": {}
   },
   "hooks": {
-    "grunt": false
+    "grunt": false,
+    "blueprints": false,
+    "pubsub": false
   }
 }

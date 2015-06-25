@@ -38,6 +38,12 @@ module.exports.routes = {
   },
 
 
+    '/isUser': {
+
+        view: 'isUser'
+
+
+    },
 
     'get /login': 'AuthController.login',
     'get /logout': 'AuthController.logout',

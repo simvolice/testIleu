@@ -1,6 +1,7 @@
-var validator = require('validator');
-var crypto    = require('crypto');
-
+var validator = require('validator'),
+ crypto    = require('crypto'),
+    reqap = require('../recaptcha'),
+    mailSend = require('../mail');
 /**
  * Local Authentication Protocol
  *
@@ -24,9 +25,17 @@ var crypto    = require('crypto');
  * @param {Function} next
  */
 exports.register = function (req, res, next) {
-  var email    = req.param('email')
+
+
+
+
+
+    var email    = req.param('email')
     , username = req.param('username')
     , password = req.param('password');
+
+
+
 
   if (!email) {
     req.flash('error', 'Error.Passport.Email.Missing');
@@ -42,6 +51,26 @@ exports.register = function (req, res, next) {
     req.flash('error', 'Error.Passport.Password.Missing');
     return next(new Error('No password was entered.'));
   }
+
+
+    var err = reqap.verifyCaptcha('6Lembf8SAAAAAEilWPBaKbj_By8g16NRghWF-LKa', req, res, next);
+
+    if (err){
+
+        req.flash('error', 'Request respond');
+        return next(new Error('Request respond'));
+
+    }
+
+
+    mailSend.sendMail('emailReg', email, 'Подтверждение регистрации');
+
+
+
+
+
+
+
 
   User.create({
     username : username
@@ -78,9 +107,20 @@ exports.register = function (req, res, next) {
         });
       }
 
+
+
       next(null, user);
     });
+
+
+
+
+
   });
+
+
+
+
 };
 
 /**
@@ -134,7 +174,11 @@ exports.connect = function (req, res, next) {
  * @param {Function} next
  */
 exports.login = function (req, identifier, password, next) {
-  var isEmail = validator.isEmail(identifier)
+
+
+
+
+    var isEmail = validator.isEmail(identifier)
     , query   = {};
 
   if (isEmail) {
@@ -162,6 +206,7 @@ exports.login = function (req, identifier, password, next) {
     Passport.findOne({
       protocol : 'local'
     , user     : user.id
+
     }, function (err, passport) {
       if (passport) {
         passport.validatePassword(password, function (err, res) {
@@ -173,6 +218,7 @@ exports.login = function (req, identifier, password, next) {
             req.flash('error', req.__('Error.Passport.Password.Wrong'));
             return next(null, false);
           } else {
+
             return next(null, user);
           }
         });
@@ -183,4 +229,10 @@ exports.login = function (req, identifier, password, next) {
       }
     });
   });
+
+
+
+
+
+
 };

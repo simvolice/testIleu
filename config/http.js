@@ -31,10 +31,13 @@ module.exports.http = {
      ***************************************************************************/
 
 
+
     order: [
       'startRequestTimer',
       'cookieParser',
       'session',
+
+
 
       'myRequestLogger',
       'bodyParser',
@@ -48,17 +51,17 @@ module.exports.http = {
       '404',
       '500'
     ]
-  }
+  },
   /****************************************************************************
   *                                                                           *
   * Example custom middleware; logs each request to the console.              *
   *                                                                           *
   ****************************************************************************/
 
-    // myRequestLogger: function (req, res, next) {
-    //     console.log("Requested :: ", req.method, req.url);
-    //     return next();
-    // }
+     myRequestLogger: function (req, res, next) {
+         console.log("Requested :: ", req.method, req.url);
+         return next();
+     },
 
 
   /***************************************************************************
@@ -70,7 +73,7 @@ module.exports.http = {
   *                                                                          *
   ***************************************************************************/
 
-    // bodyParser: require('skipper')
+    bodyParser: require('skipper')
 
   // },
 

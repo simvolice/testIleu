@@ -2,6 +2,8 @@ var path     = require('path')
   , url      = require('url')
   , passport = require('passport');
 
+
+
 /**
  * Passport Service
  *
@@ -221,14 +223,31 @@ passport.endpoint = function (req, res) {
  * @param {Function} next
  */
 passport.callback = function (req, res, next) {
+
+
+
   var provider = req.param('provider', 'local')
     , action   = req.param('action');
 
   // Passport.js wasn't really built for local user registration, but it's nice
   // having it tied into everything else.
   if (provider === 'local' && action !== undefined) {
+
+
+
+
     if (action === 'register' && !req.user) {
-      this.protocols.local.register(req, res, next);
+
+
+
+
+
+
+
+        this.protocols.local.register(req, res, next);
+
+
+
     }
     else if (action === 'connect' && req.user) {
       this.protocols.local.connect(req, res, next);
@@ -247,7 +266,10 @@ passport.callback = function (req, res, next) {
       // the authentication process by attempting to obtain an access token. If
       // access was granted, the user will be logged in. Otherwise, authentication
       // has failed.
+
+
       this.authenticate(provider, next)(req, res, req.next);
+
     }
   }
 };
@@ -275,7 +297,12 @@ passport.callback = function (req, res, next) {
  *
  */
 passport.loadStrategies = function () {
-  var self       = this
+
+
+
+
+
+    var self       = this
     , strategies = sails.config.passport;
 
   Object.keys(strategies).forEach(function (key) {
@@ -365,6 +392,9 @@ passport.disconnect = function (req, res, next) {
     });
   });
 };
+
+
+
 
 passport.serializeUser(function (user, next) {
   next(null, user.id);
