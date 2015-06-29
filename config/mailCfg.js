@@ -3,22 +3,36 @@
  * Created by Moon on 25.06.2015.
  */
 
-
 module.exports.mailCfg = {
 
 
 
-    connectSMTP: {
+    connectGmail: {
         service: 'Gmail',
-        host: 'smtp.gmail.com',
-        userName: 'simvolice@gmail.com',
-        password: 'c34e5febd2a6440aae8978ea386a4b54',
-        port: 465,
-        secure : true
+
+
+
+            userName: 'kazyyev@growit.kz',
+        password: '14219080601009a'
+
 
 
 
     },
+
+
+    connectMailGun: {
+
+
+        apiKey: 'key-6cfcae5a4e23da6b34ae6912e8ecfc54',
+        domain: 'sandboxebafe0349e9445529e3cb3b8c256f4dc.mailgun.org'
+
+
+
+
+
+
+    }
 
 
 

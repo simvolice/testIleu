@@ -1,64 +1,75 @@
 /**
  * Created by Moon on 25.06.2015.
  */
+
+
 var mailcfg = require('../../config/mailCfg').mailCfg;
+var nodemailer = require('nodemailer');
+var mg = require('nodemailer-mailgun-transport');
+var path = require('path');
+var templatesDir = path.resolve(__dirname, '../../views/', 'emailTemplates');
+var emailTemplates = require('email-templates');
+
+exports.sendMail = function(pathTemplate, uuid, to, subject, res ) {
 
 
-exports.sendMail = function(pathTemplate, to, subject ) {
+    emailTemplates(templatesDir, function(err, template) {
 
+        if (err) {
+            console.log(err);
+        } else {
 
+            // ## Send a single email
 
-    sails.config.hooks['sails-hook-email'] = {
+            // Prepare nodemailer transport object
+            var auth = {
+                auth: {
+                    api_key: mailcfg.connectMailGun.apiKey,
+                    domain: mailcfg.connectMailGun.domain
+                }
+            }
 
-        service: mailcfg.connectSMTP.service,
-
-        host: mailcfg.connectSMTP.host,
-
-
-        auth: {user:mailcfg.connectSMTP.userName, pass:mailcfg.connectSMTP.password}
-
-
-
-    };
-
-
-
-
-    sails.hooks.email.send(
-        pathTemplate,
-        {
-
-            senderName: "ILEU"
-        },
-        {
-
-            to: to,
-            subject: subject
-        },
-
-
-        function(err) {
-
-
-            console.log(err || "It worked!");
-
-
-
-        }
-    );
+            var nodemailerMailgun = nodemailer.createTransport(mg(auth));
 
 
 
 
+            var locals = {
+
+                uuid: uuid
+
+            };
+
+            // Send a single email
+            template(pathTemplate, locals, function (err, html) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    nodemailerMailgun.sendMail({
+                        from: 'ileu@ileu.biz',
+                        to: to, // An array if you have multiple recipients.
+                        subject: subject,
 
 
+                        html: html
+
+                    }, function (err, info) {
+                        if (err) {
+                            console.log('Error: ' + err);
+                        }
+                        else {
+                            console.log('Response: ' + info);
+                        }
+                    });
+
+                }
+            });
 
 
+        };
 
 
-
-
-
+    });
 
 
 };

@@ -63,8 +63,6 @@ exports.register = function (req, res, next) {
     }
 
 
-    mailSend.sendMail('emailReg', email, 'Подтверждение регистрации');
-
 
 
 
@@ -109,14 +107,31 @@ exports.register = function (req, res, next) {
 
 
 
-      next(null, user);
+
     });
 
 
+      User.findOne({email: email}, function(err, result){
+
+
+          mailSend.sendMail('emailReg', result.verifTokenEmail, email, 'Подтверждение регистрации');
+
+
+
+
+       return  res.redirect('/confirmemail');
+
+
+
+
+      });
 
 
 
   });
+
+
+
 
 
 

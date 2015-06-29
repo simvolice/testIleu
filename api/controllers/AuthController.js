@@ -5,7 +5,7 @@
  * should look. It currently includes the minimum amount of functionality for
  * the basics of Passport.js to work.
  */
-var simple_recaptcha = require('simple-recaptcha-new');
+
 
 var AuthController = {
   /**
@@ -34,7 +34,73 @@ var AuthController = {
    */
 
 
+  verifemail: function(req, res, next){
+      "use strict";
 
+      User.findOne({verifTokenEmail: req.query.id},function(err, result){
+
+          if (err){
+
+              return res.forbidden(err);
+
+          } if (result.verificatedEmail){
+
+
+              return res.redirect('/alreadyconfirm');
+
+          }
+
+
+          User.update({ verifTokenEmail: req.query.id }, { verificatedEmail: true })
+              .exec(function(err, users) {
+
+                  users.verificatedEmail = true;
+
+
+              });
+
+         return res.redirect('/');
+
+      });
+
+
+
+
+  },
+
+
+    confirmemail: function(req, res, next){
+        "use strict";
+
+
+
+        res.locals.layout = 'auth/auh.handlebars';
+
+
+        res.view('confirmemail');
+
+
+
+
+    },
+
+
+
+    alreadyconfirm: function(req, res, next){
+        "use strict";
+
+
+
+        res.locals.layout = 'auth/auh.handlebars';
+
+
+        res.view('alreadyconfirm');
+
+
+
+
+
+    },
 
   login: function (req, res, next) {
 
@@ -60,8 +126,10 @@ var AuthController = {
       };
     });
 
-    // Render the `auth/login.ext` view
-    res.view({
+      res.locals.layout = 'auth/auh.handlebars';
+
+
+    res.view('authpage', {
 
       providers : providers
     , errors    : req.flash('error')
@@ -118,21 +186,18 @@ var AuthController = {
    * @param {Object} req
    * @param {Object} res
    */
-  register: function (req, res) {
 
 
+    forget: function (req, res){
 
 
+        res.locals.layout = 'auth/auh.handlebars';
 
 
-    res.view(
-   {
-      errors: req.flash('error')
-    });
+        res.view('authpage');
 
 
-
-  },
+    },
 
   /**
    * Create a third-party authentication endpoint
@@ -187,7 +252,7 @@ var AuthController = {
         case 'register':
 
 
-            res.redirect('/register');
+            res.redirect('/login');
           break;
         case 'disconnect':
           res.redirect('back');
