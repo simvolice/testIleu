@@ -10,23 +10,24 @@ var moment = require('moment');
 describe(TEST_NAME, function() {
   describe(".create()", function() {
     it("should be successful", function(done) {
-      Catalogs.create({
+      Process.create({
 
-        name: {
-          "Типы Процессов": [
+        name: 'Демо процесс',
+
+        type: 'Бухгалтерия',
+
+        dueDateTime: moment().format(),
+
+        performer: ['id', 'id'],
+
+        matching: ['id', 'id'],
+
+        text: 'Hello',
+
+        files: ['pathToFiles', 'pathToFiles'],
 
 
-            "Бухгалтерия",
-            "Административка",
-            "Юристы"
-
-
-
-
-          ]
-        }
-
-
+       label: 'Исходящий',
 
 
 

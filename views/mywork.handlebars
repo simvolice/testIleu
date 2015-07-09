@@ -1,0 +1,223 @@
+
+<div id="react">
+
+
+  {{react}}
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+<!-- full width -->
+<div id="createProc" class="modal container fade" tabindex="-1">
+
+    <div class="modal-body">
+
+
+
+
+
+        <!-- BEGIN PROFILE CONTENT -->
+        <div class="profile-content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="portlet light">
+                        <div class="portlet-title tabbable-line">
+                            <div class="caption caption-md">
+                                <i class="icon-globe theme-font hide"></i>
+                                <span class="caption-subject font-blue-madison bold uppercase">Начала работы с процессом</span>
+                            </div>
+                            <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#tab_1_1" data-toggle="tab">Стартовать процесс</a>
+                                </li>
+
+
+                            </ul>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="tab-content">
+                                <!-- PERSONAL INFO TAB -->
+                                <div class="tab-pane active" id="tab_1_1">
+                                    <form role="form" action="/addprocess" method="post" enctype="multipart/form-data" onsubmit="return postForm()">
+                                        <div class="form-group form-md-line-input form-md-floating-label">
+                                            <input name="name" type="text" class="form-control" id="form_control_1">
+                                            <label for="form_control_1">Наименование процесса</label>
+                                            <span class="help-block">Здесь вводятся только буквы</span>
+                                        </div>
+
+
+
+                                        <div class="form-group">
+                                            <label class="control-label">Тип процесса</label>
+
+
+                                            <select name="city" class="bs-select form-control" data-live-search="true" data-size="8" >
+
+                                              {{#each citys}}
+
+
+                                                  <option value="{{this}}">{{this}}</option>
+
+                                              {{/each}}
+
+
+
+
+
+                                            </select>
+
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label">Дата и время окончания процесса</label>
+                                            <div class="">
+                                                <div class="input-group date form_datetime">
+                                                    <input type="text" size="16" readonly class="form-control">
+												<span class="input-group-btn">
+												<button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
+												</span>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label class="control-label">Согласующие</label>
+
+
+                                            <select name="city" class="bs-select form-control" data-live-search="true" data-size="8" >
+
+                                              {{#each citys}}
+
+
+                                                  <option value="{{this}}">{{this}}</option>
+
+                                              {{/each}}
+
+
+
+
+
+                                            </select>
+
+
+                                        </div>
+
+
+
+                                        <div class="form-group">
+                                            <label class="control-label">Исполнители</label>
+
+
+                                            <select name="city" class="bs-select form-control" data-live-search="true" data-size="8" >
+
+
+
+
+                                              {{#each citys}}
+
+
+                                                  <option value="{{this}}">{{this}}</option>
+
+                                              {{/each}}
+
+
+
+
+
+                                            </select>
+
+
+                                        </div>
+
+
+
+
+
+                                        <div class="form-group form-md-line-input form-md-floating-label">
+
+                                            <label for="summernote">Текст процесса</label>
+                                            <textarea id="summernote" name="content" rows="18" class="form-control"></textarea>
+
+                                        </div>
+
+
+
+
+                                        <div class="form-group">
+
+
+                                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                <div class="input-group input-large">
+                                                    <div class="form-control uneditable-input input-fixed input-medium" data-trigger="fileinput">
+                                                        <i class="fa fa-file fileinput-exists"></i>&nbsp; <span class="fileinput-filename">
+														</span>
+                                                    </div>
+													<span class="input-group-addon btn default btn-file">
+													<span class="fileinput-new">
+													Выберети документ </span>
+													<span class="fileinput-exists">
+													Изменить </span>
+													<input type="file" name="document">
+													</span>
+                                                    <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput">
+                                                        Удалить </a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+
+
+
+
+
+
+
+                                        <div class="margiv-top-10">
+                                            <button type="submit" class="btn green-haze">
+                                                Стартануть процесс </button>
+
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- END PERSONAL INFO TAB -->
+
+                                <!-- END CHANGE AVATAR TAB -->
+
+
+                                <!-- PRIVACY SETTINGS TAB -->
+
+                                <!-- END PRIVACY SETTINGS TAB -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PROFILE CONTENT -->
+
+
+
+
+
+
+
+
+
+    </div>
+
+</div>

@@ -6,6 +6,17 @@
  * the basics of Passport.js to work.
  */
 
+  var forgetService = require('../../api/services/forgetpass');
+
+var restofrombody = require('../services/restofrombody');
+
+var restoreEmail = require('../services/restoreEmail');
+
+
+
+var verifEmail = require('../services/verifEmail');
+
+
 
 var AuthController = {
   /**
@@ -34,40 +45,77 @@ var AuthController = {
    */
 
 
-  verifemail: function(req, res, next){
-      "use strict";
 
-      User.findOne({verifTokenEmail: req.query.id},function(err, result){
-
-          if (err){
-
-              return res.forbidden(err);
-
-          } if (result.verificatedEmail){
+  restofromq: function(req, res, next){
+    "use strict";
 
 
-              return res.redirect('/alreadyconfirm');
+    restofrombody.restofrombody(req, res, next);
 
-          }
+  },
+
+  restorepass: function(req, res, next){
+    "use strict";
+
+    res.locals.layout = 'auth/auh.handlebars';
 
 
-          User.update({ verifTokenEmail: req.query.id }, { verificatedEmail: true })
-              .exec(function(err, users) {
-
-                  users.verificatedEmail = true;
-
-
-              });
-
-         return res.redirect('/');
-
-      });
+    res.view('restore', {errors: req.flash('error'), emailrestore:req.query.email});
 
 
 
 
   },
 
+
+  restore: function(req, res, next){
+    "use strict";
+
+restoreEmail.restoreEmail(req, res, next);
+
+
+
+    },
+
+
+  verifemail: function(req, res, next){
+      "use strict";
+
+
+
+    verifEmail.verifEmail(req, res, next);
+
+
+
+  },
+
+
+  forgetpass: function(req, res, next){
+    "use strict";
+
+
+   forgetService.recover(req, res,next);
+
+
+
+
+
+  },
+
+  recov: function(req, res, next){
+    "use strict";
+
+
+    res.locals.layout = 'auth/auh.handlebars';
+
+
+    res.view('forget', {errors: req.flash('error')});
+
+
+
+
+
+  },
 
     confirmemail: function(req, res, next){
         "use strict";
@@ -116,7 +164,7 @@ var AuthController = {
 
     // Get a list of available providers for use in your templates.
     Object.keys(strategies).forEach(function (key) {
-      if (key === 'local') {
+      if (key === 'local' || key === 'bearer') {
         return;
       }
 
@@ -168,7 +216,7 @@ var AuthController = {
       req.logout();
 
 
-      res.redirect('/');
+      res.redirect('/login');
   },
 
   /**

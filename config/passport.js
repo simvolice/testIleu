@@ -26,7 +26,7 @@ module.exports.passport = {
 
 
   facebook: {
-    name: 'Facebook',
+    name: 'facebook',
     protocol: 'oauth2',
     strategy: require('passport-facebook').Strategy,
     options: {
@@ -37,7 +37,7 @@ module.exports.passport = {
   },
 
   google: {
-    name: 'Google',
+    name: 'googleplus',
     protocol: 'oauth2',
     strategy: require('passport-google-oauth').OAuth2Strategy,
     options: {
@@ -50,7 +50,7 @@ module.exports.passport = {
 
 
   twitter: {
-    name: 'Twitter',
+    name: 'twitter',
     protocol: 'oauth',
     strategy: require('passport-twitter').Strategy,
     options: {
@@ -60,7 +60,7 @@ module.exports.passport = {
   },
 
     vkontakte: {
-    name: 'Vkontakte',
+    name: 'vk',
     protocol: 'oauth2',
     strategy: require('passport-vkontakte').Strategy,
     options: {
@@ -71,7 +71,7 @@ module.exports.passport = {
 
 
   linkedin: {
-    name: 'Linkedin',
+    name: 'linkedin',
     protocol: 'oauth2',
     strategy: require('passport-linkedin-oauth2').Strategy,
     options: {

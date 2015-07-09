@@ -1,0 +1,218 @@
+<!-- BEGIN PAGE CONTENT-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PROFILE SIDEBAR -->
+        <div class="profile-sidebar" style="width:250px;">
+            <!-- PORTLET MAIN -->
+            <div class="portlet light profile-sidebar-portlet">
+                <!-- SIDEBAR USERPIC -->
+                <div class="profile-userpic">
+                    <img src="../../assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
+                </div>
+                <!-- END SIDEBAR USERPIC -->
+                <!-- SIDEBAR USER TITLE -->
+                <div class="profile-usertitle">
+                    <div class="profile-usertitle-name">
+                        Имя фамилия
+                    </div>
+                    <div class="profile-usertitle-job">
+                        Наименование ТОО
+                    </div>
+                </div>
+                <!-- END SIDEBAR USER TITLE -->
+                <!-- SIDEBAR BUTTONS -->
+
+                <!-- END SIDEBAR BUTTONS -->
+                <!-- SIDEBAR MENU -->
+
+                <!-- END MENU -->
+            </div>
+            <!-- END PORTLET MAIN -->
+            <!-- PORTLET MAIN -->
+
+            <!-- END PORTLET MAIN -->
+        </div>
+        <!-- END BEGIN PROFILE SIDEBAR -->
+        <!-- BEGIN PROFILE CONTENT -->
+        <div class="profile-content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="portlet light">
+                        <div class="portlet-title tabbable-line">
+                            <div class="caption caption-md">
+                                <i class="icon-globe theme-font hide"></i>
+                                <span class="caption-subject font-blue-madison bold uppercase">Настройки профиля</span>
+                            </div>
+                            <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#tab_1_1" data-toggle="tab">Персональные настройки</a>
+                                </li>
+                                <li>
+                                    <a href="#tab_1_2" data-toggle="tab">Изменить аватар</a>
+                                </li>
+                                <li>
+                                    <a href="#tab_1_3" data-toggle="tab">Изменить пароль</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="tab-content">
+                                <!-- PERSONAL INFO TAB -->
+                                <div class="tab-pane active" id="tab_1_1">
+                                    <form role="form" action="/profiledit" method="post">
+                                        <div class="form-group form-md-line-input form-md-floating-label">
+                                            <input type="text" class="form-control" id="form_control_1">
+                                            <label for="form_control_1">Имя</label>
+                                            <span class="help-block">Здесь вводятся только буквы</span>
+                                        </div>
+                                        <div class="form-group form-md-line-input form-md-floating-label">
+                                            <input type="text" class="form-control" id="form_control_1">
+                                            <label for="form_control_1">Фамилия</label>
+                                            <span class="help-block">Здесь вводятся только буквы</span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label">Место нахождение</label>
+
+
+                                            <select name="city" class="bs-select form-control" data-live-search="true" data-size="8" >
+
+                                              {{#each citys}}
+
+
+                                                  <option value="{{this}}">{{this}}</option>
+
+                                              {{/each}}
+
+
+
+
+
+                                            </select>
+
+
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label class="control-label">Дата рождения</label>
+
+
+
+                                            <div class="input-group input-medium date date-picker" data-date="12-02-2012" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
+                                                <input name="datebirth" type="text" class="form-control" readonly="">
+												<span class="input-group-btn">
+												<button class="btn default" type="button"><span class="md-click-circle md-click-animate" style="height: 47px; width: 47px; top: -4.5px; left: 8.75px;"></span><i class="fa fa-calendar"></i></button>
+												</span>
+                                            </div>
+
+
+
+                                        </div>
+                                        <div class="form-group">
+
+                                                <label>Пол</label>
+
+                                            <div class="md-radio-list">
+                                                <div class="md-radio">
+                                                    <input type="radio" id="radio50" name="gender" class="md-radiobtn" value="male">
+                                                    <label for="radio50">
+                                                        <span></span>
+                                                        <span class="check"></span>
+                                                        <span class="box"></span>
+                                                        Муж </label>
+                                                </div>
+                                                <div class="md-radio">
+                                                    <input type="radio" id="radio51" name="gender" class="md-radiobtn" checked value="female">
+                                                    <label for="radio51">
+                                                        <span></span>
+                                                        <span class="check"></span>
+                                                        <span class="box"></span>
+                                                        Жен </label>
+                                                </div>
+
+                                            </div>
+                                          </div>
+
+                                        <div class="form-group form-md-line-input form-md-floating-label">
+                                            <textarea name="hobby" class="form-control" rows="3"></textarea>
+                                            <label for="form_control_1">Ваше хобби</label>
+                                        </div>
+
+
+                                        <div class="margiv-top-10">
+                                            <button type="submit" class="btn green-haze">
+                                                Сохранить настройки </button>
+
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- END PERSONAL INFO TAB -->
+                                <div class="tab-pane" id="tab_1_2">
+
+                                    <form action="/uploadfile" role="form" enctype="multipart/form-data" method="post">
+                                        <div class="form-group">
+                                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+                                                    <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt=""/>
+                                                </div>
+                                                <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;">
+                                                </div>
+                                                <div>
+																<span class="btn default btn-file">
+																<span class="fileinput-new">
+																Выбрать аватарку </span>
+																<span class="fileinput-exists">
+																Изменить </span>
+																<input type="file" name="avatar" accept="image/*">
+																</span>
+                                                    <a href="javascript:;" class="btn default fileinput-exists" data-dismiss="fileinput">
+                                                        Удалить </a>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix margin-top-10">
+                                             </div>
+                                        </div>
+                                        <div class="margin-top-10">
+                                            <button type="submit" class="btn green-haze">
+                                                Отправить </button>
+
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- END CHANGE AVATAR TAB -->
+
+                                <!-- CHANGE PASSWORD TAB -->
+                                <div class="tab-pane" id="tab_1_3">
+                                    <form action="/resetpsw" method="post">
+
+                                        <div class="form-group form-md-line-input form-md-floating-label">
+                                            <input name="psw" type="text" class="form-control" id="form_control_1">
+                                            <label for="form_control_1">Новый пароль</label>
+                                            <span class="help-block">Ваш новый пароль...</span>
+                                        </div>
+
+
+
+                                        <div class="margin-top-10">
+                                            <button type="submit" class="btn green-haze">
+                                                Изменить пароль </button>
+
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- END CHANGE PASSWORD TAB -->
+                                <!-- PRIVACY SETTINGS TAB -->
+
+                                <!-- END PRIVACY SETTINGS TAB -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PROFILE CONTENT -->
+    </div>
+</div>
+<!-- END PAGE CONTENT-->

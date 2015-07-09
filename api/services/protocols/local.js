@@ -2,6 +2,9 @@ var validator = require('validator'),
  crypto    = require('crypto'),
     reqap = require('../recaptcha'),
     mailSend = require('../mail');
+
+var fs = require('fs');
+
 /**
  * Local Authentication Protocol
  *
@@ -25,6 +28,13 @@ var validator = require('validator'),
  * @param {Function} next
  */
 exports.register = function (req, res, next) {
+
+
+
+
+
+
+
 
 
 
@@ -70,6 +80,9 @@ exports.register = function (req, res, next) {
 
 
 
+
+
+
   User.create({
     username : username
   , email    : email
@@ -89,7 +102,7 @@ exports.register = function (req, res, next) {
     // Generating accessToken for API authentication
     var token = crypto.randomBytes(48).toString('base64');
 
-    Passport.create({
+  Passport.create({
       protocol    : 'local'
     , password    : password
     , user        : user.id
@@ -111,12 +124,25 @@ exports.register = function (req, res, next) {
     });
 
 
-      User.findOne({email: email}, function(err, result){
+    User.findOne({email: email}, function(err, result){
 
 
           mailSend.sendMail('emailReg', result.verifTokenEmail, email, 'Подтверждение регистрации');
 
 
+
+      fs.mkdir('C:/public/uploads/'+result.username,function(err){
+
+        sails.log(err);
+
+      });
+
+
+      fs.mkdir('C:/public/uploads/'+ result.username +'/company/',function(err){
+
+        sails.log(err);
+
+      });
 
 
        return  res.redirect('/confirmemail');
@@ -162,7 +188,7 @@ exports.connect = function (req, res, next) {
     }
 
     if (!passport) {
-      Passport.create({
+      Passport.save({
         protocol : 'local'
       , password : password
       , user     : user.id
