@@ -33,15 +33,29 @@ module.exports.routes = {
   ***************************************************************************/
 
   '/': {
-      view: 'homepage'
+      view: 'homepage',
+
   },
 
 
 
 
+  'post /createcompany': 'CompanyController.createFirm',
 
+//Auth
     'get /login': 'AuthController.login',
     'get /logout': 'AuthController.logout',
+
+
+
+
+
+
+
+  'get /recov': 'AuthController.recov',
+
+
+  'post /forgetpass': 'AuthController.forgetpass',
 
 
 
@@ -50,6 +64,15 @@ module.exports.routes = {
 
     'get /verifemail': 'AuthController.verifemail',
 
+
+  'get /restorepass': 'AuthController.restorepass',
+
+
+  'get /restore': 'AuthController.restore',
+
+
+  'post /restofromq': 'AuthController.restofromq',
+
     'post /auth/local': 'AuthController.callback',
     'post /auth/local/:action': 'AuthController.callback',
 
@@ -57,14 +80,33 @@ module.exports.routes = {
     'get /auth/:provider/callback': 'AuthController.callback',
     'get /auth/:provider/:action': 'AuthController.callback',
 
-  /***************************************************************************
-  *                                                                          *
-  * Custom routes here...                                                    *
-  *                                                                          *
-  * If a request to a URL doesn't match any of the custom routes above, it   *
-  * is matched against Sails route blueprints. See `config/blueprints.js`    *
-  * for configuration options and examples.                                  *
-  *                                                                          *
-  ***************************************************************************/
+
+
+
+  //Profile
+  'get /profile': 'ProfileController.view',
+  'post /profiledit': 'ProfileController.profedit',
+  'post /uploadfile': 'ProfileController.uploadfile',
+    'post /resetpsw': 'ProfileController.resetpsw',
+
+
+
+  //MyWorks
+
+
+
+
+  'get /myworks': 'WorksController.start',
+
+  'get /gettable': 'WorksController.getTable',
+
+
+  'get /addprocess': 'WorksController.addProcess'
+
+
+
+
+
+
 
 };

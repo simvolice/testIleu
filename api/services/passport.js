@@ -3,7 +3,6 @@ var path     = require('path')
   , passport = require('passport');
 
 
-
 /**
  * Passport Service
  *
@@ -98,7 +97,12 @@ passport.connect = function (req, query, profile, next) {
     return next(new Error('Neither a username nor email was available'));
   }
 
-  Passport.findOne({
+
+
+
+
+
+ Passport.findOne({
     provider   : provider
   , identifier : query.identifier.toString()
   }, function (err, passport) {
@@ -111,7 +115,7 @@ passport.connect = function (req, query, profile, next) {
       //           authentication provider.
       // Action:   Create a new user and assign them a passport.
       if (!passport) {
-        User.create(user, function (err, user) {
+       User.create(user, function (err, user) {
           if (err) {
             if (err.code === 'E_VALIDATION') {
               if (err.invalidAttributes.email) {
@@ -127,7 +131,7 @@ passport.connect = function (req, query, profile, next) {
 
           query.user = user.id;
 
-          Passport.create(query, function (err, passport) {
+        Passport.create(query, function (err, passport) {
             // If a passport wasn't created, bail out
             if (err) {
               return next(err);
@@ -147,13 +151,13 @@ passport.connect = function (req, query, profile, next) {
         }
 
         // Save any updates to the Passport before moving on
-        passport.save(function (err, passport) {
+        Passport.create(function (err, passport) {
           if (err) {
             return next(err);
           }
 
           // Fetch the user associated with the Passport
-          User.findOne(passport.user.id, next);
+         User.findOne(passport.user.id, next);
         });
       }
     } else {
@@ -383,7 +387,7 @@ passport.disconnect = function (req, res, next) {
       return next(err);
     }
 
-    Passport.destroy(passport.id, function (error) {
+    Passport.remove(passport.id, function (error) {
       if (err) {
           return next(err);
       }

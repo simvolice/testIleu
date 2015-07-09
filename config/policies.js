@@ -28,12 +28,21 @@ module.exports.policies = {
 
 
 
-  '*': ['passport'],
+  '*': ['passport', 'isAuth'],
 
 
   'auth': {
     '*': ['passport']
+  },
+
+
+  'ProfileController': {
+
+
+    '*': ['passport', 'isAuth']
+
   }
+
 
   /***************************************************************************
   *                                                                          *

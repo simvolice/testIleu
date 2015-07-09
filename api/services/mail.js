@@ -36,7 +36,9 @@ exports.sendMail = function(pathTemplate, uuid, to, subject, res ) {
 
             var locals = {
 
-                uuid: uuid
+                uuid: uuid,
+                email: to
+
 
             };
 
