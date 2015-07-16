@@ -44,8 +44,6 @@ var UpPanel = React.createClass({
   <div className="btn-group">
 
 
-    <button type="button" className="btn yellow-crusta btn-lg" data-target="#createProc" data-toggle="modal">Создать процесс</button>
-
 
     <button type="button" className="btn green btn-lg">Входящие</button>
 

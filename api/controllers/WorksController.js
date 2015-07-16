@@ -18,9 +18,10 @@ var WorksController = {
 
 
 
-    var myWorkRender = React.renderToString(MyWork({}));
+        var myWorkRender = React.renderToString(MyWork({}));
 
-    res.view('myWork', {react: myWorkRender});
+        res.view('myWork', {react: myWorkRender});
+
 
 
 
@@ -50,47 +51,6 @@ var WorksController = {
 
   },
 
-
-
-  addProcess: function(req, res, next){
-    "use strict";
-
-
-
-
-
-    Process.create({
-      name: req.body.name,
-
-
-
-
-
-
-
-    }, function (err, passport) {
-      if (err) {
-        if (err.code === 'E_VALIDATION') {
-          req.flash('error', 'Error.Passport.Password.Invalid');
-        }
-
-        return res.redirect('/');
-      }
-
-
-
-
-    });
-
-
-
-
-
-
-
-
-
-  }
 
 
 

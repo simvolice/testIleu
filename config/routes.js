@@ -101,8 +101,27 @@ module.exports.routes = {
   'get /gettable': 'WorksController.getTable',
 
 
-  'get /addprocess': 'WorksController.addProcess'
+  'get /addprocess': 'WorksController.addProcess',
 
+
+
+
+
+
+
+  //StartController
+  'get /start': 'StartController.startProcess',
+
+
+  //TypeController
+  'get /typeview': 'TypeController.typeview',
+
+  'post /typeprocess/:action': 'TypeController.typeProcess',
+
+
+//Kontragent
+
+  'get /kontraview': 'KontraController.view'
 
 
 

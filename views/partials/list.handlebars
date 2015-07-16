@@ -1,0 +1,66 @@
+
+{{#each mass}}
+
+    <li class="dd-item">
+
+
+
+
+
+        <div class="dd-handle">
+   {{nameType}}
+   </div>
+
+
+
+
+
+    {{#if name}}
+          <ol class="dd-list">
+
+
+
+
+            {{> list}}
+
+
+            {{#each name}}
+
+
+
+              <div class="dd-handle">
+
+
+
+          {{this}}
+
+
+
+
+
+
+               </div>
+
+ {{/each}}
+
+
+
+
+
+          </ol>
+{{/if}}
+
+
+
+
+
+
+
+
+    </li>
+
+
+
+{{/each}}
+
+

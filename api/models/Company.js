@@ -50,6 +50,17 @@ var Company = {
 
 
 
+    //TODO:Сразу первый справочник, по умолчанию "Типы процессов", остальные будут создаваться через Catalog
+
+
+
+    typeprocess: {collection: 'TypeProcess', via: 'company'},
+
+
+
+    kontragent: {collection: 'Kontragents', via: 'company'}
+
+
 
 
 
