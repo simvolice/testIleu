@@ -1,0 +1,49 @@
+<div class="portlet box blue">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-cogs"></i>Создать новый справочник
+        </div>
+
+    </div>
+    <div class="portlet-body">
+
+        <form action="/catalogadd" method="post">
+
+            <div class="form-group form-md-line-input form-md-floating-label">
+                <input type="text" name="name" class="form-control" id="form_control_1">
+                <label for="form_control_1">Название справочника</label>
+                <span class="help-block">Обязательное поле</span>
+            </div>
+
+
+
+
+
+            <div class="input_fields_wrap">
+                <button class="btn blue add_field_button">Добавить колонку</button>
+                <div class="form-group form-md-line-input form-md-floating-label">
+                    <input type="text" name="mycol[]" class="form-control" id="form_control_1">
+                    <label for="form_control_1">Имя колонки</label>
+                    <span class="help-block">Обязательное поле</span>
+                </div>
+
+            </div>
+
+
+            <div class="margiv-top-10" style="margin-top: 50px">
+                <button type="submit" class="btn green-haze">
+                    Создать справочник </button>
+
+            </div>
+        </form>
+
+
+
+</div>
+
+
+
+
+
+
+

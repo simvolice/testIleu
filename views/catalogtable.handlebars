@@ -27,7 +27,7 @@
                 <div class="portlet box blue-hoki">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="icon-notebook"></i>Контрагенты
+                            <i class="icon-notebook"></i>{{name}}
                         </div>
                         <div class="tools">
                         </div>
@@ -38,70 +38,45 @@
 
 
 
-                    <table class="table table-striped table-bordered table-hover" id="sample_1">
-                            <thead>
+                        <table class="table table-striped table-bordered table-hover" id="sample_1">
+
+
+<thead>
+
 
 
                             <tr>
 
+{{#each nameColl}}
 
-                                <th>Наименование ТОО</th>
-
-
-                                    <th>Тип</th>
+  <th>{{col}}</th>
 
 
-
-                                    <th>ФИО</th>
-
+{{/each}}
 
 
 
 
                             </tr>
+
+
+
                             </thead>
+
+
                             <tbody>
 
-{{#each kontra}}
-                            <tr>
 
 
 
 
 
-
-                                <td>
-
-
-
-                                  {{name}}
-
-
-                                </td>
-
-
-                                <td>
-
-
-
-
-
-                                  {{typeKontra}}
-
-                                </td>
-
-
-
-
-                                <td>
-
-
-
-
-                                  {{fio}}
-                                </td>
-
-                            </tr>
+                            {{#each gridrow}}
+                                <tr>
+                                  {{#each this}}
+                                      <td>{{this}}</td>
+                                  {{/each}}
+                                </tr>
                             {{/each}}
 
 
@@ -161,45 +136,28 @@
                             <div class="tab-content">
                                 <!-- PERSONAL INFO TAB -->
                                 <div class="tab-pane active" id="tab_1_1">
-                                    <form role="form" action="/kontra/create" method="post">
+                                    <form role="form" action="/catalogs/create" method="post">
 
+                                        <input type="hidden" name="catname" value="{{name}}">
 
-                                        <div class="form-group form-md-line-input form-md-floating-label">
-                                            <input type="text" name="name" class="form-control" id="form_control_1">
-                                            <label for="form_control_1">Наименование</label>
-                                            <span class="help-block">Здесь вводятся только буквы</span>
-                                        </div>
+                                      {{#each nameColl}}
 
 
 
 
-                                        <div class="form-group">
-                                            <label class="control-label">Тип</label>
-
-
-                                            <select name="type" class="bs-select form-control" data-live-search="true" data-size="8" >
-
-
-
-                                                  <option value="Заказчик">Заказчик</option>
-
-                                                <option value="Поставщик">Поставщик</option>
-
-
-
-
-
-                                            </select>
-
-
-                                        </div>
 
 
                                         <div class="form-group form-md-line-input form-md-floating-label">
-                                            <input type="text" name="fio" class="form-control" id="form_control_1">
-                                            <label for="form_control_1">ФИО</label>
-                                            <span class="help-block">Здесь вводятся только буквы</span>
+                                            <input type="hidden" name="namecol[]" value="{{col}}">
+
+                                            <input type="text" name="value[]" class="form-control" id="form_control_1">
+                                            <label for="form_control_1">{{col}}</label>
+                                            <span class="help-block">Введите новое значение для колонки "{{col}}"</span>
                                         </div>
+
+
+{{/each}}
+
 
 
 
@@ -214,7 +172,7 @@
                                 <!-- END PERSONAL INFO TAB -->
                                 <div class="tab-pane" id="tab_1_2">
 
-                                    <form action="/kontra/update" role="form" method="post">
+                                    <form action="/catalogs/update" role="form" method="post">
                                         <div class="form-group">
 
 

@@ -80,7 +80,7 @@ var TypeController = {
           TypeProcess.findOne({company: company.id}).exec(function(err, typeprocess){
 
 
-            NameProcess.create({typeProcess: typeprocess.id, nameType: req.body.process}).exec(function(err, nameprocess){
+            NameProcess.create({typeProcess: typeprocess.id, nameType: req.body.process, name: req.body.name}).exec(function(err, nameprocess){
 
 
              res.redirect('/typeview');
@@ -117,12 +117,12 @@ var TypeController = {
 
 
 
-              nameprocess.name.push(req.body.nametype);
+              nameprocess.name.push(req.body.name);
 
               nameprocess.save(function (err) {
 
 
-                res.redirect('/typeview');
+              return  res.redirect('/typeview');
 
 
               });

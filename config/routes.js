@@ -121,7 +121,30 @@ module.exports.routes = {
 
 //Kontragent
 
-  'get /kontraview': 'KontraController.view'
+  'get /kontraview': 'KontraController.view',
+
+
+  'post /kontra/:action': 'KontraController.kontraAction',
+
+
+//Catalogs
+
+  'get /catalogview': 'CatalogController.view',
+
+
+  'post /catalogadd': 'CatalogController.add',
+
+
+
+  //Список справочников
+  'get /cataloglistview': 'CatalogController.cataloglistview',
+
+  //Переход по ссылкам
+  'get /cataloglist': 'CatalogController.catalogtable',
+
+
+
+  'post /catalogs/:action': 'CatalogController.catalogedit'
 
 
 

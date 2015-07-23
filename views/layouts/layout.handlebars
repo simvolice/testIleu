@@ -413,56 +413,100 @@ License: You must have a valid license purchased only from themeforest(the above
 
 
 
-                <li>
-                    <a href="javascript:;">
-                        <i class="icon-settings"></i>
-                        <span class="title">Моя компания</span>
-                        <span class="arrow "></span>
-                    </a>
-                    <ul class="sub-menu">
-                        <li>
-                            <a href="ecommerce_index.html">
-                                <i class="icon-docs"></i>
-                                Справочники</a>
-                        </li>
-                        <li>
-                            <a href="/typeview">
-                                <i class="icon-shuffle"></i>
-                                Процессы</a>
-                        </li>
 
-                        <li>
-                            <a href="/kontraview">
-                                <i class="icon-notebook"></i>
-                                Контрагенты</a>
-                        </li>
+<li>
+                <a href="javascript:;">
+                    <i class="icon-folder"></i>
+                    <span class="title">Моя работа</span>
+                    <span class="arrow "></span>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a href="javascript:;">
+                            <i class="icon-settings"></i> Моя компания <span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li>
+
+                                <ul class="sub-menu">
+                                    <li>
+                                        <a href="/cataloglistview">
+                                            <i class="icon-docs"></i>
+                                            Справочники</a>
+                                    </li>
+                                    <li>
+                                        <a href="/catalogview">
+                                            <i class="icon-docs"></i>
+                                            Создать справочник</a>
+                                    </li>
+                                    <li>
+                                        <a href="/typeview">
+                                            <i class="icon-shuffle"></i>
+                                            Процессы</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="/kontraview">
+                                            <i class="icon-notebook"></i>
+                                            Контрагенты</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="/cataloglistview">
+                                    <i class="icon-docs"></i>
+                                    Справочники</a>
+                            </li>
+                            <li>
+                                <a href="/catalogview">
+                                    <i class="icon-docs"></i>
+                                    Создать справочник</a>
+                            </li>
+                            <li>
+                                <a href="/typeview">
+                                    <i class="icon-shuffle"></i>
+                                    Процессы</a>
+                            </li>
+
+                            <li>
+                                <a href="/kontraview">
+                                    <i class="icon-notebook"></i>
+                                    Контрагенты</a>
+                            </li>
+                        </ul>
+                    </li>
 
 
-                    </ul>
+
+
+
+                            <li>
+                                <a href="/myworks">
+                                    <i class="icon-shuffle"></i>
+                                    Мои процессы</a>
+                            </li>
+                            <li>
+                                <a href="/start">
+                                    <i class="icon-rocket"></i>
+                                    Старт процесса</a>
+                            </li>
+
+
+
+
+
+
+
+                </ul>
                 </li>
 
 
 
-                <li>
-                    <a href="javascript:;">
-                        <i class="icon-briefcase"></i>
-                        <span class="title">Моя работа</span>
-                        <span class="arrow "></span>
-                    </a>
-                    <ul class="sub-menu">
-                        <li>
-                            <a href="/myworks">
-                                <i class="icon-shuffle"></i>
-                                Мои процессы</a>
-                        </li>
-                        <li>
-                            <a href="/start">
-                                <i class="icon-rocket"></i>
-                                Старт процесса</a>
-                        </li>
 
-                    </ul>
-                </li>
+
+
+
+
 
 
 
@@ -594,7 +638,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
 
 <script src="../../assets/admin/pages/scripts/table-advanced.js"></script>
-
+<script src="../../assets/admin/pages/scripts/component-addcoll.js"></script>
 
 
 
@@ -602,6 +646,8 @@ License: You must have a valid license purchased only from themeforest(the above
 
 
 <script src="../../js/build.min.js"></script>
+
+
 
 
 <!-- END React элемент для блока Моя работа -->
@@ -620,6 +666,7 @@ License: You must have a valid license purchased only from themeforest(the above
         UINestable.init();
         TableAdvanced.init();
 
+        ComponentsAddColl.init();//Кастомный скрипт для добавления полей в инпуте
 
 
         $('#full-width').modal('show');

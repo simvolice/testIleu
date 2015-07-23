@@ -17,7 +17,7 @@ var Catalogs = {
     company: {model: 'Company'},
 
 
-    name: {type: 'json'}
+    name: {collection: 'NameCatalogs', via: 'catalog'}
 
 
 

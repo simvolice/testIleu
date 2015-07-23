@@ -3,14 +3,15 @@
  */
 
 require("sails-test-helper");
-var moment = require('moment');
+
+var uuid = require('node-uuid');
+var undescore = require('underscore');
+var Map = require("collections/map");
 
 
 describe(TEST_NAME, function() {
   describe(".create()", function() {
     it("should be successful", function(done) {
-
-
 
 
 
@@ -23,21 +24,102 @@ describe(TEST_NAME, function() {
 
 
 
-        Company.findOne({user: user.id}).exec(function(err, company){
-
-          console.log(company.id);
-
-
-
-          Kontragents.create({company: company.id, name: 'тоо вассс', typeKontra: 'заказчик', fio: 'всвсвсвсвс'}).exec(function(err, kontra){
+        Company.findOne({user: user.id}).exec(function(err, company) {
 
 
 
 
-              console.log(kontra);
+
+          Catalogs.findOne({company: company.id}).exec(function(err, catalog) {
+
+
+
+
+
+
+
+
+
+            NameCatalogs.findOne({catalog: catalog.id, nameCatalog: 'Вина' }).exec(function(err, namecatalog) {
+
+
+
+
+
+
+
+
+
+
+
+            var arr =  undescore.map(namecatalog.nameCollwithValue, function(num, key){
+
+
+                return num.value;
+
+              });
+
+
+
+              function transpose(arr) {
+                return Object.keys(arr[0]).map(function (c) {
+                  return arr.map(function (r) {
+                    return r[c];
+                  });
+                });
+              }
+
+            console.log(transpose(arr));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
               done();
+
+
+
+
+
+
+            })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            })
+
+
 
 
 
@@ -49,7 +131,8 @@ describe(TEST_NAME, function() {
 
 
 
-        })
+
+
 
 
 
@@ -59,7 +142,6 @@ describe(TEST_NAME, function() {
 
 
       })
-
 
 
 
