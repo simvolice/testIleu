@@ -173,17 +173,25 @@
                                 <div class="tab-pane" id="tab_1_2">
 
                                     <form action="/catalogs/update" role="form" method="post">
+
+
+                                        <input type="hidden" name="catname" value="{{name}}">
+
+
                                         <div class="form-group">
 
 
-                                            <label class="control-label">Контрагент</label>
+                                          {{#withFirst gridh}}
+                                              <label class="control-label">Выберети значение для изменения колонки:  <b>{{this}}</b></label>
+                                          {{/withFirst}}
 
 
-                                            <select name="kontra" class="bs-select form-control" data-live-search="true" data-size="8" >
 
-                                              {{#each kontra}}
+                                            <select name="firstcol" class="bs-select form-control" data-live-search="true" data-size="8" >
 
-                                                  <option value="{{name}}">{{name}}</option>
+                                              {{#each gridFirst}}
+
+                                                  <option value="{{this}}">{{this}}</option>
 
                                               {{/each}}
 
@@ -196,38 +204,19 @@
 
                                         </div>
 
-                                        <div class="form-group form-md-line-input form-md-floating-label">
-                                            <input name="name" type="text" class="form-control" id="form_control_1">
-                                            <label for="form_control_1">Новое имя контрагента</label>
-                                            <span class="help-block">Здесь вводятся только буквы</span>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="control-label">Новый тип контрагента</label>
+                                      {{#each nameColl}}
 
 
-                                            <select name="type" class="bs-select form-control" data-live-search="true" data-size="8" >
+                                          <div class="form-group form-md-line-input form-md-floating-label">
+                                              <input type="hidden" name="namecol[]" value="{{col}}">
+
+                                              <input type="text" name="value[]" class="form-control" id="form_control_1">
+                                              <label for="form_control_1">{{col}}</label>
+                                              <span class="help-block">Введите новое значение для колонки "{{col}}"</span>
+                                          </div>
 
 
-
-                                                <option value="Заказчик">Заказчик</option>
-
-                                                <option value="Поставщик">Поставщик</option>
-
-
-
-
-
-                                            </select>
-
-
-                                        </div>
-
-                                        <div class="form-group form-md-line-input form-md-floating-label">
-                                            <input type="text" name="fio" class="form-control" id="form_control_1">
-                                            <label for="form_control_1">Новое ФИО контрагента</label>
-                                            <span class="help-block">Здесь вводятся только буквы</span>
-                                        </div>
+                                      {{/each}}
 
 
                                         <div class="margin-top-10">
@@ -241,18 +230,25 @@
 
                                 <!-- CHANGE PASSWORD TAB -->
                                 <div class="tab-pane" id="tab_1_3">
-                                    <form action="/kontra/delete" method="post">
+                                    <form action="/catalogs/delete" method="post">
+
+                                        <input type="hidden" name="catname" value="{{name}}">
+
 
                                         <div class="form-group">
-                                            <label class="control-label">Контрагент</label>
 
 
-                                            <select name="name" class="bs-select form-control" data-live-search="true" data-size="8" >
+                                          {{#withFirst gridh}}
+                                              <label class="control-label">Выберети значение для удаления колонки:  <b>{{this}}</b></label>
+                                          {{/withFirst}}
 
-                                              {{#each kontra}}
 
 
-                                                  <option value="{{name}}">{{name}}</option>
+                                            <select name="firstcol" class="bs-select form-control" data-live-search="true" data-size="8" >
+
+                                              {{#each gridFirst}}
+
+                                                  <option value="{{this}}">{{this}}</option>
 
                                               {{/each}}
 
@@ -265,8 +261,9 @@
 
                                         </div>
 
+
                                         <div class="form-group">
-                                            <button type="submit" class="btn green-haze">
+                                            <button type="submit" class="btn red">
                                                 Удалить </button>
                                         </div>
 

@@ -144,7 +144,9 @@ module.exports.routes = {
 
 
 
-  'post /catalogs/:action': 'CatalogController.catalogedit'
+  'post /catalogs/:action': 'CatalogController.catalogedit',
+
+  'post /catalogdel': 'CatalogController.ctldel'
 
 
 

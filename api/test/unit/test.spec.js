@@ -40,7 +40,7 @@ describe(TEST_NAME, function() {
 
 
 
-            NameCatalogs.findOne({catalog: catalog.id, nameCatalog: 'Вина' }).exec(function(err, namecatalog) {
+            NameCatalogs.findOne({catalog: catalog.id, nameCatalog: 'Города' }).exec(function(err, namecatalog) {
 
 
 
@@ -52,24 +52,59 @@ describe(TEST_NAME, function() {
 
 
 
-            var arr =  undescore.map(namecatalog.nameCollwithValue, function(num, key){
+              var objNew2 = {};
 
 
-                return num.value;
+
+
+
+
+
+              var arr2 = [];
+
+
+
+            var arrsp = function(arr, i) {
+
+
+
+
+              arr2.push(i);
+
+              arr.splice(undescore.first(arr2), 1);
+
+
+
+            };
+
+
+
+              namecatalog.nameCollwithValue.forEach(function(item2){
+
+
+
+                objNew2 = undescore.findWhere(namecatalog.nameCollwithValue, {col: item2.col});
+
+
+
+
+
+
+                arrsp(objNew2.value,objNew2.value.indexOf('Москва'));
+
+
+
+
+
+
+
+              console.log(objNew2);
 
               });
 
 
 
-              function transpose(arr) {
-                return Object.keys(arr[0]).map(function (c) {
-                  return arr.map(function (r) {
-                    return r[c];
-                  });
-                });
-              }
 
-            console.log(transpose(arr));
 
 
 
