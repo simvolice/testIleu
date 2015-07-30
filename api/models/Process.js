@@ -21,7 +21,7 @@ var Process = {
     dateTimeStart: {type: 'string', defaultsTo: function(){
       "use strict";
 
-      return  moment().startOf('minute').fromNow();
+      return moment().format('LLL');
 
 
 
@@ -35,7 +35,7 @@ var Process = {
     initiator: {type: 'string'},
 
 
-    performer: {type: 'array'},
+    answerable: {type: 'array'},
 
 
     matching: {type: 'array'},
@@ -58,15 +58,14 @@ var Process = {
 
 
 
-    //Метка, показывающая: Исходящий, Входящий, Просроченный
-    label: {type: 'string'},
+
 
 
 
     company: {model: 'Company'},
 
 
-
+    documents: {type: 'array'},
 
 
 
@@ -76,14 +75,16 @@ var Process = {
     //TODO:Ссылки на коллекции, далее будут проверяться
 
 
-    archive: {collection: 'Archive', via: 'process'},
+    archive: {collection: 'Archive', via: 'process'}, //это еще одно поле в таблице мои процессы
 
 
-    comments:  {collection: 'Comments', via: 'process'},
+    comments:  {collection: 'Comments', via: 'process'}, //Комментарии будут внутри процесса
 
 
     //Дочерние процессы
-    dprocess: {collection: 'DProcess', via: 'process'}
+    dprocess: {collection: 'DProcess', via: 'process'} //Будут в самой таблице Мои процессы
+
+
 
 
 

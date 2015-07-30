@@ -1,0 +1,215 @@
+
+
+
+
+
+<div class="portlet light">
+    <div class="portlet-body">
+
+
+
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portlet box blue-hoki">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="icon-notebook"></i>Мои процессы
+                        </div>
+                        <div class="tools">
+
+
+
+
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+
+
+
+
+
+                        <table class="table table-striped table-bordered table-hover" id="sample_1">
+                            <thead>
+
+
+                            <tr>
+
+
+                                <th>Имя</th>
+
+
+
+
+
+
+                                <th>Дата начала</th>
+
+
+                                <th>Дата окончания</th>
+
+
+
+
+
+                                <th>Согласующие</th>
+
+                                <th>Ответственные</th>
+
+
+
+
+                                <th>Статус</th>
+
+
+
+
+
+                                <th>Архив</th>
+
+
+                                <th>Действия</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+
+
+                            {{#each process}}
+                                <tr>
+
+
+
+
+
+
+                                    <td>
+
+
+
+                                        {{name}}
+
+
+
+                                    </td>
+
+
+                                    <td>
+
+
+
+                                        {{dateTimeStart}}
+
+
+
+                                    </td>
+
+
+
+                                    <td>
+
+
+                                        {{dueDateTime}}
+
+
+
+                                    </td>
+
+
+
+                                    <td>
+                                    {{#matching}}
+
+
+
+                                       <li>{{nameUser}}</li>
+
+
+                                    {{/matching}}
+                                    </td>
+
+
+                                    <td>
+
+
+
+
+
+
+                                    </td>
+                                    <td>
+
+
+
+                                      {{#if firstname}}
+
+                                          <span class="label label-danger">
+									В работе </span>
+                                      {{else}}
+
+
+                                        {{#if username}}
+
+                                            <span class="label label-warning">
+									Принят на рассмотрение </span>
+
+
+                                        {{else}}
+
+
+                                            <span class="label label-success">
+									Работа окончена </span>
+
+
+                                        {{/if}}
+                                      {{/if}}
+
+
+
+                                    </td>
+                                    <td>
+
+
+
+
+
+
+                                    </td>
+
+                                    <td>
+
+
+
+
+
+
+                                    </td>
+
+
+
+
+                                </tr>
+
+                            {{/each}}
+
+
+
+
+                            </tbody>
+
+
+
+
+                        </table>
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

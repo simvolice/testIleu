@@ -17,12 +17,10 @@
                             <div class="tab-content">
                                 <!-- PERSONAL INFO TAB -->
                                 <div class="tab-pane active" id="tab_1_1">
-                                    <form role="form" action="/addprocess" method="post" enctype="multipart/form-data" onsubmit="return postForm()">
-                                        <div class="form-group form-md-line-input form-md-floating-label">
-                                            <input name="name" type="text" class="form-control" id="form_control_1">
-                                            <label for="form_control_1">Наименование процесса</label>
-                                            <span class="help-block">Здесь вводятся только буквы</span>
-                                        </div>
+                                    <form role="form" action="/processpost" method="post" enctype="multipart/form-data" onsubmit="return postForm()">
+
+
+
 
 
 
@@ -30,9 +28,63 @@
                                             <label class="control-label">Тип процесса</label>
 
 
-                                            <select name="type" class="bs-select form-control" data-live-search="true" data-size="auto">
+                                            <select id="type" name="type" class="bs-select form-control" data-live-search="true" data-size="auto">
 
                                               {{#each type}}
+
+
+                                                  <option value="{{#delspace}}{{this}}{{/delspace}}">{{this}}</option>
+
+                                              {{/each}}
+
+
+
+
+
+                                            </select>
+
+
+                                        </div>
+
+
+
+
+
+                                        <div class="form-group">
+                                            <label class="control-label">Наименование процесса</label>
+
+
+                                            <select id="name" name="name" class="form-control">
+
+
+                                                  {{#each nameProcess}}
+
+
+
+                                                        <option value="{{value}}" class="{{name}}">{{value}}</option>
+
+
+
+
+                                                {{/each}}
+
+
+
+                                            </select>
+
+
+                                        </div>
+
+
+
+
+                                        <div class="form-group">
+                                            <label class="control-label">Первичный документ</label>
+
+
+                                            <select id="type" name="primarydoc" class="bs-select form-control" data-live-search="true" data-size="auto" multiple>
+
+                                              {{#each docs}}
 
 
                                                   <option value="{{this}}">{{this}}</option>
@@ -47,6 +99,11 @@
 
 
                                         </div>
+
+
+
+
+
 
                                         <div class="form-group">
                                             <label class="control-label">Дата и время окончания процесса</label>
@@ -63,19 +120,34 @@
 
 
                                         <div class="form-group">
-                                            <label class="control-label">Ответственные</label>
+                                            <label class="control-label">Согласующие лица</label>
 
 
-                                            <select name="matching[]" class="bs-select form-control" data-live-search="true" data-size="auto" multiple>
-
-                                              {{#each matching}}
+                                            <select name="matching" class="bs-select form-control" data-live-search="true" data-size="auto" multiple>
 
 
-                                                  <option value="{{this}}">{{this}}</option>
+
+
+                                              {{#each employees}}
+
+
+                                                {{#if firstname}}
+                                                    <option value="{{id}}">{{firstname}}{{lastname}}</option>
+                                                {{else}}
+                                                  {{#if username}}
+                                                      <option value="{{id}}">{{username}}</option>
+                                                  {{else}}
+                                                      <option value="{{id}}">{{email}}</option>
+                                                  {{/if}}
+                                                {{/if}}
+
+
+
+
+
+
 
                                               {{/each}}
-
-
 
 
 
@@ -87,18 +159,31 @@
 
 
                                         <div class="form-group">
-                                            <label class="control-label">Исполнители</label>
+                                            <label class="control-label">Ответственные лица</label>
 
 
-                                            <select name="performer" class="bs-select form-control" data-live-search="true" data-size="8" >
+                                            <select name="answerable" class="bs-select form-control" data-live-search="true" data-size="8" multiple>
+
+
+
+                                              {{#each employees}}
+
+
+                                                {{#if firstname}}
+                                                    <option value="{{id}}">{{firstname}}{{lastname}}</option>
+                                                {{else}}
+                                                  {{#if username}}
+                                                      <option value="{{id}}">{{username}}</option>
+                                                  {{else}}
+                                                      <option value="{{id}}">{{email}}</option>
+                                                  {{/if}}
+                                                {{/if}}
 
 
 
 
-                                              {{#each citys}}
 
 
-                                                  <option value="{{this}}">{{this}}</option>
 
                                               {{/each}}
 

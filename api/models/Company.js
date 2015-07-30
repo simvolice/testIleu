@@ -21,7 +21,9 @@ var Company = {
     logo: {type: 'string'},
 
 
-    users: {type: 'array'},
+    employees: {type: 'array'},
+
+
 
 
 

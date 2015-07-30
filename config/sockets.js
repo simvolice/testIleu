@@ -38,17 +38,18 @@ module.exports.sockets = {
   * via port 6379                                                            *
   *                                                                          *
   ***************************************************************************/
-  // adapter: 'memory',
+ //adapter: 'memory',
 
   //
   // -OR-
   //
 
-  // adapter: 'redis',
-  // host: '127.0.0.1',
-  // port: 6379,
-  // db: 'sails',
-  // pass: '<redis auth password>',
+ /* adapter: 'sails-mongo',
+  host: 'localhost',
+  port: 27017,
+  // user: 'username',
+  // password: 'password',
+  database: 'ileu4',*/
 
 
 
@@ -65,7 +66,7 @@ module.exports.sockets = {
   *                                                                          *
   ***************************************************************************/
 
-  // grant3rdPartyCookie: true,
+  //grant3rdPartyCookie: true,
 
 
 
@@ -136,6 +137,6 @@ module.exports.sockets = {
   * transport should be disabled.                                            *
   *                                                                          *
   ***************************************************************************/
-  // transports: ["polling", "websocket"]
+  //transports: ["polling", "websocket"]
 
 };

@@ -55,7 +55,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <link rel="stylesheet" type="text/css" href="../../assets/global/plugins/bootstrap-summernote/summernote.css">
 
 
-    <link href="../../js/index.css" rel="stylesheet" type="text/css"/>
+
 
 
     <link rel="stylesheet" type="text/css" href="../../assets/global/plugins/scrollYou/scrollyou.css">
@@ -481,12 +481,12 @@ License: You must have a valid license purchased only from themeforest(the above
 
 
                             <li>
-                                <a href="/myworks">
+                                <a href="/myprocess">
                                     <i class="icon-shuffle"></i>
                                     Мои процессы</a>
                             </li>
                             <li>
-                                <a href="/start">
+                                <a href="/startprocess">
                                     <i class="icon-rocket"></i>
                                     Старт процесса</a>
                             </li>
@@ -642,15 +642,15 @@ License: You must have a valid license purchased only from themeforest(the above
 
 
 
-<!-- React элемент для блока Моя работа -->
-
-
-<script src="../../js/build.min.js"></script>
 
 
 
 
-<!-- END React элемент для блока Моя работа -->
+
+<script src="../../js/jquery.chained.min.js"></script>
+
+
+
 
 
 
@@ -672,6 +672,7 @@ License: You must have a valid license purchased only from themeforest(the above
         $('#full-width').modal('show');
 
 
+        $("#name").chained("#type");
 
     });
 </script>

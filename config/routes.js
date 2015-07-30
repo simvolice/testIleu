@@ -91,26 +91,8 @@ module.exports.routes = {
 
 
 
-  //MyWorks
 
 
-
-
-  'get /myworks': 'WorksController.start',
-
-  'get /gettable': 'WorksController.getTable',
-
-
-  'get /addprocess': 'WorksController.addProcess',
-
-
-
-
-
-
-
-  //StartController
-  'get /start': 'StartController.startProcess',
 
 
   //TypeController
@@ -146,9 +128,32 @@ module.exports.routes = {
 
   'post /catalogs/:action': 'CatalogController.catalogedit',
 
-  'post /catalogdel': 'CatalogController.ctldel'
+  'post /catalogdel': 'CatalogController.ctldel',
 
 
+
+
+
+
+
+
+
+
+
+
+
+//Старт процесса
+  'get /startprocess': 'ProcessController.startProcess',
+
+  'post /processpost': 'ProcessController.processSave',
+
+
+
+
+  //Мои процессы
+
+
+'get /myprocess': 'MyProcessController.view'
 
 
 

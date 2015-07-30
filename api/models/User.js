@@ -90,16 +90,24 @@ module.exports = {
 
 
 
-
-    //TODO:Ссылки на коллекции, далее будут проверяться
-
+    inProcess: {type: 'array'},
 
 
+    outProcess: {type: 'array'},
+
+    dueProcess: {type: 'array'},
 
 
 
 
 
+
+
+
+
+
+
+//TODO:Ссылки на коллекции, далее будут проверяться
     company : { collection: 'Company', via: 'user' },
 
     notif : { collection: 'Notif', via: 'user' },
