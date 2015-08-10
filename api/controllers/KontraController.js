@@ -14,7 +14,7 @@ var KontraController = {
 
     User.findOne({id: req.user.id}).exec(function(err, user){
 
-      Company.findOne({user: user.id}).exec(function(err, company){
+      Company.findOne({employees: user.id}).exec(function(err, company){
 
         Kontragents.find({company: company.id}).exec(function(err, kontra){
 
@@ -58,7 +58,7 @@ var KontraController = {
 
       User.findOne({id: req.user.id}).exec(function(err, user){
 
-        Company.findOne({user: user.id}).exec(function(err, company){
+        Company.findOne({employees: user.id}).exec(function(err, company){
 
           Kontragents.create({company: company.id, name: req.body.name, typeKontra: req.body.type, fio: req.body.fio}).exec(function(err, typeprocess){
 
@@ -85,7 +85,7 @@ var KontraController = {
 
       User.findOne({id: req.user.id}).exec(function(err, user){
 
-        Company.findOne({user: user.id}).exec(function(err, company){
+        Company.findOne({employees: user.id}).exec(function(err, company){
 
           Kontragents.update({name: req.body.kontra}, {name: req.body.name, typeKontra: req.body.type, fio: req.body.fio}).exec(function(err, typeprocess){
 
@@ -114,7 +114,7 @@ var KontraController = {
 
       User.findOne({id: req.user.id}).exec(function(err, user){
 
-        Company.findOne({user: user.id}).exec(function(err, company){
+        Company.findOne({employees: user.id}).exec(function(err, company){
 
           Kontragents.destroy({name: req.body.name}).exec(function(err, typeprocess){
 

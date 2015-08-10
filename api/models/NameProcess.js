@@ -22,7 +22,23 @@ var NameProcess = {
 
     nameType: {type: 'string'},
 
-    name: {type: 'array'}
+    name: {type: 'string'},
+
+
+    primarydoc: {type: 'array'},
+
+
+    nameCollwithValue : {type: 'json'},
+
+
+    dprocess: {type: 'array'},
+
+
+    idtype: {type: 'string'}
+
+
+
+
 
 
 

@@ -2,8 +2,8 @@
  * Created by Moon on 13.07.2015.
  */
 
-
-
+var fs = require('fs');
+var path = require('path');
 
 var TypeController = {
 
@@ -18,12 +18,22 @@ var TypeController = {
 
     User.findOne({id: req.user.id}).exec(function(err, user){
 
-       Company.findOne({user: user.id}).exec(function(err, company){
+       Company.findOne({employees: user.id}).exec(function(err, company){
 
            TypeProcess.findOne({company: company.id}).exec(function(err, typeprocess){
 
 
               NameProcess.find({typeProcess: typeprocess.id}).exec(function(err, nameprocess){
+
+                Catalogs.findOne({company: company.id}).exec(function(err, catalogs){
+
+                NameCatalogs.find({catalog:catalogs.id }).exec(function(err, namecatalog){
+
+                  Archive.find({}).exec(function(err, archive){
+
+
+
+
 
 
             var providers = {};
@@ -49,8 +59,58 @@ var TypeController = {
             });
 
 
-            res.view('typeview', {mass: providers});
 
+                var arrFile = [];
+
+                fs.readdir('C:/Users/Moon/Desktop/testIleu/views/doc', function(err, files){
+
+
+
+
+                  files.forEach(function(item){
+
+
+                    var withoutExt = path.basename(item, '.handlebars');
+
+
+                    arrFile.push(withoutExt);
+
+                  })
+
+
+
+                });
+
+
+
+
+
+
+
+
+
+
+
+
+
+            res.view('typeview', {mass: providers, docs: arrFile, catalogs: namecatalog, archive: archive});
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  });
+
+                })
+                })
 
           })
   })
@@ -75,12 +135,55 @@ var TypeController = {
 
       User.findOne({id: req.user.id}).exec(function(err, user){
 
-        Company.findOne({user: user.id}).exec(function(err, company){
+        Company.findOne({employees: user.id}).exec(function(err, company){
 
           TypeProcess.findOne({company: company.id}).exec(function(err, typeprocess){
 
 
-            NameProcess.create({typeProcess: typeprocess.id, nameType: req.body.process, name: req.body.name}).exec(function(err, nameprocess){
+            //Создание с нуля, каталога с названиями колонок
+
+            var obj = {};
+
+            var arr = req.body.mycol;
+
+
+            arr.forEach(function(item, key){
+
+
+              obj[key] = {
+
+
+                col: item,
+                value: []
+
+
+
+              }
+
+
+
+            });
+
+
+
+            var nameObj = {};
+
+
+            nameObj = {
+
+              name: req.body.name,
+              nameCollwithValue: obj,
+              primarydoc: req.body.primarydoc,
+              dprocess:req.body.dprocess
+
+
+            };
+
+
+
+            NameProcess.create({typeProcess: typeprocess.id, nameType: req.body.process, name:nameObj }).exec(function(err, nameprocess){
+
+
 
 
              res.redirect('/typeview');
@@ -108,7 +211,7 @@ var TypeController = {
 
       User.findOne({id: req.user.id}).exec(function(err, user){
 
-        Company.findOne({user: user.id}).exec(function(err, company){
+        Company.findOne({employees: user.id}).exec(function(err, company){
 
           TypeProcess.findOne({company: company.id}).exec(function(err, typeprocess){
 
@@ -150,7 +253,7 @@ var TypeController = {
 
       User.findOne({id: req.user.id}).exec(function(err, user){
 
-        Company.findOne({user: user.id}).exec(function(err, company){
+        Company.findOne({employees: user.id}).exec(function(err, company){
 
           TypeProcess.findOne({company: company.id}).exec(function(err, typeprocess){
 

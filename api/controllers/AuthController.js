@@ -44,7 +44,14 @@ var AuthController = {
    * @param {Object} res
    */
 
+  homeview: function(req, res, next){
 
+
+    res.view('homepage');
+
+
+
+  },
 
   restofromq: function(req, res, next){
     "use strict";

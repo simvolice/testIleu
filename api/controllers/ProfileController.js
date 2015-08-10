@@ -3,7 +3,7 @@
  */
 
 var fs = require('fs'),
-gm = require('gm');
+  gm = require('gm');
 
 
 var ProfileController = {
@@ -53,8 +53,6 @@ var ProfileController = {
   uploadfile: function(req, res, next){
     "use strict";
 
-
-
     req.file('avatar').upload({maxBytes: 1000000},function (err, uploadedFiles){
 
 
@@ -72,14 +70,14 @@ var ProfileController = {
 
           if (data.format == 'JPEG' || data.format == 'PNG') {
 
-           gm(uploadedFiles[0].fd)
-             .resize(240, 240)
-             .noProfile()
-             .write('C:/public/uploads/'+req.user.username+'/avatar.'+ data.format.toLowerCase(), function(err){
+            gm(uploadedFiles[0].fd)
+              .resize(240, 240)
+              .noProfile()
+              .write(process.cwd + '/driver/' + req.user.email+'/avatar.'+ data.format.toLowerCase(), function(err){
 
-               if (err) throw  err;
+                if (err) throw  err;
 
-               User.update({id: req.user.id}, {avatar: 'C:/public/uploads/'+req.user.username+'/avatar.'+ data.format.toLowerCase()}).
+                User.update({id: req.user.id}, {avatar: process.cwd + '/driver/' + req.user.email+'/avatar.'+ data.format.toLowerCase()}).
                  exec(function(err, user){
 
 
@@ -89,29 +87,28 @@ var ProfileController = {
 
                    }
 
-                 });
+
+
+                  });
+
+              });
+          }
+
+          else {
+
+            return res.serverError('Аватар должен быть картинкой JPEG или PNG, и не больше 1 Мб');
 
 
 
-
-             });
-         }
-
-        else {
-
-         return res.serverError('Аватар должен быть картинкой JPEG или PNG, и не больше 1 Мб');
+          };
 
 
+          return res.redirect('/profile');
 
-        };
-
-
-      return res.redirect('/profile');
-
-
-    });
 
         });
+
+    });
 
   },
 
@@ -125,7 +122,7 @@ var ProfileController = {
 
 
 
-    User.update({id: req.user.id},{firstname: req.body.firstname, lastname: req.body.lastname, city:  req.body.city, datebirth: req.body.datebirth, gender: req.body.gender, hobby: req.body.hobby  })
+    User.update({id: req.user.id},{firstname: req.body.firstname, lastname: req.body.lastname, city:  req.body.city, datebirth: req.body.datebirth, gender: req.body.gender, hobby: req.body.hobby, position: req.body.position  })
       .exec(function (err, users) {
 
         if(err){

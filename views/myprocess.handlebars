@@ -6,9 +6,21 @@
 <div class="portlet light">
     <div class="portlet-body">
 
+        <div class="clearfix">
 
 
+            <form action="/filter" method="post">
 
+        <div class="btn-group btn-group-solid" style="margin-bottom: 20px;">
+            <button id="inProcess" type="submit" class="btn green" style="margin-right: 20px;">Входящие</button>
+            <button id="outProcess" type="button" class="btn yellow" style="margin-right: 20px;">Исходящие</button>
+            <button id="dueProcess" type="button" class="btn red" style="margin-right: 20px;">Просроченные</button>
+        </div>
+
+
+            </form>
+
+</div>
 
         <div class="row">
             <div class="col-md-12">
@@ -37,6 +49,14 @@
                             <tr>
 
 
+
+
+                                <th style="display: none;">Входящие</th>
+                                <th style="display: none;">Исходящие</th>
+                                <th style="display: none;">Просроченные</th>
+
+
+
                                 <th>Имя</th>
 
 
@@ -53,7 +73,7 @@
 
 
 
-                                <th>Согласующие</th>
+                                <th>Исполнители</th>
 
                                 <th>Ответственные</th>
 
@@ -66,7 +86,7 @@
 
 
 
-                                <th>Архив</th>
+
 
 
                                 <th>Действия</th>
@@ -78,6 +98,34 @@
 
                             {{#each process}}
                                 <tr>
+
+
+
+                                    <td style="display: none;">
+
+
+                                        {{inProcess}}
+
+
+                                    </td>
+
+
+                                    <td style="display: none;">
+
+
+                                        {{outProcess}}
+
+
+                                    </td>
+
+
+                                    <td style="display: none;">
+
+
+                                      {{dueProcess}}
+
+
+                                    </td>
 
 
 
@@ -119,65 +167,110 @@
 
 
                                     <td>
-                                    {{#matching}}
+                                    {{#performer}}
 
 
 
                                        <li>{{nameUser}}</li>
 
 
-                                    {{/matching}}
+                                    {{/performer}}
                                     </td>
+
+
+                                    <td>
+
+                                        {{#answerable}}
+
+
+                                          <li>{{nameUser}}</li>
+
+
+                                        {{/answerable}}
+
+
+
+
+
+                                    </td>
+
+
+
 
 
                                     <td>
 
 
 
-
-
-
-                                    </td>
-                                    <td>
-
-
-
-                                      {{#if firstname}}
+                                      {{#is status "В работе"}}
 
                                           <span class="label label-danger">
 									В работе </span>
                                       {{else}}
 
 
-                                        {{#if username}}
+                                        {{#is status "Ответственный взял на работу"}}
 
                                             <span class="label label-warning">
-									Принят на рассмотрение </span>
+									Ответственный взял на работу </span>
 
 
                                         {{else}}
 
 
-                                            <span class="label label-success">
+                                          {{#is status "Отправлен на доработку"}}
+
+                                                  <span class="label label-warning">
+									Отправлен на доработку </span>
+
+
+                                          {{else}}
+
+
+                                            {{#is status "Закончен положительно"}}
+
+                                                    <span class="label label-warning">
+									Закончен положительно </span>
+
+
+                                            {{else}}
+
+
+                                              {{#is status "Закончен отрицательно"}}
+
+                                                      <span class="label label-warning">
+									Закончен отрицательно </span>
+
+
+                                              {{else}}
+
+
+                                                      <span class="label label-success">
 									Работа окончена </span>
 
 
-                                        {{/if}}
-                                      {{/if}}
 
-
-
-                                    </td>
-                                    <td>
-
-
-
-
+                                              {{/is}}
+                                            {{/is}}
+              {{/is}}
+                                      {{/is}}
+                                      {{/is}}
 
 
                                     </td>
 
+
+
+
                                     <td>
+
+                                        <a href="{{url}}" class="btn btn-xs yellow" style="margin-bottom: 10px;">
+                                            Просмотреть <i class="fa fa-search"></i>
+                                        </a>
+
+                                        <a href="javascript:;" class="btn btn-xs red">
+                                            <i class="fa fa-times"></i> Удалить </a>
+
 
 
 
@@ -213,3 +306,5 @@
         </div>
     </div>
 </div>
+
+

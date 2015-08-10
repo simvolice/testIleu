@@ -4,13 +4,14 @@
 
 
 var moment = require('moment');
+moment.locale('ru');
 
 var Comments = {
 
   attributes: {
 
 
-    dprocess: {model: 'DProcess'},
+
 
 
     process: {model: 'Process'},
@@ -31,6 +32,9 @@ var Comments = {
 
 
     }}
+
+
+
 
 
 

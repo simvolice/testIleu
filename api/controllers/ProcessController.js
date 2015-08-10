@@ -5,9 +5,6 @@
 
 var undescore = require('underscore');
 
-var fs = require('fs');
-var path = require('path');
-
 
 
 var ProcessController = {
@@ -21,7 +18,7 @@ var ProcessController = {
 
     User.findOne({id: req.user.id}).exec(function(err, user){
 
-      Company.findOne({user: user.id}).exec(function(err, company) {
+      Company.findOne({employees: user.id}).exec(function(err, company) {
 
          TypeProcess.findOne({company: company.id}).exec(function(err, typeprocess) {
 
@@ -29,6 +26,10 @@ var ProcessController = {
           NameProcess.find({typeProcess: typeprocess.id}).exec(function (err, nameprocess) {
 
             User.find({id: company.employees}).exec(function(err, user2){
+
+
+
+
 
 
 
@@ -85,6 +86,13 @@ var ProcessController = {
 
 
 
+                var documents =  nameprocess.map(function(item){
+
+
+                  return item.documents;
+
+
+                });
 
 
 
@@ -94,35 +102,8 @@ var ProcessController = {
 
 
 
-            var arrFile = [];
 
-           fs.readdir('C:/Users/Moon/Desktop/testIleu/views/doc', function(err, files){
-
-
-
-
-            files.forEach(function(item){
-
-
-             var withoutExt = path.basename(item, '.handlebars');
-
-
-              arrFile.push(withoutExt);
-
-            })
-
-
-
-            });
-
-
-
-
-
-
-
-
-            res.view('startprocess', {type: nameType,  nameProcess: undescore.flatten(ret), employees: user2, docs: arrFile, id: company.employees });
+                res.view('startprocess', {type: nameType,  nameProcess: undescore.flatten(ret), employees: user2, id: company.employees, documents: undescore.flatten(documents) });
 
 
 
@@ -149,6 +130,7 @@ var ProcessController = {
 
 
 
+
     req.file('document')
       .upload({
         adapter: require('skipper-gridfs'),
@@ -163,7 +145,7 @@ var ProcessController = {
 
 
 
-        var objMatching = {};
+        var objPerformer = {};
        var objAnswering = {};
 
 
@@ -175,36 +157,20 @@ var ProcessController = {
 
 
 
-    User.find({id: req.body.matching}).exec(function(err, userm){
+    User.find({id: req.body.performer}).exec(function(err, userm){
 
 
      var nameWithID = userm.map(function(item){
 
-        if (item.firstname != null && item.lastname != null) {
 
 
-         return objMatching = {
+
+         return objPerformer = {
 
             nameUser: item.firstname + ' ' + item.lastname,
             valueID: item.id
 
 
-
-
-          };
-
-        }else {
-
-
-         return  objMatching = {
-
-            nameUser: item.username,
-            valueID: item.id
-
-
-
-
-          };
 
 
 
@@ -218,12 +184,12 @@ var ProcessController = {
 
 
 
-      User.find({id: req.body.matching}).exec(function(err, useran){
+      User.find({id: req.body.answerable}).exec(function(err, useran){
 
 
         var nameWithIDAnswer = useran.map(function(item){
 
-          if (item.firstname != null && item.lastname != null) {
+
 
 
             return objAnswering = {
@@ -236,23 +202,7 @@ var ProcessController = {
 
             };
 
-          }else {
 
-
-            return  objAnswering = {
-
-              nameUser: item.username,
-              valueID: item.id
-
-
-
-
-            };
-
-
-
-
-          }
 
 
 
@@ -265,18 +215,21 @@ var ProcessController = {
 
 
         User.findOne({id: req.user.id}).exec(function(err, user){
-          Company.findOne({user: user.id}).exec(function(err, company){
+          Company.findOne({employees: user.id}).exec(function(err, company){
             Process.create({
 
+              dprocess: [],
               company: company.id,
               type: req.body.type,
               name: req.body.name,
-              initiator: req.user.id,
+              initiator: user.firstname + ' ' + user.lastname,
               dueDateTime: req.body.datetime,
               text: req.body.content,
 
 
-              matching: nameWithID, //TODO Нужно сделать проверки на единственный элемент
+              performer: nameWithID, //TODO Нужно сделать проверки на единственный элемент
+
+
               answerable: nameWithIDAnswer,
 
               documents: req.body.primarydoc,
@@ -313,7 +266,7 @@ var ProcessController = {
                   if (err) return res.serverError(err);
 
 
-                  User.find({id: undescore.union(req.body.matching, req.body.answerable)}).exec(function(err, user3){
+                  User.find({id: req.body.performer}).exec(function(err, user3){
 
 
 
@@ -324,6 +277,7 @@ var ProcessController = {
 
                       item.inProcess.push(process.id);
 
+                    item.roleInProcess = 'performer';
 
 
 

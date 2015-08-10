@@ -16,7 +16,9 @@ var CompanyController = {
 
 
 
-    fs.mkdir('C:/public/uploads/'+ req.user.username +'/company/'+ req.body.name,function(err){
+
+
+    fs.mkdir(process.cwd() + '/driver/' + req.user.email +'/company/'+ req.body.name,function(err){
 
       sails.log(err);
 
@@ -43,22 +45,30 @@ var CompanyController = {
             gm(uploadedFiles[0].fd)
               .resize(240, 240)
               .noProfile()
-              .write('C:/public/uploads/'+ req.user.username +'/company/'+ req.body.name +'/logo.'+ data.format.toLowerCase(), function(err){
+              .write(process.cwd() + '/driver/' + req.user.email +'/company/'+ req.body.name +'/logo.'+ data.format.toLowerCase(), function(err){
 
                 if (err) throw  err;
+
+
 
 
                 Company.create({
                   user: req.user.id,
                   name: req.body.name,
                   bin: req.body.bin,
-                  logo: 'C:/public/uploads/'+ req.user.username +'/company/'+ req.body.name +'/logo.'+ data.format.toLowerCase(),
-                  position: req.body.position
+                  logo: process.cwd() + '/driver/' + req.user.email +'/company/'+ req.body.name +'/logo.'+ data.format.toLowerCase(),
+                  employees: req.user.id
 
 
 
                 },function(err, result){
 
+
+
+
+                  Catalogs.create({company: result.id}).exec(function(err, cat){});
+
+                  TypeProcess.create({company: result.id}).exec(function(err, cat){});
 
                   if (err){
 
@@ -67,35 +77,50 @@ var CompanyController = {
                   }
 
 
-
-                  User.update({id: req.user.id}, {role: 'admin'})
-                    .exec(function (err, users) {
+                  if (req.body.position != null){
 
 
-                      return res.redirect('/');
+                    User.update({id: req.user.id}, {role: 'admin', position: req.body.position})
+                      .exec(function (err, users) {
 
-                    });
+
+                        return res.redirect('/');
+
+                      });
+
+                  }else {
+
+
+                    User.update({id: req.user.id}, {role: 'admin', position: 'Генеральный директор'})
+                      .exec(function (err, users) {
+
+
+                        return res.redirect('/');
+
+                      });
+
+                  }
+
+
+                  });
 
 
 
 
                 });
-
-
-
-
-              });
-          }
-
+              }
           else {
 
-            return res.serverError('Лого должен быть картинкой JPEG или PNG, и не больше 1 Мб');
+
+
+              return res.serverError('Лого должен быть картинкой JPEG или PNG, и не больше 1 Мб');
 
 
 
-          };
+            };
 
 
+          });
 
 
 
@@ -103,16 +128,11 @@ var CompanyController = {
 
 
 
-    });
+
+    }
 
 
-
-
-  }
-
-
-};
-
+  };
 
 
 

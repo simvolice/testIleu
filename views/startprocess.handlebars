@@ -21,7 +21,9 @@
 
 
 
-
+                                        {{#each documents}}
+                                        <input type="hidden" name="primarydoc" value="{{this}}">
+                                          {{/each}}
 
 
                                         <div class="form-group">
@@ -77,21 +79,23 @@
 
 
 
-
                                         <div class="form-group">
-                                            <label class="control-label">Первичный документ</label>
+                                            <label class="control-label">Котрагенты</label>
 
 
-                                            <select id="type" name="primarydoc" class="bs-select form-control" data-live-search="true" data-size="auto" multiple>
-
-                                              {{#each docs}}
+                                            <select id="name" name="kontraname" class="bs-select form-control">
 
 
-                                                  <option value="{{this}}">{{this}}</option>
+                                              {{#each kontra}}
+
+
+
+                                                  <option value="{{name}}">{{name}}</option>
+
+
+
 
                                               {{/each}}
-
-
 
 
 
@@ -99,6 +103,9 @@
 
 
                                         </div>
+
+
+
 
 
 
@@ -120,10 +127,10 @@
 
 
                                         <div class="form-group">
-                                            <label class="control-label">Согласующие лица</label>
+                                            <label class="control-label">Исполнитель</label>
 
 
-                                            <select name="matching" class="bs-select form-control" data-live-search="true" data-size="auto" multiple>
+                                            <select name="performer" class="bs-select form-control" data-live-search="true" data-size="auto" multiple>
 
 
 

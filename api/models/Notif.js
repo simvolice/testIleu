@@ -3,6 +3,7 @@
  */
 
 var moment = require('moment');
+moment.locale('ru');
 
 var Notif = {
 

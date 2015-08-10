@@ -61,7 +61,7 @@ module.exports = {
       "use strict";
 
 
-      return 'Генеральный директор';
+      return 'Сотрудник';
 
 
 
@@ -98,6 +98,7 @@ module.exports = {
     dueProcess: {type: 'array'},
 
 
+    roleInProcess: {type: 'string'},
 
 
 
@@ -114,7 +115,6 @@ module.exports = {
 
 
     passports : { collection: 'Passport', via: 'user' }
-
 
 
 

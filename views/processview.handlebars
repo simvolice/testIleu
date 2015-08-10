@@ -1,0 +1,819 @@
+
+
+
+
+
+<div class="portlet light">
+    <div class="portlet-body">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="margin-bottom-10" id="nestable_list_menu">
+
+
+
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portlet box blue-hoki">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="icon-notebook"></i>{{name}}
+                        </div>
+                        <div class="tools">
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+
+
+                        {{#process}}
+
+
+
+
+
+
+
+
+
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Тип процесса:</h3>
+                                </div>
+                                <div class="panel-body">
+                                  {{type}}
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Дата запуска:</h3>
+                                </div>
+                                <div class="panel-body">
+                                  {{dateTimeStart}}
+                                </div>
+                            </div>
+
+
+
+
+
+
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Дата окончания:</h3>
+                                </div>
+                                <div class="panel-body">
+                                  {{dueDateTime}}
+                                </div>
+                            </div>
+
+
+
+
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Инициатор процесса:</h3>
+                                </div>
+                                <div class="panel-body">
+                                  {{initiator}}
+                                </div>
+                            </div>
+
+
+
+
+
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Исполнители:</h3>
+                                </div>
+                                <div class="panel-body">
+                                  {{#performer}}
+
+                                      <li>{{nameUser}}</li>
+
+                                  {{/performer}}
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+
+
+
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Ответственные лица:</h3>
+                                </div>
+                                <div class="panel-body">
+                                  {{#answerable}}
+
+                                      <li>{{nameUser}}</li>
+
+                                  {{/answerable}}
+                                </div>
+                            </div>
+
+
+
+
+
+                        <div class="panel-group accordion" id="accordion3">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion3" href="#collapse_3_1">
+                                            Текст процесса: </a>
+                                    </h4>
+                                </div>
+                                <div id="collapse_3_1" class="panel-collapse in">
+                                    <div class="panel-body">
+
+
+                                      {{{text}}}
+
+
+                                    </div>
+                                </div>
+                            </div>
+</div>
+
+
+
+
+
+
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Прикрепленные документы процесса:</h3>
+                                </div>
+                                <div class="panel-body">
+                                  {{#each files}}
+
+                                      <li>{{this}}</li>
+
+
+                                  {{/each}}
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Статус:</h3>
+                                </div>
+                                <div class="panel-body">
+                                  {{status}}
+                                </div>
+                            </div>
+
+
+
+
+
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Первичные документы:</h3>
+                                </div>
+                                <div class="panel-body">
+                                  {{#each documents}}
+
+                                    <li>{{this}}</li>
+
+                                  {{/each}}
+                                </div>
+                            </div>
+
+
+
+
+
+
+                        {{/process}}
+
+
+
+
+
+
+
+                      {{#is roleInProcess "performer"}}
+
+
+
+
+
+
+
+                        <form method="post" action="/performer/endprocess">
+
+
+                          {{#process}}
+
+
+                            <input type="hidden" name="id" value="{{id}}">
+
+                        {{/process}}
+
+                            <button type="submit" class="btn default red-stripe {{disabled}}">Завершить процесс</button>
+
+
+                          </form>
+
+
+
+
+                          <a href="#dprocess" data-toggle="modal" type="submit" class="btn default red-stripe">Стартовать дочерний</a>
+
+
+
+
+
+                      <form method="post" action="/performer/rework">
+                        {{#process}}
+
+
+                            <input type="hidden" name="id" value="{{id}}">
+
+                        {{/process}}
+
+
+                          <div class="form-group">
+                              <label class="control-label">Дата и время окончания процесса</label>
+                              <div class="">
+                                  <div class="input-group date form_datetime">
+                                      <input type="text" name="newdate" size="16" readonly class="form-control">
+												<span class="input-group-btn">
+												<button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
+												</span>
+                                  </div>
+
+                              </div>
+                          </div>
+
+                          <button type="submit" class="btn default red-stripe">Отправить на доработку</button>
+
+                      </form>
+
+
+
+
+
+
+
+                      {{else}}
+
+
+                        {{#is roleInProcess "answer"}}
+
+
+
+
+                          <form action="/answer/plus" method="post">
+
+                            {{#process}}
+
+
+                                <input type="hidden" name="id" value="{{id}}">
+
+                            {{/process}}
+
+                            <button type="submit">Завершить положительно</button>
+
+
+                          </form>
+
+
+
+
+
+
+                        <form action="/answer/minus" method="post">
+
+
+                          {{#process}}
+
+
+                              <input type="hidden" name="id" value="{{id}}">
+
+                          {{/process}}
+
+
+                            <button type="submit">Завершить отрицательно</button>
+
+
+                        </form>
+
+
+                        <form action="/answer/rework" method="post">
+
+                          {{#process}}
+
+
+                              <input type="hidden" name="id" value="{{id}}">
+
+                          {{/process}}
+
+
+                            <div class="form-group">
+                                <label class="control-label">Дата и время окончания процесса</label>
+                                <div class="">
+                                    <div class="input-group date form_datetime">
+                                        <input type="text" name="newdate" size="16" readonly class="form-control">
+												<span class="input-group-btn">
+												<button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
+												</span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                            <button type="submit">Отправить на доработку</button>
+
+
+
+                        </form>
+
+
+
+                            <a href="#dprocess" data-toggle="modal" type="submit" class="btn default red-stripe">Стартовать дочерний</a>
+
+
+
+
+
+
+                        {{else}}
+
+
+                          {{#process}}
+
+
+                        <form method="post" action="/iniciator/endprocess">
+
+                            <input type="hidden" name="id" value="{{id}}">
+
+                            <button type="submit" class="btn blue-hoki">Завершить процесс</button>
+
+
+
+                          </form>
+
+
+                        {{/process}}
+
+
+                        {{/is}}
+                      {{/is}}
+
+
+
+
+
+
+
+
+                        <hr>
+
+
+                        <div class="media">
+                            <h3>Комментарии</h3>
+
+
+
+
+
+                          {{#each comments}}
+
+
+                              <a href="javascript:;" class="pull-left">
+                                  <img alt="" src="../../assets/admin/pages/media/blog/9.jpg" class="media-object">
+                              </a>
+
+
+                            <div class="media-body">
+                                <h4 class="media-heading">{{author}} <span>
+											{{dateWrite}}
+											</span>
+                                </h4>
+                                <p>
+
+
+                           {{text}}
+
+
+
+                                </p>
+                                <hr>
+
+                            </div>
+
+{{/each}}
+
+
+                        </div>
+
+                        <hr>
+                        <div class="post-comment">
+                            <h3>Оставить комментарий к процессу</h3>
+                            <form role="form" action="/commentsave" method="post">
+
+                              {{#process}}
+
+
+                                  <input type="hidden" name="id" value="{{id}}">
+
+                              {{/process}}
+
+
+                                <div class="form-group">
+                                    <label class="control-label">Сообщение <span class="required">
+												* </span>
+                                    </label>
+                                    <textarea name="comment" class="col-md-10 form-control" rows="8"></textarea>
+                                </div>
+                                <button class="margin-top-20 btn blue" type="submit">Опубликовать комментарий</button>
+                            </form>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- full width -->
+<div id="dprocess" class="modal container fade" tabindex="-1">
+
+
+
+
+    <div class="modal-body">
+
+
+
+        <div class="profile-content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="portlet light">
+                        <div class="portlet-title">
+                            <div class="caption caption-md">
+                                <i class="icon-globe theme-font hide"></i>
+                                <span class="caption-subject font-blue-madison bold uppercase">Создание дочернего процесса</span>
+                            </div>
+
+                        </div>
+
+
+
+
+                        <div class="portlet-body">
+
+
+
+
+
+
+                            <!-- BEGIN PROFILE CONTENT -->
+                            <div class="profile-content">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="portlet light">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption caption-md">
+                                                    <i class="icon-globe theme-font hide"></i>
+                                                    <span class="caption-subject font-blue-madison bold uppercase"></span>
+                                                </div>
+
+                                            </div>
+                                            <div class="portlet-body">
+                                                <div class="tab-content">
+                                                    <!-- PERSONAL INFO TAB -->
+                                                    <div class="tab-pane active" id="tab_1_1">
+                                                        <form role="form" action="/dprocesssave" method="post" enctype="multipart/form-data" onsubmit="return postForm()">
+
+                                                          {{#process}}
+
+
+                                                              <input type="hidden" name="id" value="{{id}}">
+
+                                                          {{/process}}
+
+                                                          {{#each documents}}
+                                                              <input type="hidden" name="primarydoc" value="{{this}}">
+                                                          {{/each}}
+
+
+                                                            <div class="form-group">
+                                                                <label class="control-label">Тип процесса</label>
+
+
+                                                                <select id="type" name="type" class="bs-select form-control" data-live-search="true" data-size="auto">
+
+                                                                  {{#each type}}
+
+
+                                                                      <option value="{{#delspace}}{{this}}{{/delspace}}">{{this}}</option>
+
+                                                                  {{/each}}
+
+
+
+
+
+                                                                </select>
+
+
+                                                            </div>
+
+
+
+
+
+                                                            <div class="form-group">
+                                                                <label class="control-label">Наименование процесса</label>
+
+
+                                                                <select id="name" name="name" class="form-control">
+
+
+                                                                  {{#each nameProcess}}
+
+
+
+                                                                      <option value="{{value}}" class="{{name}}">{{value}}</option>
+
+
+
+
+                                                                  {{/each}}
+
+
+
+                                                                </select>
+
+
+                                                            </div>
+
+
+
+                                                            <div class="form-group">
+                                                                <label class="control-label">Котрагенты</label>
+
+
+                                                                <select id="name" name="kontraname" class="bs-select form-control">
+
+
+                                                                  {{#each kontra}}
+
+
+
+                                                                      <option value="{{name}}">{{name}}</option>
+
+
+
+
+                                                                  {{/each}}
+
+
+
+                                                                </select>
+
+
+                                                            </div>
+
+
+
+
+
+
+
+
+
+                                                            <div class="form-group">
+                                                                <label class="control-label">Дата и время окончания процесса</label>
+                                                                <div class="">
+                                                                    <div class="input-group date form_datetime">
+                                                                        <input type="text" name="datetime" size="16" readonly class="form-control">
+												<span class="input-group-btn">
+												<button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
+												</span>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div class="form-group">
+                                                                <label class="control-label">Исполнитель</label>
+
+
+                                                                <select name="performer" class="bs-select form-control" data-live-search="true" data-size="auto" multiple>
+
+
+
+
+                                                                  {{#each employees}}
+
+
+                                                                    {{#if firstname}}
+                                                                        <option value="{{id}}">{{firstname}}{{lastname}}</option>
+                                                                    {{else}}
+                                                                      {{#if username}}
+                                                                          <option value="{{id}}">{{username}}</option>
+                                                                      {{else}}
+                                                                          <option value="{{id}}">{{email}}</option>
+                                                                      {{/if}}
+                                                                    {{/if}}
+
+
+
+
+
+
+
+                                                                  {{/each}}
+
+
+
+                                                                </select>
+
+
+                                                            </div>
+
+
+
+                                                            <div class="form-group">
+                                                                <label class="control-label">Ответственные лица</label>
+
+
+                                                                <select name="answerable" class="bs-select form-control" data-live-search="true" data-size="8" multiple>
+
+
+
+                                                                  {{#each employees}}
+
+
+                                                                    {{#if firstname}}
+                                                                        <option value="{{id}}">{{firstname}}{{lastname}}</option>
+                                                                    {{else}}
+                                                                      {{#if username}}
+                                                                          <option value="{{id}}">{{username}}</option>
+                                                                      {{else}}
+                                                                          <option value="{{id}}">{{email}}</option>
+                                                                      {{/if}}
+                                                                    {{/if}}
+
+
+
+
+
+
+
+                                                                  {{/each}}
+
+
+
+
+
+                                                                </select>
+
+
+                                                            </div>
+
+
+
+
+
+                                                            <div class="form-group form-md-line-input form-md-floating-label">
+
+                                                                <label for="summernote">Текст процесса</label>
+                                                                <textarea id="summernote" name="content" rows="18" class="form-control"></textarea>
+
+                                                            </div>
+
+
+
+
+                                                            <div class="form-group">
+
+
+                                                                <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                                    <div class="input-group input-large">
+                                                                        <div class="form-control uneditable-input input-fixed input-medium" data-trigger="fileinput">
+                                                                            <i class="fa fa-file fileinput-exists"></i>&nbsp; <span class="fileinput-filename">
+														</span>
+                                                                        </div>
+													<span class="input-group-addon btn default btn-file">
+													<span class="fileinput-new">
+													Выберети документ </span>
+													<span class="fileinput-exists">
+													Изменить </span>
+													<input type="file" name="document" multiple>
+													</span>
+                                                                        <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput">
+                                                                            Удалить </a>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+
+
+
+
+
+
+
+
+
+                                                            <div class="margiv-top-10">
+                                                                <button type="submit" class="btn green-haze">
+                                                                    Стартануть процесс </button>
+
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <!-- END PERSONAL INFO TAB -->
+
+                                                    <!-- END CHANGE AVATAR TAB -->
+
+
+                                                    <!-- PRIVACY SETTINGS TAB -->
+
+                                                    <!-- END PRIVACY SETTINGS TAB -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END PROFILE CONTENT -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+</div>

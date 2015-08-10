@@ -2,8 +2,8 @@ var validator = require('validator'),
  crypto    = require('crypto'),
     reqap = require('../recaptcha'),
     mailSend = require('../mail');
-
 var fs = require('fs');
+
 
 /**
  * Local Authentication Protocol
@@ -40,9 +40,16 @@ exports.register = function (req, res, next) {
 
 
 
-    var email    = req.param('email')
-    , username = req.param('username')
-    , password = req.param('password');
+    var email    = req.param('email');
+
+    var password = req.param('password');
+
+  var firstname = req.param('firstname');
+
+var lastname = req.param('lastname');
+
+
+
 
 
 
@@ -52,10 +59,17 @@ exports.register = function (req, res, next) {
     return next(new Error('No email was entered.'));
   }
 
-  if (!username) {
-    req.flash('error', 'Error.Passport.Username.Missing');
-    return next(new Error('No username was entered.'));
+  if (!firstname) {
+    req.flash('error', 'Error.Passport.firstname.Missing');
+    return next(new Error('No firstname was entered.'));
   }
+
+
+  if (!lastname) {
+    req.flash('error', 'Error.Passport.lastname.Missing');
+    return next(new Error('No lastname was entered.'));
+  }
+
 
   if (!password) {
     req.flash('error', 'Error.Passport.Password.Missing');
@@ -84,22 +98,24 @@ exports.register = function (req, res, next) {
 
 
   User.create({
-    username : username
-  , email    : email
+    lastname : lastname
+  , email    : email,
+   firstname: firstname,
+    outProcess: [],
+    inProcess: [],
+    dueProcess: []
   }, function (err, user) {
     if (err) {
       if (err.code === 'E_VALIDATION') {
         if (err.invalidAttributes.email) {
           req.flash('error', 'Error.Passport.Email.Exists');
-        } else {
-          req.flash('error', 'Error.Passport.User.Exists');
         }
       }
 
       return next(err);
     }
 
-    // Generating accessToken for API authentication
+
     var token = crypto.randomBytes(48).toString('base64');
 
   Passport.create({
@@ -130,19 +146,19 @@ exports.register = function (req, res, next) {
           mailSend.sendMail('emailReg', result.verifTokenEmail, email, 'Подтверждение регистрации');
 
 
+      fs.mkdir(process.cwd() + '/driver/' + result.email,function(err){
 
-      fs.mkdir('C:/public/uploads/'+result.username,function(err){
+        sails.log(err);
+
+      });
+
+
+      fs.mkdir(process.cwd() + '/driver/' + result.email +'/company/',function(err){
 
         sails.log(err);
 
       });
 
-
-      fs.mkdir('C:/public/uploads/'+ result.username +'/company/',function(err){
-
-        sails.log(err);
-
-      });
 
 
        return  res.redirect('/confirmemail');
@@ -225,9 +241,7 @@ exports.login = function (req, identifier, password, next) {
   if (isEmail) {
     query.email = identifier;
   }
-  else {
-    query.username = identifier;
-  }
+
 
   User.findOne(query, function (err, user) {
     if (err) {
@@ -237,8 +251,6 @@ exports.login = function (req, identifier, password, next) {
     if (!user) {
       if (isEmail) {
         req.flash('error', 'Error.Passport.Email.NotFound');
-      } else {
-        req.flash('error', 'Error.Passport.Username.NotFound');
       }
 
       return next(null, false);

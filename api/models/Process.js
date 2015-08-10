@@ -3,12 +3,25 @@
  */
 
 var moment = require('moment');
+moment.locale('ru');
+var uuid = require('node-uuid');
+
+
 
 var Process = {
 
   attributes: {
 
 
+
+    url: {type: 'string', defaultsTo: function(){
+
+
+      return sails.getBaseurl() + '/processlist?id=' + uuid.v4();
+
+
+
+    }},
 
     name: {type: 'string'},
 
@@ -32,13 +45,14 @@ var Process = {
 
 
 
+
     initiator: {type: 'string'},
 
 
     answerable: {type: 'array'},
 
 
-    matching: {type: 'array'},
+    performer: {type: 'array'},
 
 
     text: {type: 'string'},
@@ -58,6 +72,7 @@ var Process = {
 
 
 
+    documents: {type: 'array'},
 
 
 
@@ -65,7 +80,7 @@ var Process = {
     company: {model: 'Company'},
 
 
-    documents: {type: 'array'},
+
 
 
 
@@ -82,7 +97,7 @@ var Process = {
 
 
     //Дочерние процессы
-    dprocess: {collection: 'DProcess', via: 'process'} //Будут в самой таблице Мои процессы
+    dprocess: {type: 'array'} //Будут в самой таблице Мои процессы
 
 
 

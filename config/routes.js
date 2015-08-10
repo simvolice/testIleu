@@ -32,13 +32,7 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/': {
-      view: 'homepage',
-
-  },
-
-
-
+  'get /': 'AuthController.homeview',
 
   'post /createcompany': 'CompanyController.createFirm',
 
@@ -153,7 +147,25 @@ module.exports.routes = {
   //Мои процессы
 
 
-'get /myprocess': 'MyProcessController.view'
+'get /myprocess': 'MyProcessController.view',
+
+  'get /processlist': 'MyProcessController.processview',
+
+
+  'post /iniciator/:action': 'MyProcessController.iniciatorwork',
+
+
+  'post /performer/:action': 'MyProcessController.performerwork',
+
+
+
+  'post /answer/:action': 'MyProcessController.answer',
+
+
+  'post /dprocesssave': 'MyProcessController.dprocess',
+
+
+  'post /commentsave': 'MyProcessController.commentsave'
 
 
 

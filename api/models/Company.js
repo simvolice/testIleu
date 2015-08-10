@@ -10,12 +10,12 @@ var Company = {
   attributes: {
 
 
-    user: { model: 'User', required: true },
+    user: { model: 'User' },
 
 
-    name: {type: 'string', required: true, unique: true},
+    name: {type: 'string'},
 
-    bin: {type: 'integer', required: true, unique: true},
+    bin: {type: 'string'},
 
 
     logo: {type: 'string'},
@@ -60,7 +60,11 @@ var Company = {
 
 
 
-    kontragent: {collection: 'Kontragents', via: 'company'}
+    kontragent: {collection: 'Kontragents', via: 'company'},
+
+
+
+
 
 
 

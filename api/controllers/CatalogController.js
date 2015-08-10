@@ -36,7 +36,7 @@ var CatalogController = {
 
 
 
-      Company.findOne({user: user.id}).exec(function(err, company) {
+      Company.findOne({employees: user.id}).exec(function(err, company) {
 
 
 
@@ -67,7 +67,7 @@ var CatalogController = {
 
 
 
-          })
+          });
 
 
 
@@ -80,6 +80,9 @@ var CatalogController = {
 
 
           });
+
+
+
 
         });
       });
@@ -95,7 +98,7 @@ var CatalogController = {
 
     User.findOne({id: req.user.id}).exec(function(err, user){
 
-      Company.findOne({user: user.id}).exec(function(err, company) {
+      Company.findOne({employees: user.id}).exec(function(err, company) {
 
 
         Catalogs.findOne({company: company.id}).exec(function(err, catalog) {
@@ -106,6 +109,9 @@ var CatalogController = {
 
 
             res.view('cataloglist', {cataloglist: namecatalog});
+
+
+
 
 
 
@@ -127,7 +133,7 @@ var CatalogController = {
 
     User.findOne({id: req.user.id}).exec(function(err, user){
 
-      Company.findOne({user: user.id}).exec(function(err, company) {
+      Company.findOne({employees: user.id}).exec(function(err, company) {
 
 
         Catalogs.findOne({company: company.id}).exec(function(err, catalog) {
@@ -204,7 +210,7 @@ var CatalogController = {
 
       User.findOne({id: req.user.id}).exec(function(err, user){
 
-        Company.findOne({user: user.id}).exec(function(err, company) {
+        Company.findOne({employees: user.id}).exec(function(err, company) {
 
 
           Catalogs.findOne({company: company.id}).exec(function(err, catalog) {
@@ -295,7 +301,7 @@ var CatalogController = {
 
       User.findOne({id: req.user.id}).exec(function(err, user){
 
-        Company.findOne({user: user.id}).exec(function(err, company) {
+        Company.findOne({employees: user.id}).exec(function(err, company) {
 
 
           Catalogs.findOne({company: company.id}).exec(function(err, catalog) {
@@ -401,7 +407,7 @@ var CatalogController = {
 
       User.findOne({id: req.user.id}).exec(function(err, user){
 
-        Company.findOne({user: user.id}).exec(function(err, company) {
+        Company.findOne({employees: user.id}).exec(function(err, company) {
 
 
           Catalogs.findOne({company: company.id}).exec(function(err, catalog) {
@@ -512,7 +518,7 @@ var CatalogController = {
 
     User.findOne({id: req.user.id}).exec(function(err, user){
 
-      Company.findOne({user: user.id}).exec(function(err, company) {
+      Company.findOne({employees: user.id}).exec(function(err, company) {
 
 
         Catalogs.findOne({company: company.id}).exec(function(err, catalog) {

@@ -26,6 +26,11 @@ var TypeProcess = {
 
 
 
+
+
+
+
+
     nameProcess: {collection: 'NameProcess', via: 'typeProcess'}
 
 
