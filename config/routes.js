@@ -34,6 +34,9 @@ module.exports.routes = {
 
   'get /': 'AuthController.homeview',
 
+
+  'post /fromsocket': 'ProcessController.fromsocketstart',
+
   'post /createcompany': 'CompanyController.createFirm',
 
 //Auth
@@ -82,6 +85,9 @@ module.exports.routes = {
   'post /profiledit': 'ProfileController.profedit',
   'post /uploadfile': 'ProfileController.uploadfile',
     'post /resetpsw': 'ProfileController.resetpsw',
+
+
+  'post /sentprofile': 'ProfileController.testsocket',
 
 
 
@@ -136,10 +142,12 @@ module.exports.routes = {
 
 
 
+
 //Старт процесса
   'get /startprocess': 'ProcessController.startProcess',
 
   'post /processpost': 'ProcessController.processSave',
+
 
 
 

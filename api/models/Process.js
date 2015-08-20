@@ -14,6 +14,9 @@ var Process = {
 
 
 
+
+    catalogs: {type: 'json'},
+
     url: {type: 'string', defaultsTo: function(){
 
 

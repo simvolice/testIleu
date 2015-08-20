@@ -5,7 +5,7 @@
 require("sails-test-helper");
 
 
-var unoconv = require('unoconv2');
+var undescore = require('underscore');
 
 
 describe(TEST_NAME, function() {
@@ -15,41 +15,55 @@ describe(TEST_NAME, function() {
 
 
 
+        User.findOne({id: '55c71d15a6817fc81727f49c'}).exec(function(err, user){
 
-     var res = unoconv.convert('C:/Users/Moon/Downloads/Счет-фактура-образец-заполнения (1).xls', 'html', {
+            Company.findOne({employees: user.id}).exec(function(err, company) {
 
-
-       bin: 'C:/Program Files (x86)/LibreOffice 5/program/python.exe C:/unoconv/unoconv'
-
-     } , function (err, result) {
-        // result is returned as a Buffer
-        fs.writeFile('converted.html', result);
+                TypeProcess.findOne({company: company.id}).exec(function(err, typeprocess) {
 
 
-
-      });
-
+                    NameProcess.find({typeProcess: typeprocess.id}).exec(function (err, nameprocess) {
 
 
+                        var obj = {};
 
-          console.log(res);
+
+                        nameprocess.forEach(function(item){
 
 
-          done();
+                             item.name.forEach(function(item2){
 
+
+                               obj =  item2.nameCollwithValue;
 
 
 
+                            });
 
 
 
-
-
+                        });
 
 
 
 
 
+                        console.log(obj);
+
+                        done();
+
+
+
+
+
+
+
+
+
+
+
+
+                    });});});});
 
 
     });

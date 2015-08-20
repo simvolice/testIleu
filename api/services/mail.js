@@ -27,7 +27,7 @@ exports.sendMail = function(pathTemplate, uuid, to, subject, res ) {
                     api_key: mailcfg.connectMailGun.apiKey,
                     domain: mailcfg.connectMailGun.domain
                 }
-            }
+            };
 
             var nodemailerMailgun = nodemailer.createTransport(mg(auth));
 

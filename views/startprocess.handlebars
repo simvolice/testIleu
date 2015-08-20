@@ -21,9 +21,7 @@
 
 
 
-                                        {{#each documents}}
-                                        <input type="hidden" name="primarydoc" value="{{this}}">
-                                          {{/each}}
+
 
 
                                         <div class="form-group">
@@ -63,7 +61,7 @@
 
 
 
-                                                        <option value="{{value}}" class="{{name}}">{{value}}</option>
+                                                        <option value="{{value}} {{id}}" class="{{name}}">{{value}}</option>
 
 
 
@@ -79,27 +77,55 @@
 
 
 
-                                        <div class="form-group">
-                                            <label class="control-label">Котрагенты</label>
-
-
-                                            <select id="name" name="kontraname" class="bs-select form-control">
-
-
-                                              {{#each kontra}}
-
-
-
-                                                  <option value="{{name}}">{{name}}</option>
+                                        <div class="form-group" style="margin-top: 40px">
+                                            <label class="control-label">Таблица</label>
+                                            <a href="#portlet-config" class="btn" data-toggle="modal" style="margin-left: 80%; background: #DDDDDD">Работа со справочником</a>
 
 
 
 
-                                              {{/each}}
+                                            <input name="fromtable" type="hidden">
+
+
+                                            <table id="newtable" style="border-collapse: collapse;">
+
+
+                                                <thead>
 
 
 
-                                            </select>
+                                                <tr id="tableforname">
+
+
+
+                                                </tr>
+
+
+
+                                                </thead>
+
+
+                                                <tbody id="forvalue">
+
+
+
+
+
+
+
+
+
+
+
+                                                </tbody>
+
+
+
+
+                                            </table>
+
+
+
 
 
                                         </div>
@@ -272,6 +298,93 @@
         <!-- END PROFILE CONTENT -->
 
 
+
+        <div id="portlet-config" class="modal container fade" tabindex="-1">
+
+
+
+
+            <div class="modal-body">
+
+
+
+                <div class="profile-content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="portlet light">
+                                <div class="portlet-title tabbable-line">
+                                    <div class="caption caption-md">
+                                        <i class="icon-globe theme-font hide"></i>
+                                        <span class="caption-subject font-blue-madison bold uppercase">Работа со справочником</span>
+                                    </div>
+                                    <ul class="nav nav-tabs">
+                                        <li class="active">
+                                            <a href="#tab_1_1" data-toggle="tab">Добавить запись</a>
+                                        </li>
+                                        <li>
+                                            <a href="#tab_1_2" data-toggle="tab">Редактировать запись</a>
+                                        </li>
+                                        <li>
+                                            <a href="#tab_1_3" style="color: red;" data-toggle="tab">Удалить</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                                <div class="portlet-body">
+                                    <div class="tab-content">
+                                        <!-- PERSONAL INFO TAB -->
+                                        <div class="tab-pane active" id="tab_1_1">
+                                            <div id="formsave">
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                            </div>
+
+
+                                            <div class="margiv-top-10">
+                                                <button id="savenew" class="btn green-haze">
+                                                    Сохранить запись </button>
+
+                                            </div>
+
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+
+        </div>
 
 
 

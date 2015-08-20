@@ -44,12 +44,12 @@ module.exports.sockets = {
   // -OR-
   //
 
- /* adapter: 'sails-mongo',
+ adapter: 'sails-mongo',
   host: 'localhost',
   port: 27017,
   // user: 'username',
   // password: 'password',
-  database: 'ileu4',*/
+  database: 'ileu4',
 
 
 

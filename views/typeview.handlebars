@@ -220,6 +220,70 @@
                                             <span class="help-block">Здесь вводятся только буквы</span>
                                         </div>
 
+
+
+                                        <div class="form-group">
+                                            <label class="control-label">Первичный документ</label>
+
+
+                                            <select id="type" name="primarydoc" class="bs-select form-control" data-live-search="true" data-size="auto" multiple>
+
+                                              {{#each docs}}
+
+
+                                                  <option value="{{this}}">{{this}}</option>
+
+                                              {{/each}}
+
+
+
+
+
+                                            </select>
+
+
+                                        </div>
+
+
+                                        <label for="form_control_1">Создайте справочник для процесса</label>
+                                        <div class="input_fields_wrap">
+
+                                            <button class="btn blue add_field_button">Добавить колонку</button>
+                                            <div class="form-group form-md-line-input form-md-floating-label">
+                                                <input type="text" name="mycol[]" class="form-control" id="form_control_1">
+                                                <label for="form_control_1">Имя колонки</label>
+                                                <span class="help-block">Обязательное поле</span>
+                                            </div>
+
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label class="control-label">Прикрепите процесс</label>
+
+
+                                            <select id="type" name="dprocess" class="bs-select form-control" data-live-search="true" data-size="auto" multiple>
+
+                                              {{#each archive}}
+
+
+                                                  <option value="{{process}}">{{name}}</option>
+
+                                              {{/each}}
+
+
+
+
+
+                                            </select>
+
+
+                                        </div>
+
+
+
+
+
                                         <div class="margin-top-10">
                                             <button type="submit" class="btn green-haze">
                                                 Сохранить запись </button>

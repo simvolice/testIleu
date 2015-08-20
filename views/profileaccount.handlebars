@@ -60,14 +60,14 @@
                             <div class="tab-content">
                                 <!-- PERSONAL INFO TAB -->
                                 <div class="tab-pane active" id="tab_1_1">
-                                    <form role="form" action="/profiledit" method="post">
+
                                         <div class="form-group form-md-line-input form-md-floating-label">
-                                            <input name="firstname" type="text" class="form-control" id="form_control_1">
+                                            <input name="firstname" type="text" class="form-control" id="firstname">
                                             <label for="form_control_1">Имя</label>
                                             <span class="help-block">Здесь вводятся только буквы</span>
                                         </div>
                                         <div class="form-group form-md-line-input form-md-floating-label">
-                                            <input name="lastname" type="text" class="form-control" id="form_control_1">
+                                            <input name="lastname" type="text" class="form-control" id="lastname">
                                             <label for="form_control_1">Фамилия</label>
                                             <span class="help-block">Здесь вводятся только буквы</span>
                                         </div>
@@ -75,7 +75,7 @@
 
 
                                         <div class="form-group form-md-line-input form-md-floating-label">
-                                            <input name="position" type="text" class="form-control" id="form_control_1">
+                                            <input name="position" type="text" class="form-control" id="position">
                                             <label for="form_control_1">Новая должность</label>
                                             <span class="help-block">Здесь вводятся только буквы</span>
                                         </div>
@@ -87,7 +87,7 @@
                                             <label class="control-label">Место нахождение</label>
 
 
-                                            <select name="city" class="bs-select form-control" data-live-search="true" data-size="8" >
+                                            <select id="city" name="city" class="bs-select form-control" data-live-search="true" data-size="8" >
 
                                               {{#each citys}}
 
@@ -112,7 +112,7 @@
 
 
                                             <div class="input-group input-medium date date-picker" data-date="12-02-2012" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
-                                                <input name="datebirth" type="text" class="form-control" readonly="">
+                                                <input id="datebirth" name="datebirth" type="text" class="form-control" readonly="">
 												<span class="input-group-btn">
 												<button class="btn default" type="button"><span class="md-click-circle md-click-animate" style="height: 47px; width: 47px; top: -4.5px; left: 8.75px;"></span><i class="fa fa-calendar"></i></button>
 												</span>
@@ -147,17 +147,17 @@
                                           </div>
 
                                         <div class="form-group form-md-line-input form-md-floating-label">
-                                            <textarea name="hobby" class="form-control" rows="3"></textarea>
+                                            <textarea id="hobyy" name="hobby" class="form-control" rows="3"></textarea>
                                             <label for="form_control_1">Ваше хобби</label>
                                         </div>
 
 
                                         <div class="margiv-top-10">
-                                            <button type="submit" class="btn green-haze">
+                                            <button id="profilesent" class="btn green-haze">
                                                 Сохранить настройки </button>
 
                                         </div>
-                                    </form>
+
                                 </div>
                                 <!-- END PERSONAL INFO TAB -->
                                 <div class="tab-pane" id="tab_1_2">

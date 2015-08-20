@@ -10,6 +10,37 @@ var ProfileController = {
 
 
 
+
+  testsocket: function(req,res, next){
+
+    var fromclient = req.params.all();
+
+
+
+
+
+
+    User.update({id: req.user.id},{firstname: fromclient.firstname, lastname: fromclient.lastname, city:  fromclient.city, datebirth: fromclient.datebirth, gender: fromclient.gender, hobby: fromclient.hobyy, position: fromclient.position  })
+        .exec(function (err, users) {
+
+          if(err){
+
+            return res.send(err);
+
+          }
+
+
+
+          return res.send('ok');
+
+
+        });
+
+
+
+
+  },
+
   view: function (req, res, next){
     "use strict";
 

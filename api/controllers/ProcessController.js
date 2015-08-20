@@ -10,6 +10,109 @@ var undescore = require('underscore');
 var ProcessController = {
 
 
+
+
+
+
+
+
+
+
+  fromsocketstart: function(req, res, next){
+
+//Чтобы показывать таблицу
+
+
+
+    var fromclient = req.params.all();
+
+
+
+    NameProcess.findOne({id: fromclient.id}).exec(function (err, nameprocess) {
+
+
+
+      var obj = {};
+
+      var primaryDoc = [];
+
+      var dprocess = [];
+
+      nameprocess.name.forEach(function(item){
+
+
+        if (fromclient.name.join(' ') === item.name) {
+
+
+          obj = item.nameCollwithValue;
+          primaryDoc = item.primarydoc;
+
+          dprocess = item.dprocess;
+
+        }
+
+
+      });
+
+
+
+
+
+
+
+
+
+
+
+
+      var str = '';
+      var str2 = '';
+
+      var arr2 = [];
+
+
+      var obj2 = {};
+
+
+
+
+      undescore.pluck(obj, 'col').forEach(function(item){
+
+        str += '<th>' + item + '</th>';
+        str2 +=  '<div class="form-group form-md-line-input form-md-floating-label"><input name="id" type="hidden" value="'+ nameprocess.id  +'"><input type="text" name="value[]" class="form-control" id="form_control_1"><input type="hidden" name="namecol[]" value="'+ item +'"><label for="form_control_1">'+ item +'</label><span class="help-block">Введите новое значение для колонки: ' + item + '</span> </div>'
+
+
+
+
+          });
+
+
+
+      obj2 = {
+
+        th: str,
+        input: str2,
+        doc: primaryDoc,
+        dp: dprocess
+
+
+      };
+
+
+    res.send(obj2);
+
+
+
+
+          });
+
+
+  },
+
+
+
+
+
   startProcess: function (req, res, next) {
     "use strict";
 
@@ -26,11 +129,6 @@ var ProcessController = {
           NameProcess.find({typeProcess: typeprocess.id}).exec(function (err, nameprocess) {
 
             User.find({id: company.employees}).exec(function(err, user2){
-
-
-
-
-
 
 
 
@@ -53,9 +151,10 @@ var ProcessController = {
 
                 obj = {
 
-                  name: item3.nameType.replace(/\s+/g, ''),
+                  name: item3.nameType.replace(/\s+/g, ''), //Убирает пробелы в типах процессах
 
-                  value: item2
+                  value: item2.name,
+                  id: item3.id
 
 
 
@@ -86,13 +185,6 @@ var ProcessController = {
 
 
 
-                var documents =  nameprocess.map(function(item){
-
-
-                  return item.documents;
-
-
-                });
 
 
 
@@ -102,8 +194,7 @@ var ProcessController = {
 
 
 
-
-                res.view('startprocess', {type: nameType,  nameProcess: undescore.flatten(ret), employees: user2, id: company.employees, documents: undescore.flatten(documents) });
+                res.view('startprocess', {type: nameType,  nameProcess: undescore.flatten(ret), employees: user2, id: company.employees });
 
 
 
@@ -234,7 +325,9 @@ var ProcessController = {
 
               documents: req.body.primarydoc,
 
-              files: undescore.pluck(uploadedFiles, 'filename')
+              files: undescore.pluck(uploadedFiles, 'filename'),
+
+              catalogs: req.body.fromtable
 
 
 

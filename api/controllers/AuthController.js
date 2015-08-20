@@ -44,6 +44,10 @@ var AuthController = {
    * @param {Object} res
    */
 
+
+
+
+
   homeview: function(req, res, next){
 
 
