@@ -66,7 +66,7 @@ var CompanyController = {
 
 
 
-                  Catalogs.create({company: result.id}).exec(function(err, cat){});
+
 
                   TypeProcess.create({company: result.id}).exec(function(err, cat){});
 

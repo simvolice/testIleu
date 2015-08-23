@@ -32,24 +32,39 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  'get /': 'AuthController.homeview',
 
 
-  'post /fromsocket': 'ProcessController.fromsocketstart',
 
+  /**
+   *Домашняя, индексная страница, с модальным окном создании компании
+   */
+  'get /': 'HomeController.homeview',
+
+  'post /sendreqtocompany': 'HomeController.senreqtocompany',
+
+////////////////////////////////////////////////////////////////////
+
+
+
+
+  /**
+   * Создание компании
+   */
   'post /createcompany': 'CompanyController.createFirm',
+////////////////////////////////////////////////////////////////////
 
-//Auth
-    'get /login': 'AuthController.login',
+
+
+
+
+
+
+  /**
+   *Auth, Восстановление, активация
+   */
+  'get /login': 'AuthController.login',
     'get /logout': 'AuthController.logout',
-
-
-
-
-
-
-
-  'get /recov': 'AuthController.recov',
+ 'get /recov': 'AuthController.recov',
 
 
   'post /forgetpass': 'AuthController.forgetpass',
@@ -59,7 +74,7 @@ module.exports.routes = {
     'get /confirmemail': 'AuthController.confirmemail',
     'get /alreadyconfirm': 'AuthController.alreadyconfirm',
 
-    'get /verifemail': 'AuthController.verifemail',
+    'get /verifEmail': 'AuthController.verifemail',
 
 
   'get /restorepass': 'AuthController.restorepass',
@@ -77,58 +92,43 @@ module.exports.routes = {
     'get /auth/:provider/callback': 'AuthController.callback',
     'get /auth/:provider/:action': 'AuthController.callback',
 
+////////////////////////////////////////////////////////////////////
 
 
 
-  //Profile
+
+
+
+  /**
+   * Работа с профелем пользователя
+   */
   'get /profile': 'ProfileController.view',
   'post /profiledit': 'ProfileController.profedit',
   'post /uploadfile': 'ProfileController.uploadfile',
     'post /resetpsw': 'ProfileController.resetpsw',
-
-
+////////////////////////////////////////////////////////////////////
+ /**
+   * Сокетная версия сохранения профайла пользователя
+   */
   'post /sentprofile': 'ProfileController.testsocket',
 
+////////////////////////////////////////////////////////////////////
 
 
 
 
 
 
-  //TypeController
+
+
+  /**
+   * Работа с типами процессов
+   */
   'get /typeview': 'TypeController.typeview',
 
   'post /typeprocess/:action': 'TypeController.typeProcess',
 
-
-//Kontragent
-
-  'get /kontraview': 'KontraController.view',
-
-
-  'post /kontra/:action': 'KontraController.kontraAction',
-
-
-//Catalogs
-
-  'get /catalogview': 'CatalogController.view',
-
-
-  'post /catalogadd': 'CatalogController.add',
-
-
-
-  //Список справочников
-  'get /cataloglistview': 'CatalogController.cataloglistview',
-
-  //Переход по ссылкам
-  'get /cataloglist': 'CatalogController.catalogtable',
-
-
-
-  'post /catalogs/:action': 'CatalogController.catalogedit',
-
-  'post /catalogdel': 'CatalogController.ctldel',
+////////////////////////////////////////////////////////////////////
 
 
 
@@ -143,20 +143,53 @@ module.exports.routes = {
 
 
 
-//Старт процесса
+
+
+
+
+
+
+  /**
+   * Старт процесса
+   */
   'get /startprocess': 'ProcessController.startProcess',
 
+  ////////////////////////////////////////////////////////////////////
+  /**
+   * Сокет для отображения взаимосвязанных таблиц
+   */
+  'post /fromsocket': 'ProcessController.fromsocketstart',
+
+////////////////////////////////////////////////////////////////////
+
+
+
+
+
+  /**
+   * Сохранение процесса
+   */
   'post /processpost': 'ProcessController.processSave',
 
+////////////////////////////////////////////////////////////////////
 
 
 
 
-  //Мои процессы
 
 
-'get /myprocess': 'MyProcessController.view',
 
+  /**
+   * Таблица с процессами
+   */
+  'get /myprocess': 'MyProcessController.view',
+
+////////////////////////////////////////////////////////////////////
+
+
+  /**
+   * Индивидуальный процесс
+   */
   'get /processlist': 'MyProcessController.processview',
 
 
@@ -168,12 +201,38 @@ module.exports.routes = {
 
 
   'post /answer/:action': 'MyProcessController.answer',
+////////////////////////////////////////////////////////////////////
 
 
+
+  /**
+   * Сохранение дочернего процесса
+   */
   'post /dprocesssave': 'MyProcessController.dprocess',
 
+////////////////////////////////////////////////////////////////////
 
-  'post /commentsave': 'MyProcessController.commentsave'
+
+
+  /**
+   * Сохранение комментария
+   */
+  'post /commentsave': 'MyProcessController.commentsave',
+
+////////////////////////////////////////////////////////////////////
+
+
+
+  /**
+   *Получить все уведомления текущего пользователя
+   */
+  'get /allnotif': 'NotifController.getAllNotif',
+
+  'get /getallnotifview': 'NotifController.view',
+
+  'post /sendtoread': 'NotifController.sendtoread'
+
+////////////////////////////////////////////////////////////////////
 
 
 

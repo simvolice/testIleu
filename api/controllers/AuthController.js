@@ -48,14 +48,6 @@ var AuthController = {
 
 
 
-  homeview: function(req, res, next){
-
-
-    res.view('homepage');
-
-
-
-  },
 
   restofromq: function(req, res, next){
     "use strict";
@@ -90,7 +82,7 @@ restoreEmail.restoreEmail(req, res, next);
 
 
   verifemail: function(req, res, next){
-      "use strict";
+
 
 
 

@@ -15,7 +15,10 @@ var Process = {
 
 
 
-    catalogs: {type: 'json'},
+    processfortable: {type: 'array'},
+
+
+
 
     url: {type: 'string', defaultsTo: function(){
 
@@ -100,7 +103,7 @@ var Process = {
 
 
     //Дочерние процессы
-    dprocess: {type: 'array'} //Будут в самой таблице Мои процессы
+    dprocess: {type: 'array'}//Будут в самой таблице Мои процессы
 
 
 

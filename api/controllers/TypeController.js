@@ -27,14 +27,27 @@ var TypeController = {
 
               NameProcess.find({typeProcess: typeprocess.id}).exec(function(err, nameprocess){
 
-                Catalogs.findOne({company: company.id}).exec(function(err, catalogs){
-
-                NameCatalogs.find({catalog:catalogs.id }).exec(function(err, namecatalog){
-
-                  Archive.find({}).exec(function(err, archive){
 
 
 
+
+
+              var  namePr = [];
+
+                nameprocess.forEach(function(item){
+
+
+                  item.name.forEach(function(item2){
+
+
+                    namePr.push(item2.name);
+
+
+                  })
+
+
+
+                });
 
 
 
@@ -95,7 +108,7 @@ var TypeController = {
 
 
 
-            res.view('typeview', {mass: providers, docs: arrFile, catalogs: namecatalog, archive: archive});
+            res.view('typeview', {mass: providers, docs: arrFile, name: namePr});
 
 
 
@@ -109,10 +122,8 @@ var TypeController = {
 
 
 
-                  });
 
-                })
-                })
+
 
           })
   })
@@ -176,8 +187,8 @@ var TypeController = {
 
               name: req.body.name,
               nameCollwithValue: obj,
-              primarydoc: [req.body.primarydoc],
-              dprocess:[req.body.dprocess]
+              primarydoc: req.body.primarydoc,
+              dprocess:req.body.dprocess
 
 
             };

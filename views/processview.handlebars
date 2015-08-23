@@ -181,6 +181,12 @@
 
 
 
+                            <a class="btn yellow" href="#form_modal11" data-toggle="modal">
+                                Значения из справочников <i class="fa fa-share"></i>
+                            </a>
+
+
+
 
                             <div class="panel panel-primary">
                                 <div class="panel-heading">
@@ -816,4 +822,67 @@
 
     </div>
 
+</div>
+
+
+
+<div id="form_modal11" class="modal fade" role="dialog" aria-labelledby="myModalLabel10" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Справочники</h4>
+            </div>
+            <div class="modal-body">
+
+
+
+                {{#each gridVal}}
+
+
+
+
+
+
+                <table style="border-collapse: collapse;">
+
+
+                    <thead>
+
+                    {{{headerTable}}}
+
+                    </thead>
+
+
+                    <tbody>
+
+{{#each rowTable}}
+
+  {{{this}}}
+
+{{/each}}
+
+
+                    </tbody>
+
+
+
+
+                </table>
+{{/each}}
+
+
+
+
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn green" data-dismiss="modal">Сохранить выбранные значения</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 </div>

@@ -45,6 +45,8 @@ var ProcessController = {
 
 
           obj = item.nameCollwithValue;
+
+
           primaryDoc = item.primarydoc;
 
           dprocess = item.dprocess;
@@ -212,9 +214,6 @@ var ProcessController = {
 
 
 
-
-
-
   processSave: function(req, res, next){
 
 
@@ -241,14 +240,7 @@ var ProcessController = {
 
 
 
-
-
-
-
-
-
-
-    User.find({id: req.body.performer}).exec(function(err, userm){
+        User.find({id: req.body.performer}).exec(function(err, userm){
 
 
      var nameWithID = userm.map(function(item){
@@ -327,12 +319,39 @@ var ProcessController = {
 
               files: undescore.pluck(uploadedFiles, 'filename'),
 
-              catalogs: req.body.fromtable
+
+
+              processfortable: req.body.dprocess.split(",")
 
 
 
             }).exec(function(err, process){
 
+              CatalogForProcess.findOne({nameProcess: req.body.name}).exec(function(err, ctlforprocess){
+
+                if (ctlforprocess == null){
+
+                  CatalogForProcess.create({company: company.id, nameProcess: req.body.name, headerTable: req.body.headertable, rowTable: []}).exec(function(err, ctl){
+
+
+                    ctl.rowTable.push(req.body.rowfromtable);
+                    ctl.save(function(err){});
+
+                  })
+
+
+
+                } else {
+
+                  ctlforprocess.rowTable.push(req.body.rowfromtable);
+                  ctlforprocess.save(function(err){});
+
+
+
+                }
+
+
+              });
 
               if (err) return res.serverError(err);
 

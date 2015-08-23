@@ -47,8 +47,6 @@ var Company = {
 
 
 
-    catalogs: {collection: 'Catalogs', via: 'company'},
-
 
 
 
@@ -60,7 +58,9 @@ var Company = {
 
 
 
-    kontragent: {collection: 'Kontragents', via: 'company'},
+
+
+    catalogforprocess: {collection: 'CatalogForProcess', via: 'company'}
 
 
 
@@ -77,10 +77,6 @@ var Company = {
 
 
   }
-
-
-  //Здесь пишем все before
-
 
 
 

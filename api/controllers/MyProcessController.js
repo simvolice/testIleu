@@ -159,8 +159,50 @@ var MyProcessController = {
 
 Comments.find({process: process.id}).exec(function(err, comments){
 
+  CatalogForProcess.find({}).exec(function(err, process22){
 
 
+
+
+    var findItem = ['Служебка666 55c9fab09b9465f0208daf81', 'simvolice 55c9fab09b9465f0208daf81'];
+
+
+
+
+    var arrHeader = [];
+
+
+
+    process22.forEach(function(item){
+
+      findItem.forEach(function(item2){
+
+
+        if (item.nameProcess == item2){
+
+
+
+
+
+
+
+
+          arrHeader.push(item);
+
+
+
+
+
+
+
+
+        }
+
+      });
+
+
+
+    });
 
 
                 var obj = {};
@@ -255,18 +297,43 @@ Comments.find({process: process.id}).exec(function(err, comments){
 
 
 
-            })
+            });
 
 
 
 
 
-            res.view('processview', {comments: comments ,process: process, name: process.name, roleInProcess: user.roleInProcess, disabled: disabledButton, type: nameType,  nameProcess: undescore.flatten(ret), employees: user2, id: company.employees, kontra: kontra, documents: undescore.flatten(documents)});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  res.view('processview', {gridVal: arrHeader ,comments: comments ,process: process, name: process.name, roleInProcess: user.roleInProcess, disabled: disabledButton, type: nameType,  nameProcess: undescore.flatten(ret), employees: user2, id: company.employees, kontra: kontra, documents: undescore.flatten(documents)});
 
 
           });
 
-
+});
 
             });
 

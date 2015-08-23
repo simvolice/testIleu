@@ -33,11 +33,13 @@ exports.sendMail = function(pathTemplate, uuid, to, subject, res ) {
 
 
 
+          var url = sails.getBaseurl() + '/verifEmail?id=' + uuid;
 
             var locals = {
 
-                uuid: uuid,
-                email: to
+                url: url,
+                email: to,
+              uuid: uuid
 
 
             };

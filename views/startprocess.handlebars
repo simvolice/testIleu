@@ -28,7 +28,7 @@
                                             <label class="control-label">Тип процесса</label>
 
 
-                                            <select id="type" name="type" class="bs-select form-control" data-live-search="true" data-size="auto">
+                                            <select id="type" name="type">
 
                                               {{#each type}}
 
@@ -77,6 +77,10 @@
 
 
 
+                                      <input type="hidden" name="dprocess">
+                                      <input type="hidden" name="primarydoc">
+
+
                                         <div class="form-group" style="margin-top: 40px">
                                             <label class="control-label">Таблица</label>
                                             <a href="#portlet-config" class="btn" data-toggle="modal" style="margin-left: 80%; background: #DDDDDD">Работа со справочником</a>
@@ -84,7 +88,8 @@
 
 
 
-                                            <input name="fromtable" type="hidden">
+                                            <input name="rowfromtable" type="hidden">
+                                            <input name="headertable" type="hidden">
 
 
                                             <table id="newtable" style="border-collapse: collapse;">
@@ -385,6 +390,9 @@
             </div>
 
         </div>
+
+
+
 
 
 

@@ -1,5 +1,5 @@
 <!-- full width -->
-<div id="full-width" class="modal container fade" tabindex="-1">
+<div id="createcompany" class="modal container fade" tabindex="-1">
 
 
 
@@ -92,12 +92,12 @@
                                         <label class="control-label">Поиск компаний</label>
 
 
-                                        <select name="city" class="bs-select form-control" data-live-search="true" data-size="8" >
+                                        <select id="companyid" class="bs-select form-control" data-live-search="true" data-size="8" >
 
-                                          {{#each citys}}
+                                          {{#each company}}
 
 
-                                              <option value="{{this}}">{{this}}</option>
+                                              <option value="{{id}}">{{name}}</option>
 
                                           {{/each}}
 
@@ -113,7 +113,11 @@
 
 
 
+                                    <div class="margiv-top-10">
+                                        <button id="sendreq" class="btn green-haze">
+                                            Отправить запрос </button>
 
+                                    </div>
                                 </div>
                                 <!-- END CHANGE AVATAR TAB -->
 
@@ -146,3 +150,5 @@
     </div>
 
 </div>
+
+

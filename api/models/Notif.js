@@ -14,9 +14,16 @@ var Notif = {
     text: {type: 'string'},
 
 
+    read: {type: 'boolean', defaultsTo: function(){
+
+
+      return false;
+
+    }},
+
     date: {
       type: 'string', defaultsTo: function () {
-        "use strict";
+
 
         return moment().startOf('minute').fromNow();
 

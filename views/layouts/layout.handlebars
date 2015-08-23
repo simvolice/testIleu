@@ -69,14 +69,10 @@ License: You must have a valid license purchased only from themeforest(the above
 
 
 
-    <link rel="stylesheet" type="text/css" href="../../assets/global/plugins/select2/select2.css"/>
     <link rel="stylesheet" type="text/css" href="../../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
 
 
-    <link rel="stylesheet" type="text/css" href="../../assets/global/plugins/scrollYou/scrollyou.css">
 
-
-    <link rel="stylesheet" type="text/css" href="../../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
 
     <!-- END PAGE LEVEL STYLES -->
 
@@ -148,107 +144,22 @@ License: You must have a valid license purchased only from themeforest(the above
                     <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
                     <li class="dropdown dropdown-extended dropdown-notification dropdown-dark" id="header_notification_bar">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                            <i class="icon-bell"></i>
-						<span class="badge badge-success">
-						7 </span>
+                            <i id="bell" class="icon-bell"></i>
+						<span id="countunreadnotif" class="badge badge-success">
+						 </span>
                         </a>
                         <ul class="dropdown-menu">
                             <li class="external">
-                                <h3><span class="bold">12 pending</span> notifications</h3>
-                                <a href="extra_profile.html">view all</a>
+                                <h3>Уведомления</h3>
+                                <a href="/getallnotifview">Прочитать все</a>
                             </li>
                             <li>
-                                <ul class="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283">
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="time">just now</span>
-										<span class="details">
-										<span class="label label-sm label-icon label-success">
-										<i class="fa fa-plus"></i>
-										</span>
-										New user registered. </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="time">3 mins</span>
-										<span class="details">
-										<span class="label label-sm label-icon label-danger">
-										<i class="fa fa-bolt"></i>
-										</span>
-										Server #12 overloaded. </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="time">10 mins</span>
-										<span class="details">
-										<span class="label label-sm label-icon label-warning">
-										<i class="fa fa-bell-o"></i>
-										</span>
-										Server #2 not responding. </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="time">14 hrs</span>
-										<span class="details">
-										<span class="label label-sm label-icon label-info">
-										<i class="fa fa-bullhorn"></i>
-										</span>
-										Application error. </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="time">2 days</span>
-										<span class="details">
-										<span class="label label-sm label-icon label-danger">
-										<i class="fa fa-bolt"></i>
-										</span>
-										Database overloaded 68%. </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="time">3 days</span>
-										<span class="details">
-										<span class="label label-sm label-icon label-danger">
-										<i class="fa fa-bolt"></i>
-										</span>
-										A user IP blocked. </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="time">4 days</span>
-										<span class="details">
-										<span class="label label-sm label-icon label-warning">
-										<i class="fa fa-bell-o"></i>
-										</span>
-										Storage Server #4 not responding dfdfdfd. </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="time">5 days</span>
-										<span class="details">
-										<span class="label label-sm label-icon label-info">
-										<i class="fa fa-bullhorn"></i>
-										</span>
-										System Error. </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="time">9 days</span>
-										<span class="details">
-										<span class="label label-sm label-icon label-danger">
-										<i class="fa fa-bolt"></i>
-										</span>
-										Storage server failed. </span>
-                                        </a>
-                                    </li>
+                                <ul id="listfornotif" class="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283">
+
+
+
+
+
                                 </ul>
                             </li>
                         </ul>
@@ -436,63 +347,14 @@ License: You must have a valid license purchased only from themeforest(the above
                     <span class="arrow "></span>
                 </a>
                 <ul class="sub-menu">
+
+
+
                     <li>
-                        <a href="javascript:;">
-                            <i class="icon-settings"></i> Моя компания <span class="arrow"></span>
-                        </a>
-                        <ul class="sub-menu">
-                            <li>
-
-                                <ul class="sub-menu">
-                                    <li>
-                                        <a href="/cataloglistview">
-                                            <i class="icon-docs"></i>
-                                            Справочники</a>
-                                    </li>
-                                    <li>
-                                        <a href="/catalogview">
-                                            <i class="icon-docs"></i>
-                                            Создать справочник</a>
-                                    </li>
-                                    <li>
-                                        <a href="/typeview">
-                                            <i class="icon-shuffle"></i>
-                                            Процессы</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="/kontraview">
-                                            <i class="icon-notebook"></i>
-                                            Контрагенты</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="/cataloglistview">
-                                    <i class="icon-docs"></i>
-                                    Справочники</a>
-                            </li>
-                            <li>
-                                <a href="/catalogview">
-                                    <i class="icon-docs"></i>
-                                    Создать справочник</a>
-                            </li>
-                            <li>
-                                <a href="/typeview">
-                                    <i class="icon-shuffle"></i>
-                                    Процессы</a>
-                            </li>
-
-                            <li>
-                                <a href="/kontraview">
-                                    <i class="icon-notebook"></i>
-                                    Контрагенты</a>
-                            </li>
-                        </ul>
+                        <a href="/typeview">
+                            <i class="icon-shuffle"></i>
+                            Процессы</a>
                     </li>
-
-
-
 
 
                             <li>
@@ -500,6 +362,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <i class="icon-shuffle"></i>
                                     Мои процессы</a>
                             </li>
+
+
                             <li>
                                 <a href="/startprocess">
                                     <i class="icon-rocket"></i>
@@ -596,9 +460,8 @@ License: You must have a valid license purchased only from themeforest(the above
 
 <!-- BEGIN PAGE LEVEL PLUGINS -->
 
-<script src="../../js/dependencies/sails.io.js"></script>
 
-<script src="../../assets/global/plugins/scrollYou/scrollYou.js" type="text/javascript"></script>
+
 
 
 <script src="../../assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
@@ -611,7 +474,6 @@ License: You must have a valid license purchased only from themeforest(the above
 
 
 <script src="../../assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js" type="text/javascript"></script>
-<script src="../../assets/global/plugins/jquery.sparkline.min.js" type="text/javascript"></script>
 
 <script type="text/javascript" src="../../assets/global/plugins/bootstrap-select/bootstrap-select.min.js"></script>
 
@@ -636,7 +498,9 @@ License: You must have a valid license purchased only from themeforest(the above
 
 <script src="../../assets/global/scripts/metronic.js" type="text/javascript"></script>
 <script src="../../assets/admin/layout4/scripts/layout.js" type="text/javascript"></script>
-<script src="../../assets/admin/layout4/scripts/demo.js" type="text/javascript"></script>
+
+
+
 <script src="../../assets/admin/pages/scripts/components-pickers.js"></script>
 <script src="../../assets/admin/pages/scripts/components-dropdowns.js"></script>
 <script src="../../assets/admin/pages/scripts/components-editors.js"></script>
@@ -646,8 +510,6 @@ License: You must have a valid license purchased only from themeforest(the above
 
 <script type="text/javascript" src="../../assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="../../assets/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
-<script type="text/javascript" src="../../assets/global/plugins/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js"></script>
-<script type="text/javascript" src="../../assets/global/plugins/datatables/extensions/Scroller/js/dataTables.scroller.min.js"></script>
 
 <script type="text/javascript" src="../../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 
@@ -657,47 +519,59 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="../../assets/admin/pages/scripts/table-advanced.js"></script>
 <script src="../../assets/admin/pages/scripts/component-addcoll.js"></script>
 
-<script src="../../assets/admin/pages/scripts/startprocess.js"></script>
+
 <script src="../../assets/admin/pages/scripts/profilesock.js"></script>
 
+<script src="../../assets/admin/pages/scripts/startprocess.js"></script>
 
+<script src="../../assets/admin/pages/scripts/homepage.js"></script>
 
-
-
+<script src="../../assets/admin/pages/scripts/forNotif.js"></script>
 
 <script src="../../js/jquery.chained.min.js"></script>
 
 
+<script src="../../js/dependencies/sails.io.js"></script>
 
 
-
+<script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.17.0/TweenMax.min.js"></script>
 
 
 <script>
     jQuery(document).ready(function() {
 
 
+        $('#createcompany').modal('show');
+
         Metronic.init(); // init metronic core components
         Layout.init(); // init current layout
-        Demo.init(); // init demo features
+
         ComponentsPickers.init();
         ComponentsDropdowns.init();
         ComponentsEditors.init();
         UINestable.init();
-        TableAdvanced.init();
+
+
+        ForNotif.init();
+
+
 
         ComponentsAddColl.init();//Кастомный скрипт для добавления полей в инпуте
 
-        StartProcess.init();
+
 
         ProfileSock.init();
 
+        HomePageSock.init();
+
+        StartProcess.init();
 
 
 
+        TableAdvanced.init();
 
 
-        $('#full-width').modal('show');
+
 
 
         $("#name").chained("#type");
@@ -711,8 +585,12 @@ License: You must have a valid license purchased only from themeforest(the above
 
 
 
+
 });
 </script>
+
+
+
 <!-- END JAVASCRIPTS -->
 
 

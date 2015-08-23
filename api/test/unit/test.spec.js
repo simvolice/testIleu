@@ -15,42 +15,36 @@ describe(TEST_NAME, function() {
 
 
 
-        User.findOne({id: '55c71d15a6817fc81727f49c'}).exec(function(err, user){
-
-            Company.findOne({employees: user.id}).exec(function(err, company) {
-
-                TypeProcess.findOne({company: company.id}).exec(function(err, typeprocess) {
-
-
-                    NameProcess.find({typeProcess: typeprocess.id}).exec(function (err, nameprocess) {
-
-
-                        var obj = {};
-
-
-                        nameprocess.forEach(function(item){
-
-
-                             item.name.forEach(function(item2){
-
-
-                               obj =  item2.nameCollwithValue;
-
-
-
-                            });
-
-
-
-                        });
+     Process.find({}).exec(function(err, process){
 
 
 
 
 
-                        console.log(obj);
+       var arrFind = ['Служебка666 55c9fab09b9465f0208daf81', 'simvolice 55c9fab09b9465f0208daf81'];
 
-                        done();
+
+
+       var arrHeader = [];
+
+       var arrVal = [];
+
+       var arr = [];
+
+       var obj = {};
+
+
+       var arrNew = [];
+
+       process.forEach(function(item){
+
+         arrFind.forEach(function(item2){
+
+
+         if (item.name == item2){
+
+
+           arr.push(item.catalogs.th);
 
 
 
@@ -59,11 +53,41 @@ describe(TEST_NAME, function() {
 
 
 
+         }
+
+       })
+
+       });
 
 
 
 
-                    });});});});
+
+      var arrUniqui = undescore.uniq(arr);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       console.log(arrN);
+       done();
+
+
+
+
+     })
+
+
+
 
 
     });

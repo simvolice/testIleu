@@ -9,16 +9,16 @@
         <div class="clearfix">
 
 
-            <form action="/filter" method="post">
+
 
         <div class="btn-group btn-group-solid" style="margin-bottom: 20px;">
-            <button id="inProcess" type="submit" class="btn green" style="margin-right: 20px;">Входящие</button>
-            <button id="outProcess" type="button" class="btn yellow" style="margin-right: 20px;">Исходящие</button>
-            <button id="dueProcess" type="button" class="btn red" style="margin-right: 20px;">Просроченные</button>
+            <button id="inProcess" class="btn green" style="margin-right: 20px;">Входящие</button>
+            <button id="outProcess" class="btn yellow" style="margin-right: 20px;">Исходящие</button>
+            <button id="dueProcess" class="btn red" style="margin-right: 20px;">Просроченные</button>
         </div>
 
 
-            </form>
+
 
 </div>
 
@@ -51,10 +51,47 @@
 
 
 
-                                <th style="display: none;">Входящие</th>
-                                <th style="display: none;">Исходящие</th>
-                                <th style="display: none;">Просроченные</th>
 
+                                <th>Имя</th>
+
+
+
+
+
+
+                                <th>Дата начала</th>
+
+
+                                <th>Дата окончания</th>
+
+
+
+                                <th>Исполнители</th>
+
+                                <th>Ответственные</th>
+
+
+
+                                <th>Статус</th>
+
+
+
+
+
+
+
+
+                                <th>Действия</th>
+
+
+
+
+
+                            </tr>
+                            </thead>
+
+                            <tfoot>
+                            <tr>
 
 
                                 <th>Имя</th>
@@ -79,7 +116,6 @@
 
 
 
-
                                 <th>Статус</th>
 
 
@@ -91,42 +127,22 @@
 
                                 <th>Действия</th>
 
+
+
                             </tr>
-                            </thead>
+                            </tfoot>
+
+
                             <tbody>
 
-
                             {{#each process}}
+
+
+
                                 <tr>
 
 
 
-                                    <td style="display: none;">
-
-
-                                        {{inProcess}}
-
-
-                                    </td>
-
-
-                                    <td style="display: none;">
-
-
-                                        {{outProcess}}
-
-
-                                    </td>
-
-
-                                    <td style="display: none;">
-
-
-                                      {{dueProcess}}
-
-
-                                    </td>
-
 
 
 
@@ -136,7 +152,7 @@
 
 
 
-                                        {{name}}
+                                      {{name}}
 
 
 
@@ -147,7 +163,7 @@
 
 
 
-                                        {{dateTimeStart}}
+                                      {{dateTimeStart}}
 
 
 
@@ -158,7 +174,7 @@
                                     <td>
 
 
-                                        {{dueDateTime}}
+                                      {{dueDateTime}}
 
 
 
@@ -167,34 +183,32 @@
 
 
                                     <td>
-                                    {{#performer}}
+                                      {{#performer}}
 
-
-
-                                       <li>{{nameUser}}</li>
-
-
-                                    {{/performer}}
-                                    </td>
-
-
-                                    <td>
-
-                                        {{#answerable}}
 
 
                                           <li>{{nameUser}}</li>
 
 
-                                        {{/answerable}}
+                                      {{/performer}}
+                                    </td>
+
+
+                                    <td>
+
+                                      {{#answerable}}
+
+
+                                          <li>{{nameUser}}</li>
+
+
+                                      {{/answerable}}
 
 
 
 
 
                                     </td>
-
-
 
 
 
@@ -220,7 +234,7 @@
 
                                           {{#is status "Отправлен на доработку"}}
 
-                                                  <span class="label label-warning">
+                                              <span class="label label-warning">
 									Отправлен на доработку </span>
 
 
@@ -229,7 +243,7 @@
 
                                             {{#is status "Закончен положительно"}}
 
-                                                    <span class="label label-warning">
+                                                <span class="label label-warning">
 									Закончен положительно </span>
 
 
@@ -238,22 +252,22 @@
 
                                               {{#is status "Закончен отрицательно"}}
 
-                                                      <span class="label label-warning">
+                                                  <span class="label label-warning">
 									Закончен отрицательно </span>
 
 
                                               {{else}}
 
 
-                                                      <span class="label label-success">
+                                                  <span class="label label-success">
 									Работа окончена </span>
 
 
 
                                               {{/is}}
                                             {{/is}}
-              {{/is}}
-                                      {{/is}}
+                                          {{/is}}
+                                        {{/is}}
                                       {{/is}}
 
 
@@ -282,12 +296,11 @@
 
 
 
+
+
                                 </tr>
 
                             {{/each}}
-
-
-
 
                             </tbody>
 
@@ -299,12 +312,10 @@
 
 
 
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 

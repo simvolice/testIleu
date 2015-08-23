@@ -10,9 +10,11 @@ exports.verifEmail = function(req, res, next){
 
 
 
-  if (req.query.id === '') {
 
-    return res.badRequest();
+
+  if (req.query.id == null) {
+
+    return res.badRequest('Ваш индитификатор пустой');
 
   }else {
 
@@ -22,6 +24,12 @@ exports.verifEmail = function(req, res, next){
       if (err) {
 
         return res.badRequest(err);
+
+      }
+
+      if (result == null){
+
+        return res.badRequest('Вы используете не правильный индитификатор');
 
       }
       if (result.verificatedEmail) {
@@ -35,12 +43,12 @@ exports.verifEmail = function(req, res, next){
       User.update({verifTokenEmail: req.query.id}, {verificatedEmail: true})
         .exec(function (err, users) {
 
-          users.verificatedEmail = true;
+          return res.redirect('/login');
 
 
         });
 
-      return res.redirect('/login');
+
 
     });
 
