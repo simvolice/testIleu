@@ -8,8 +8,21 @@
 <!-- BEGIN PAGE CONTENT-->
     <!-- TIMELINE ITEM -->
 
-<button id="allread" class="btn btn-success">
-    Отметить все как Прочитанно </button>
+
+
+
+
+{{#empty notif}}
+    <button id="allread" class="btn btn-success disabled">
+        Отметить все как Прочитанно </button>
+{{else}}
+    <button id="allread" class="btn btn-success">
+        Отметить все как Прочитанно </button>
+{{/empty}}
+
+
+
+
 
   {{#each notif}}
 
@@ -48,6 +61,21 @@
                 </div>
 
             </div>
+
+
+
+
+            {{#is labelforemployees true}}
+
+                <button data-idforattr="{{idforattr}}" class="yes btn btn-success">Да, это наш сотрудник </button> <button data-idforattr="{{idforattr}}" class="no btn btn-warning">Нет, я его не знаю </button>
+
+            {{else}}
+
+
+            {{/is}}
+
+
+
             <div class="timeline-body-content">
 							<span class="font-grey-cascade">
 
@@ -55,11 +83,29 @@
 							{{text}}
 </span>
 
+                <input class="fromreq" data-idforattr="{{idforattr}}" type="hidden" value="{{fromreq}}">
 
-              <input type="hidden" id="idnotif" value="{{id}}">
+              <input type="hidden" class="idnotif" value="{{id}}" data-idforattr="{{idforattr}}">
 
-                 <button id="oneread" class="btn btn-success">
-									Отметить как Прочитанно </button>
+
+
+
+
+                {{#is read true}}
+
+
+                    <button data-idforattr="{{idforattr}}" class="oneread btn btn-success disabled">
+                        Отметить как Прочитанно </button>
+
+                {{else}}
+
+
+                    <button data-idforattr="{{idforattr}}" class="oneread btn btn-success">
+                        Отметить как Прочитанно </button>
+
+
+                {{/is}}
+
             </div>
         </div>
     </div>

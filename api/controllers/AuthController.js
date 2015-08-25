@@ -215,6 +215,8 @@ restoreEmail.restoreEmail(req, res, next);
 
 
       res.clearCookie('ileu');
+      res.clearCookie('io');
+
 
       req.logout();
 
@@ -344,6 +346,8 @@ restoreEmail.restoreEmail(req, res, next);
 
 
           };
+
+
 
           // Upon successful login, send the user to the homepage were req.user
         // will be available.

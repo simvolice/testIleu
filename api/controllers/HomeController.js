@@ -43,7 +43,14 @@ var HomeController = {
 
     var param = req.params.all();
 
-    var socketId = sails.sockets.id(req.socket);
+
+
+
+
+
+
+
+
 
 
     Company.findOne({id: param.companyid}).exec(function(err, company){
@@ -54,7 +61,7 @@ var HomeController = {
         User.findOne({id: req.user.id}).exec(function(err, userfromreq){
 
 
-        Notif.create({user: user.id, text: 'Вам поступил новый запрос на вступление в компанию от пользователя: ' + userfromreq.firstname + ' ' +userfromreq.lastname}).exec(function(err, notif){
+        Notif.create({user: user.id,fromreq: req.user.id, text: 'Вам поступил новый запрос на вступление в компанию от пользователя: ' + userfromreq.firstname + ' ' +userfromreq.lastname, labelforemployees: true}).exec(function(err, notif){
 
 
 
@@ -63,10 +70,19 @@ var HomeController = {
 
 
 
-          sails.sockets.emit(socketId, 'privateNotif', {from: req.user.id, msg: notif.text, datetime: notif.date});
+
+
+            sails.sockets.emit(user.socketid, 'privateNotif', {from: req.user.id, msg: notif.text, datetime: notif.date});
+
+
+
+
+
+
 
 
           res.send('ok');
+
 
 
 

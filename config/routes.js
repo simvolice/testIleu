@@ -230,8 +230,11 @@ module.exports.routes = {
 
   'get /getallnotifview': 'NotifController.view',
 
-  'post /sendtoread': 'NotifController.sendtoread'
+  'post /sendtoread': 'NotifController.sendtoread',
 
+    'post /yesreq': 'NotifController.yesreq',
+
+    'post /noreq': 'NotifController.noreq'
 ////////////////////////////////////////////////////////////////////
 
 

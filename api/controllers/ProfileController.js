@@ -47,7 +47,7 @@ var ProfileController = {
     //Нужен новый сервис сразу, пока накидка в вид
 
 
-    fs.readFile('C:/Users/Moon/Desktop/testIleu/config/locales/citys.txt', 'utf-8', function (err, data) {
+    fs.readFile(process.cwd() + '/config/locales/citys.txt', 'utf-8', function (err, data) {
 
 
 

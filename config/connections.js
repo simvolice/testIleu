@@ -62,7 +62,7 @@ module.exports.connections = {
     port: 27017,
     // user: 'username',
     // password: 'password',
-    database: 'ileu4'
+    database: 'ileu'
   },
 
   /***************************************************************************

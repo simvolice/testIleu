@@ -77,7 +77,9 @@ var TypeController = {
 
                 var arrFile = [];
 
-                fs.readdir('C:/Users/Moon/Desktop/testIleu/views/doc', function(err, files){
+                fs.readdir(process.cwd() + '/views/doc/', function(err, files){
+
+
 
 
 

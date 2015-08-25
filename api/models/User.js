@@ -12,6 +12,10 @@ module.exports = {
 
 //TODO:Стандартные атрибуты, далее будут проверяться
 
+
+
+    socketid: {type: 'string'},
+
     username  : { type: 'string', unique: true },
 
 

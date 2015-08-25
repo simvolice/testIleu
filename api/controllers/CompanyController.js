@@ -20,17 +20,13 @@ var CompanyController = {
 
     fs.mkdir(process.cwd() + '/driver/' + req.user.email +'/company/'+ req.body.name,function(err){
 
-      sails.log(err);
+
 
     });
 
 
     req.file('logo').upload({maxBytes: 1000000},function (err, uploadedFiles){
 
-
-      if (err)  return res.serverError('Лого должен быть картинкой JPEG или PNG, и не больше 1 Мб');
-
-      if (uploadedFiles[0] == null) return res.serverError('Лого должен быть картинкой JPEG или PNG, и не больше 1 Мб');
 
 
 
@@ -109,15 +105,7 @@ var CompanyController = {
 
                 });
               }
-          else {
 
-
-
-              return res.serverError('Лого должен быть картинкой JPEG или PNG, и не больше 1 Мб');
-
-
-
-            };
 
 
           });

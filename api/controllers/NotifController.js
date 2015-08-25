@@ -11,6 +11,7 @@ var NotifController = {
 
 
 
+
   view: function(req, res, next){
 
 
@@ -100,6 +101,130 @@ var NotifController = {
 
 
     }
+
+
+
+
+
+
+
+  },
+
+
+
+  yesreq: function(req, res, next){
+
+
+    var param = req.params.all();
+
+
+
+
+
+
+
+    Company.findOne({user: req.user.id}).exec(function(err, company){
+
+
+
+
+      //Проверка на уже имеющегося сотрдуника
+
+      company.employees.push(param.fromreq);
+      company.save(function(err){});
+
+
+      Notif.update({id: param.notifid}, {labelforemployees: false, read:true}).exec(function(err, notif){
+
+
+      Notif.create({user: param.fromreq, text: 'Вы успешно добавлены в компанию: ' + company.name + ' Поздравляем!!!'}).exec(function(err, yesnotif){
+
+        User.findOne({id: param.fromreq}).exec(function(err, fromrequser){
+
+
+
+
+
+
+        sails.sockets.emit(fromrequser.socketid, 'privateNotif', {from: req.user.id, msg: yesnotif.text, datetime: yesnotif.date});
+
+        res.send('ok');
+
+
+
+
+
+
+
+
+
+
+      });
+
+      });
+
+      });
+
+
+
+
+
+
+
+
+    })
+
+
+
+
+  },
+
+
+
+  noreq: function(req, res, next){
+
+
+    var param = req.params.all();
+
+
+    Company.findOne({user: req.user.id}).exec(function(err, company){
+
+    Notif.update({id: param.notifid}, {labelforemployees: false, read: true}).exec(function(err, notif){
+
+
+      Notif.create({user: param.fromreq, text: 'Вам отказано от компании: ' + company.name + ' Мы сожалеем!!!'}).exec(function(err, yesnotif){
+
+        User.findOne({id: param.fromreq}).exec(function(err, fromrequser){
+
+
+
+
+
+
+          sails.sockets.emit(fromrequser.socketid, 'privateNotif', {warning: true ,from: req.user.id, msg: yesnotif.text, datetime: yesnotif.date});
+
+          res.send('ok');
+
+
+
+
+
+
+
+
+        });
+
+        });
+
+      });
+
+    });
+
+
+
+
+
+
 
 
 

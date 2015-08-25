@@ -44,12 +44,11 @@ module.exports.sockets = {
   // -OR-
   //
 
- /*adapter: 'sails-mongo',
+ adapter: 'socket.io-redis',
   host: 'localhost',
-  port: 27017,
+  port: 6379,
   // user: 'username',
   // password: 'password',
-  database: 'ileu4',*/
 
 
 
@@ -66,7 +65,7 @@ module.exports.sockets = {
   *                                                                          *
   ***************************************************************************/
 
-  //grant3rdPartyCookie: true,
+ grant3rdPartyCookie: true,
 
 
 
@@ -107,12 +106,15 @@ module.exports.sockets = {
   * app's security.                                                          *
   *                                                                          *
   ***************************************************************************/
-  // beforeConnect: function(handshake, cb) {
-  //   // `true` allows the connection
-  //   return cb(null, true);
-  //
-  //   // (`false` would reject the connection)
-  // },
+  /* beforeConnect: function(handshake, cb) {
+     // `true` allows the connection
+
+
+
+     return cb(null, true);
+
+     // (`false` would reject the connection)
+   },*/
 
 
   /***************************************************************************
@@ -137,6 +139,6 @@ module.exports.sockets = {
   * transport should be disabled.                                            *
   *                                                                          *
   ***************************************************************************/
-  //transports: ["polling", "websocket"]
+ // transports: ["polling", "websocket"]
 
 };

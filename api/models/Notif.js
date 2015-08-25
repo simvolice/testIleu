@@ -2,6 +2,10 @@
  * Created by Moon on 08.07.2015.
  */
 
+
+
+    var uuid = require('node-uuid');
+
 var moment = require('moment');
 moment.locale('ru');
 
@@ -9,7 +13,17 @@ var Notif = {
 
   attributes: {
 
+    labelforemployees: {type: 'boolean'},
 
+    idforattr: {type: 'uuid', defaultsTo: function(){
+
+      return uuid.v4();
+
+    }},
+
+    fromreq: {type: 'string'},
+
+    htmlcontent: {type: 'string'},
 
     text: {type: 'string'},
 

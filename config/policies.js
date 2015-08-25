@@ -28,7 +28,7 @@ module.exports.policies = {
 
 
 
-  '*': ['passport', 'isAuth'],
+  '*': ['passport', 'isAuth', 'socketadd'],
 
 
 
@@ -41,7 +41,7 @@ module.exports.policies = {
   'ProfileController': {
 
 
-    '*': ['passport', 'isAuth']
+    '*': ['passport', 'isAuth', 'socketadd']
 
   }
 
