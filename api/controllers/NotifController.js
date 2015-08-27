@@ -2,7 +2,7 @@
  * Created by Moon on 23.08.2015.
  */
 
-
+var undescore = require('underscore');
 
 var NotifController = {
 
@@ -128,7 +128,7 @@ var NotifController = {
 
 
 
-      //Проверка на уже имеющегося сотрдуника
+      if (!undescore.contains(company.employees, param.fromreq)){
 
       company.employees.push(param.fromreq);
       company.save(function(err){});
@@ -165,7 +165,43 @@ var NotifController = {
 
       });
 
+    }else {
 
+        Notif.update({id: param.notifid}, {labelforemployees: false, read:true}).exec(function(err, notif){
+
+
+          Notif.create({user: param.fromreq, text: 'Вы уже состоите в компании: ' + company.name + ' Поздравляем!!!'}).exec(function(err, yesnotif){
+
+            User.findOne({id: param.fromreq}).exec(function(err, fromrequser){
+
+
+
+
+
+
+              sails.sockets.emit(fromrequser.socketid, 'privateNotif', {from: req.user.id, msg: yesnotif.text, datetime: yesnotif.date});
+
+              res.send('ok');
+
+
+
+
+
+
+
+
+
+
+            });
+
+          });
+
+        });
+
+
+
+
+      }
 
 
 

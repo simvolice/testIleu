@@ -104,11 +104,11 @@ var ProfileController = {
             gm(uploadedFiles[0].fd)
               .resize(240, 240)
               .noProfile()
-              .write(process.cwd + '/driver/' + req.user.email+'/avatar.'+ data.format.toLowerCase(), function(err){
+              .write(process.cwd() + '/.tmp/public/driver/' + req.user.email+'/avatar.'+ data.format.toLowerCase(), function(err){
 
                 if (err) throw  err;
 
-                User.update({id: req.user.id}, {avatar: process.cwd + '/driver/' + req.user.email+'/avatar.'+ data.format.toLowerCase()}).
+                User.update({id: req.user.id}, {avatar: 'driver/' + req.user.email+'/avatar.'+ data.format.toLowerCase()}).
                  exec(function(err, user){
 
 

@@ -19,7 +19,7 @@ var TypeProcess = {
 
 
 
-
+    nameType: {type: 'string'},
 
 
 

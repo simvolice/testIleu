@@ -98,6 +98,8 @@ var lastname = req.param('lastname');
 
 
   User.create({
+
+    displayname: firstname + ' ' + lastname,
     lastname : lastname
   , email    : email,
    firstname: firstname,
@@ -146,14 +148,14 @@ var lastname = req.param('lastname');
           mailSend.sendMail('emailReg', result.verifTokenEmail, email, 'Подтверждение регистрации');
 
 
-      fs.mkdir(process.cwd() + '/driver/' + result.email,function(err){
+      fs.mkdir(process.cwd() + '/.tmp/public/driver/' + result.email,function(err){
 
         sails.log(err);
 
       });
 
 
-      fs.mkdir(process.cwd() + '/driver/' + result.email +'/company/',function(err){
+      fs.mkdir(process.cwd() + '/.tmp/public/driver/' + result.email +'/company/',function(err){
 
         sails.log(err);
 

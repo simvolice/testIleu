@@ -30,10 +30,10 @@
 
                                             <select id="type" name="type">
 
-                                              {{#each type}}
+                                              {{#each typeprocess}}
 
 
-                                                  <option value="{{#delspace}}{{this}}{{/delspace}}">{{this}}</option>
+                                                  <option value="{{id}}">{{nameType}}</option>
 
                                               {{/each}}
 
@@ -57,11 +57,12 @@
                                             <select id="name" name="name" class="form-control">
 
 
-                                                  {{#each nameProcess}}
+                                                  {{#each nameprocess}}
 
 
 
-                                                        <option value="{{value}} {{id}}" class="{{name}}">{{value}}</option>
+
+                                                        <option value="{{idname}}" class="{{id}}">{{name}}</option>
 
 
 
@@ -77,7 +78,7 @@
 
 
 
-                                      <input type="hidden" name="dprocess">
+                                      <input type="hidden" name="connectprocess">
                                       <input type="hidden" name="primarydoc">
 
 
@@ -169,19 +170,8 @@
                                               {{#each employees}}
 
 
-                                                {{#if firstname}}
-                                                    <option value="{{id}}">{{firstname}}{{lastname}}</option>
-                                                {{else}}
-                                                  {{#if username}}
-                                                      <option value="{{id}}">{{username}}</option>
-                                                  {{else}}
-                                                      <option value="{{id}}">{{email}}</option>
-                                                  {{/if}}
-                                                {{/if}}
 
-
-
-
+                                                    <option value="{{id}}">{{displayname}}</option>
 
 
 
@@ -207,20 +197,8 @@
                                               {{#each employees}}
 
 
-                                                {{#if firstname}}
-                                                    <option value="{{id}}">{{firstname}}{{lastname}}</option>
-                                                {{else}}
-                                                  {{#if username}}
-                                                      <option value="{{id}}">{{username}}</option>
-                                                  {{else}}
-                                                      <option value="{{id}}">{{email}}</option>
-                                                  {{/if}}
-                                                {{/if}}
 
-
-
-
-
+                                                    <option value="{{id}}">{{displayname}}</option>
 
 
                                               {{/each}}
@@ -326,12 +304,7 @@
                                         <li class="active">
                                             <a href="#tab_1_1" data-toggle="tab">Добавить запись</a>
                                         </li>
-                                        <li>
-                                            <a href="#tab_1_2" data-toggle="tab">Редактировать запись</a>
-                                        </li>
-                                        <li>
-                                            <a href="#tab_1_3" style="color: red;" data-toggle="tab">Удалить</a>
-                                        </li>
+
 
                                     </ul>
                                 </div>

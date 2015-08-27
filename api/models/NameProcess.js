@@ -18,11 +18,17 @@ var NameProcess = {
 
 
 
+    headerTablewithoutHtml: {type: 'array'},
+
+    headerTable: {type: 'string'},
+
+    name: {type: 'string'},
 
 
-    nameType: {type: 'string'},
+    primarydoc: {type: 'array'},
 
-    name: {type: 'array'}
+
+    connectprocess: {type: 'array'}
 
 
 

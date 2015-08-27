@@ -1,5 +1,5 @@
 
-{{#each mass}}
+{{#each typeprocess}}
 
     <li class="dd-item">
 
@@ -8,14 +8,14 @@
 
 
         <div class="dd-handle">
-   {{nameType}}
-   </div>
+          {{nameType}}
+        </div>
 
 
 
 
 
-    {{#if name}}
+      {{#if name}}
           <ol class="dd-list">
 
 
@@ -28,27 +28,27 @@
 
 
 
-              <div class="dd-handle">
+                <div class="dd-handle">
 
 
 
-          {{name}}
+                  {{this}}
 
 
 
 
 
 
-               </div>
+                </div>
 
- {{/each}}
+            {{/each}}
 
 
 
 
 
           </ol>
-{{/if}}
+      {{/if}}
 
 
 

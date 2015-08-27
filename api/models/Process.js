@@ -15,10 +15,11 @@ var Process = {
 
 
 
-    processfortable: {type: 'array'},
 
 
 
+
+    connectprocess: {type: 'array'},
 
     url: {type: 'string', defaultsTo: function(){
 
@@ -52,7 +53,7 @@ var Process = {
 
 
 
-    initiator: {type: 'string'},
+    initiator: {type: 'json'},
 
 
     answerable: {type: 'array'},

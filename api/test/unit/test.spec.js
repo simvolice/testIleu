@@ -15,36 +15,6 @@ describe(TEST_NAME, function() {
 
 
 
-     Process.find({}).exec(function(err, process){
-
-
-
-
-
-       var arrFind = ['Служебка666 55c9fab09b9465f0208daf81', 'simvolice 55c9fab09b9465f0208daf81'];
-
-
-
-       var arrHeader = [];
-
-       var arrVal = [];
-
-       var arr = [];
-
-       var obj = {};
-
-
-       var arrNew = [];
-
-       process.forEach(function(item){
-
-         arrFind.forEach(function(item2){
-
-
-         if (item.name == item2){
-
-
-           arr.push(item.catalogs.th);
 
 
 
@@ -52,43 +22,7 @@ describe(TEST_NAME, function() {
 
 
 
-
-         }
-
-       })
-
-       });
-
-
-
-
-
-      var arrUniqui = undescore.uniq(arr);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-       console.log(arrN);
-       done();
-
-
-
-
-     })
-
-
-
-
+      done();
 
     });
   });

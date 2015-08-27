@@ -24,90 +24,55 @@ var ProcessController = {
 
 
 
-    var fromclient = req.params.all();
 
 
 
-    NameProcess.findOne({id: fromclient.id}).exec(function (err, nameprocess) {
+
+    NameProcess.findOne({id: req.param('id')}).exec(function (err, nameprocess) {
 
 
 
-      var obj = {};
 
-      var primaryDoc = [];
-
-      var dprocess = [];
-
-      nameprocess.name.forEach(function(item){
+      var forSaveTable = '';
 
 
-        if (fromclient.name.join(' ') === item.name) {
 
 
-          obj = item.nameCollwithValue;
+      var SendClientTable = {};
 
 
-          primaryDoc = item.primarydoc;
-
-          dprocess = item.dprocess;
-
-        }
 
 
-      });
+
+     nameprocess.headerTablewithoutHtml.forEach(function(item){
+
+
+        forSaveTable +=  '<div class="form-group form-md-line-input form-md-floating-label"><input name="id" type="hidden" value="'+ nameprocess.id  +'"><input type="text" name="value[]" class="form-control" id="form_control_1"><input type="hidden" name="namecol[]" value="'+ item +'"><label for="form_control_1">'+ item +'</label><span class="help-block">Введите новое значение для колонки: ' + item + '</span> </div>'
+
+    });
 
 
 
 
 
 
+      SendClientTable = {
 
-
-
-
-
-
-      var str = '';
-      var str2 = '';
-
-      var arr2 = [];
-
-
-      var obj2 = {};
-
-
-
-
-      undescore.pluck(obj, 'col').forEach(function(item){
-
-        str += '<th>' + item + '</th>';
-        str2 +=  '<div class="form-group form-md-line-input form-md-floating-label"><input name="id" type="hidden" value="'+ nameprocess.id  +'"><input type="text" name="value[]" class="form-control" id="form_control_1"><input type="hidden" name="namecol[]" value="'+ item +'"><label for="form_control_1">'+ item +'</label><span class="help-block">Введите новое значение для колонки: ' + item + '</span> </div>'
-
-
-
-
-          });
-
-
-
-      obj2 = {
-
-        th: str,
-        input: str2,
-        doc: primaryDoc,
-        dp: dprocess
+        th: nameprocess.headerTable,
+        input: forSaveTable,
+        primarydoc: nameprocess.primarydoc,
+        connectprocess: nameprocess.connectprocess
 
 
       };
 
 
-    res.send(obj2);
+    res.send(SendClientTable);
 
 
 
 
           });
-
 
   },
 
@@ -125,46 +90,50 @@ var ProcessController = {
 
       Company.findOne({employees: user.id}).exec(function(err, company) {
 
-         TypeProcess.findOne({company: company.id}).exec(function(err, typeprocess) {
+         TypeProcess.find({company: company.id}).exec(function(err, typeprocess) {
 
 
-          NameProcess.find({typeProcess: typeprocess.id}).exec(function (err, nameprocess) {
+          NameProcess.find({typeProcess: undescore.pluck(typeprocess, 'id')}).exec(function (err, nameprocess) {
 
-            User.find({id: company.employees}).exec(function(err, user2){
-
-
-
-
-
-            var obj = {};
+            User.find({id: company.employees}).exec(function(err, employees){
 
 
 
 
+              var forChaining = {};
 
-            var ret =  nameprocess.map(function(item3, key3){
-
-
-
-
-              return item3.name.map(function(item2, key2){
+              var getTypeProcessforChainingList = [];
 
 
 
-
-                obj = {
-
-                  name: item3.nameType.replace(/\s+/g, ''), //Убирает пробелы в типах процессах
-
-                  value: item2.name,
-                  id: item3.id
+            typeprocess.forEach(function(item){
 
 
+
+
+
+            undescore.where(nameprocess, {typeProcess: item.id}).forEach(function(name){
+
+
+
+
+
+                forChaining = {
+
+                  id : item.id,
+
+                  name: name.name,
+                  idname: name.id
 
                 };
 
 
-                return obj;
+
+              getTypeProcessforChainingList.push(forChaining);
+
+
+           });
+
 
 
               });
@@ -172,19 +141,6 @@ var ProcessController = {
 
 
 
-            });
-
-
-
-
-
-            var nameType =  nameprocess.map(function(item){
-
-
-             return item.nameType;
-
-
-            });
 
 
 
@@ -195,9 +151,7 @@ var ProcessController = {
 
 
 
-
-
-                res.view('startprocess', {type: nameType,  nameProcess: undescore.flatten(ret), employees: user2, id: company.employees });
+              res.view('startprocess', {typeprocess: typeprocess, employees: employees, nameprocess: getTypeProcessforChainingList });
 
 
 
@@ -225,7 +179,7 @@ var ProcessController = {
     req.file('document')
       .upload({
         adapter: require('skipper-gridfs'),
-        uri: 'mongodb://localhost:27017/ileu4.primarydoc',
+        uri: 'mongodb://localhost:27017/ileu.primarydoc',
         id: req.user.id
       }, function whenDone(err, uploadedFiles) {
 
@@ -233,6 +187,36 @@ var ProcessController = {
 
 
 
+
+
+        var arrPrimaryDoc = [];
+        var primarydoc = '';
+        var arrConnectProcess = [];
+
+        var connectProcess = '';
+
+
+
+        if (undescore.isUndefined(req.body.primarydoc)){
+
+          primarydoc = null;
+
+        }else{
+
+
+          arrPrimaryDoc = req.body.primarydoc.split(',');
+
+        }if (undescore.isUndefined(req.body.connectprocess)){
+
+
+          connectProcess = null;
+
+
+        }else{
+
+          arrConnectProcess = req.body.connectprocess.split(',');
+
+        }
 
 
 
@@ -251,7 +235,7 @@ var ProcessController = {
 
          return objPerformer = {
 
-            nameUser: item.firstname + ' ' + item.lastname,
+            nameUser: item.displayname,
             valueID: item.id
 
 
@@ -278,7 +262,7 @@ var ProcessController = {
 
             return objAnswering = {
 
-              nameUser: item.firstname + ' ' + item.lastname,
+              nameUser: item.displayname,
               valueID: item.id
 
 
@@ -298,6 +282,7 @@ var ProcessController = {
 
 
 
+
         User.findOne({id: req.user.id}).exec(function(err, user){
           Company.findOne({employees: user.id}).exec(function(err, company){
             Process.create({
@@ -306,7 +291,13 @@ var ProcessController = {
               company: company.id,
               type: req.body.type,
               name: req.body.name,
-              initiator: user.firstname + ' ' + user.lastname,
+
+              initiator: {
+
+                nameUser: user.displayname,
+                valueID: user.id
+  },
+
               dueDateTime: req.body.datetime,
               text: req.body.content,
 
@@ -316,19 +307,23 @@ var ProcessController = {
 
               answerable: nameWithIDAnswer,
 
-              documents: req.body.primarydoc,
+              documents: arrPrimaryDoc || primarydoc,
 
-              files: undescore.pluck(uploadedFiles, 'filename'),
+              connectprocess: arrConnectProcess || connectProcess,
 
-
-
-              processfortable: req.body.dprocess.split(",")
+              files: undescore.pluck(uploadedFiles, 'fd')
 
 
 
             }).exec(function(err, process){
 
+              if (!undescore.isUndefined(req.body.headertable)){
+
+
+
               CatalogForProcess.findOne({nameProcess: req.body.name}).exec(function(err, ctlforprocess){
+
+
 
                 if (ctlforprocess == null){
 
@@ -354,7 +349,9 @@ var ProcessController = {
 
               });
 
-              if (err) return res.serverError(err);
+
+
+            }
 
 
 
@@ -363,28 +360,34 @@ var ProcessController = {
 
 
 
-              User.findOne({id: req.user.id}).exec(function(err, user2){
+
+              //Сохраняем в исходящих
+              User.findOne({id: req.user.id}).exec(function(err, iniciator){
 
 
 
 
-                if (err) return res.serverError(err);
 
-                user2.outProcess.push(process.id);
 
-                user2.save(function (err) {
+                iniciator.outProcess.push(process.id);
 
 
 
-                  if (err) return res.serverError(err);
-
-
-                  User.find({id: req.body.performer}).exec(function(err, user3){
+                iniciator.save(function (err) {});
 
 
 
 
-                  user3.map(function(item){
+
+//Сохраняем во входящих исполнителя
+                  User.find({id: req.body.performer}).exec(function(err, performer){
+
+
+
+
+                    performer.forEach(function(item){
+
+
 
 
 
@@ -394,13 +397,7 @@ var ProcessController = {
 
 
 
-                      item.save(function (err) {
-
-
-
-
-
-                      });
+                      item.save(function (err) {});
 
 
 
@@ -409,20 +406,55 @@ var ProcessController = {
 
 
 
-                   return res.redirect('/startprocess');
 
 
 
+                    //TODO сделать условие на текущего пользователя
+//Сохраняем во входящих ответственного
+                    User.find({id: req.body.answerable}).exec(function(err, answerable){
+
+
+
+
+                      answerable.forEach(function(item){
+
+
+
+
+                        item.inProcess.push(process.id);
+
+                        item.roleInProcess = 'answer';
+
+
+
+                        item.save(function (err) {});
+
+
+
+                      });
+
+
+
+
+
+
+
+
+
+
+
+
+                return res.redirect('/startprocess');
 
                   });
-
-
-
-
-                });
-
+              });
 
               });
+
+
+
+
+
 
 
             });

@@ -11,7 +11,7 @@ var TypeController = {
 
 
   typeview: function (req, res, next){
-    "use strict";
+
 
 
 
@@ -22,66 +22,71 @@ var TypeController = {
 
        Company.findOne({employees: user.id}).exec(function(err, company){
 
-           TypeProcess.findOne({company: company.id}).exec(function(err, typeprocess){
-
-
-              NameProcess.find({typeProcess: typeprocess.id}).exec(function(err, nameprocess){
+           TypeProcess.find({company: company.id}).exec(function(err, typeprocess){
 
 
 
 
 
-
-              var  namePr = [];
-
-                nameprocess.forEach(function(item){
+              NameProcess.find({typeProcess: undescore.pluck(typeprocess, 'id')}).exec(function(err, nameprocess){
 
 
-                  item.name.forEach(function(item2){
 
 
-                    namePr.push(item2.name);
 
 
-                  })
 
 
+
+
+
+
+
+            var forNestable = {};
+
+
+
+
+
+                typeprocess.forEach(function(key, item){
+
+
+
+
+                  forNestable[item] = {
+
+                    id: key.id,
+                    nameType: key.nameType,
+                    name: undescore.pluck(undescore.where(nameprocess, {typeProcess: key.id}), 'name')
+
+
+                  };
 
                 });
 
 
 
-            var providers = {};
-
-            Object.keys(nameprocess).forEach(function (key) {
-
-
-              providers[key] = {
 
 
 
-                id: nameprocess[key].id,
-
-
-                nameType: nameprocess[key].nameType
-                , name: nameprocess[key].name
-
-
-              };
 
 
 
-            });
+
+
+
+
+
+
+
+
+
 
 
 
                 var arrFile = [];
 
                 fs.readdir(process.cwd() + '/views/doc/', function(err, files){
-
-
-
-
 
 
                   files.forEach(function(item){
@@ -110,7 +115,8 @@ var TypeController = {
 
 
 
-            res.view('typeview', {mass: providers, docs: arrFile, name: namePr});
+
+            res.view('typeview', {typeprocess: forNestable, docs: arrFile});
 
 
 
@@ -152,60 +158,86 @@ var TypeController = {
 
         Company.findOne({employees: user.id}).exec(function(err, company){
 
-          TypeProcess.findOne({company: company.id}).exec(function(err, typeprocess){
-
-
-            //Создание с нуля, каталога с названиями колонок
-
-            var obj = {};
-
-            var arr = req.body.mycol;
-
-
-            arr.forEach(function(item, key){
-
-
-              obj[key] = {
-
-
-                col: item,
-                value: []
+          TypeProcess.create({company: company.id, nameType: req.body.typeprocess}).exec(function(err, typeprocess){
 
 
 
-              }
+           var objForHeaderTable = '';
 
+            req.body.mycol.forEach(function(item){
+
+
+
+             objForHeaderTable += '<th>'+ item +'</th>'
 
 
             });
 
 
 
-            var nameObj = {};
-
-
-            nameObj = {
-
-
-              name: req.body.name,
-              nameCollwithValue: obj,
-              primarydoc: req.body.primarydoc,
-              dprocess:req.body.dprocess
-
-
-            };
 
 
 
-            NameProcess.create({typeProcess: typeprocess.id, nameType: req.body.process, name: []}).exec(function(err, nameprocess){
+            var connectprocess = [];
+
+            var primarydoc = [];
 
 
-              NameProcess.findOne({id: nameprocess.id}).exec(function(err, result){
 
-                result.name.push(nameObj);
-                result.save(function(err){});
+           if ( undescore.isArray(req.body.primarydoc)){
+
+
+             req.body.primarydoc.forEach(function(item){
+
+
+               primarydoc.push(item);
+
+
+
+             });
+
+           }else {
+
+
+             primarydoc.push(req.body.primarydoc);
+
+           }
+
+
+
+            if (undescore.isArray(req.body.connectprocess)){
+
+
+              req.body.connectprocess.forEach(function(item){
+
+
+                connectprocess.push(item);
 
               });
+
+
+            }else{
+
+
+              connectprocess.push(req.body.connectprocess);
+
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+            NameProcess.create({typeProcess: typeprocess.id, name: req.body.nameprocess, headerTable: objForHeaderTable, primarydoc: primarydoc, connectprocess: connectprocess, headerTablewithoutHtml: req.body.mycol}).exec(function(err, nameprocess){
+
+
+
 
 
              res.redirect('/typeview');
@@ -235,61 +267,88 @@ var TypeController = {
 
         Company.findOne({employees: user.id}).exec(function(err, company){
 
-          TypeProcess.findOne({company: company.id}).exec(function(err, typeprocess){
+          TypeProcess.findOne({company: company.id, nameType: req.body.typeprocess}).exec(function(err, typeprocess){
 
 
-            NameProcess.findOne({nameType: req.body.process}).exec(function(err, nameprocess){
+            var objForHeaderTable = '';
 
-
-              var obj = {};
-
-              var arr = req.body.mycol;
-
-
-              arr.forEach(function(item, key){
-
-
-                obj[key] = {
-
-
-                  col: item,
-                  value: []
+            req.body.mycol.forEach(function(item){
 
 
 
-                }
+              objForHeaderTable += '<th>'+ item +'</th>'
+
+
+            });
 
 
 
-              });
 
 
 
-              var nameObj = {};
+            var connectprocess = [];
+
+            var primarydoc = [];
 
 
-              nameObj = {
+
+            if ( undescore.isArray(req.body.primarydoc)){
 
 
-                name: req.body.name,
-                nameCollwithValue: obj,
-                primarydoc: [req.body.primarydoc],
-                dprocess:[req.body.dprocess]
+              req.body.primarydoc.forEach(function(item){
 
 
-              };
+                primarydoc.push(item);
 
-              nameprocess.name.push(nameObj);
-
-              nameprocess.save(function (err) {
-
-
-              return  res.redirect('/typeview');
 
 
               });
 
+            }else {
 
+
+              primarydoc.push(req.body.primarydoc);
+
+            }
+
+
+
+            if (undescore.isArray(req.body.connectprocess)){
+
+
+              req.body.connectprocess.forEach(function(item){
+
+
+                connectprocess.push(item);
+
+              });
+
+
+            }else{
+
+
+              connectprocess.push(req.body.connectprocess);
+
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+            NameProcess.create({typeProcess: typeprocess.id, name: req.body.nameprocess, headerTable: objForHeaderTable, primarydoc: primarydoc, connectprocess: connectprocess, headerTablewithoutHtml: req.body.mycol}).exec(function(err, nameprocess){
+
+
+
+
+
+              res.redirect('/typeview');
 
 
 
@@ -300,11 +359,18 @@ var TypeController = {
 
 
 
+
+
+          })
+
+
+
+
           })
 
 
         })
-      })
+
 
 
 
@@ -314,10 +380,12 @@ var TypeController = {
 
         Company.findOne({employees: user.id}).exec(function(err, company){
 
-          TypeProcess.findOne({company: company.id}).exec(function(err, typeprocess){
+          TypeProcess.destroy({company: company.id, id: req.body.process}).exec(function(err, typeprocess){
 
 
-            NameProcess.destroy({nameType: req.body.process}).exec(function(err, nameprocess){
+
+
+            NameProcess.destroy({typeProcess: req.body.process}).exec(function(err, nameprocess){
 
 
               res.redirect('/typeview');

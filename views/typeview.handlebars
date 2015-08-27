@@ -45,13 +45,13 @@
 
 
 
-
-                        {{> list}}
-
+                    {{> list}}
 
 
+    </ol>
 
-                    </ol>
+
+                    </div>
 
 
 
@@ -100,14 +100,14 @@
                                 <div class="tab-pane active" id="tab_1_1">
                                     <form role="form" action="/typeprocess/create" method="post">
                                         <div class="form-group form-md-line-input form-md-floating-label">
-                                            <input type="text" name="process" class="form-control" id="form_control_1">
+                                            <input type="text" name="typeprocess" class="form-control" id="form_control_1">
                                             <label for="form_control_1">Новый тип процесса</label>
                                             <span class="help-block">Здесь вводятся только буквы</span>
                                         </div>
 
 
                                         <div class="form-group form-md-line-input form-md-floating-label">
-                                            <input type="text" name="name" class="form-control" id="form_control_1">
+                                            <input type="text" name="nameprocess" class="form-control" id="form_control_1">
                                             <label for="form_control_1">Новое имя процесса</label>
                                             <span class="help-block">Здесь вводятся только буквы</span>
                                         </div>
@@ -156,13 +156,17 @@
                                             <label class="control-label">Прикрепите процесс</label>
 
 
-                                            <select id="type" name="dprocess" class="bs-select form-control" data-live-search="true" data-size="auto" multiple>
+                                            <select id="type" name="connectprocess" class="bs-select form-control" data-live-search="true" data-size="auto" multiple>
 
-                                              {{#each name}}
+                                              {{#each typeprocess}}
 
+
+                                                {{#name}}
 
                                                   <option value="{{this}}">{{this}}</option>
 
+
+                                                {{/name}}
                                               {{/each}}
 
 
@@ -193,9 +197,9 @@
                                             <label class="control-label">Тип процесса</label>
 
 
-                                            <select name="process" class="bs-select form-control" data-live-search="true" data-size="8" >
+                                            <select name="typeprocess" class="bs-select form-control" data-live-search="true" data-size="8" >
 
-                                              {{#each mass}}
+                                              {{#each typeprocess}}
 
                                                   <option value="{{nameType}}">{{nameType}}</option>
 
@@ -215,7 +219,7 @@
 
 
                                         <div class="form-group form-md-line-input form-md-floating-label">
-                                            <input name="name" type="text" class="form-control" id="form_control_1">
+                                            <input name="nameprocess" type="text" class="form-control" id="form_control_1">
                                             <label for="form_control_1">Новое имя процесса</label>
                                             <span class="help-block">Здесь вводятся только буквы</span>
                                         </div>
@@ -262,13 +266,17 @@
                                             <label class="control-label">Прикрепите процесс</label>
 
 
-                                            <select id="type" name="dprocess" class="bs-select form-control" data-live-search="true" data-size="auto" multiple>
+                                            <select id="type" name="connectprocess" class="bs-select form-control" data-live-search="true" data-size="auto" multiple>
 
-                                              {{#each name}}
+                                              {{#each typeprocess}}
 
 
-                                                  <option value="{{this}}">{{this}}</option>
+                                                {{#name}}
 
+                                                    <option value="{{this}}">{{this}}</option>
+
+
+                                                {{/name}}
                                               {{/each}}
 
 
@@ -301,12 +309,14 @@
                                             <label class="control-label">Тип процесса</label>
 
 
+
                                             <select name="process" class="bs-select form-control" data-live-search="true" data-size="8" >
 
-                                              {{#each mass}}
+                                              {{#each typeprocess}}
 
 
-                                                  <option value="{{nameType}}">{{nameType}}</option>
+
+                                                  <option value="{{id}}">{{nameType}}</option>
 
                                               {{/each}}
 

@@ -14,6 +14,9 @@ module.exports = {
 
 
 
+
+    displayname: {type: 'string'},
+
     socketid: {type: 'string'},
 
     username  : { type: 'string', unique: true },
@@ -28,7 +31,13 @@ module.exports = {
 
 
 
-    avatar: {type: 'string', unique: true},
+    avatar: {type: 'string', defaultsTo: function(){
+
+
+      return 'noavatar.jpg';
+
+
+    }},
 
 
     firstname: {type: 'string'},

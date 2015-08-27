@@ -37,7 +37,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <meta content="" name="description"/>
     <meta content="" name="author"/>
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css">
+    <!--<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css">-->
     <link href="../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css">
     <link href="../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
@@ -291,7 +291,7 @@ License: You must have a valid license purchased only from themeforest(the above
 						<span class="username username-hide-on-mobile">
 						{{#user}}{{firstname}} {{lastname}}{{/user}}</span>
                             <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
-                            <img alt="" class="img-circle" src="../../assets/admin/layout4/img/avatar9.jpg"/>
+                            <img alt="" class="img-circle" src="{{#user}}{{avatar}}{{/user}}"/>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-default">
                             <li>
@@ -534,7 +534,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="../../js/dependencies/sails.io.js"></script>
 
 
-<script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.17.0/TweenMax.min.js"></script>
+<script src="../../js/TweenMax.min.js"></script>
 
 
 <script>
@@ -546,7 +546,11 @@ License: You must have a valid license purchased only from themeforest(the above
 
 
 
-        $('#createcompany').modal('show');
+        $('#showmodal').on('click',function(){
+
+            $('#createcompany').modal('show');
+
+        });
 
         Metronic.init(); // init metronic core components
         Layout.init(); // init current layout
