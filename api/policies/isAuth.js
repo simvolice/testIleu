@@ -15,7 +15,7 @@ module.exports = function (req, res, next) {
   }
 
 
-    return res.forbidden();
+    return res.redirect('/login');
 
 
 

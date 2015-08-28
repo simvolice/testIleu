@@ -16,7 +16,12 @@ var Process = {
 
 
 
+    archive: {type: 'boolean', defaultsTo: function(){
 
+      return false;
+
+
+    }},
 
 
     connectprocess: {type: 'array'},
@@ -30,7 +35,7 @@ var Process = {
 
     }},
 
-    name: {type: 'string'},
+    name: {type: 'json'},
 
 
     type: {type: 'string'},
@@ -89,22 +94,18 @@ var Process = {
 
 
 
+    dprocess: {type: 'array'},//Будут в самой таблице Мои процессы
 
 
 
 
 
-    //TODO:Ссылки на коллекции, далее будут проверяться
+
+    comments:  {collection: 'Comments', via: 'process'} //Комментарии будут внутри процесса
 
 
-    archive: {collection: 'Archive', via: 'process'}, //это еще одно поле в таблице мои процессы
 
 
-    comments:  {collection: 'Comments', via: 'process'}, //Комментарии будут внутри процесса
-
-
-    //Дочерние процессы
-    dprocess: {type: 'array'}//Будут в самой таблице Мои процессы
 
 
 

@@ -271,11 +271,13 @@ var ProcessController = {
             };
 
 
-
-
-
-
         });
+
+
+
+
+
+
 
 
 
@@ -285,12 +287,21 @@ var ProcessController = {
 
         User.findOne({id: req.user.id}).exec(function(err, user){
           Company.findOne({employees: user.id}).exec(function(err, company){
-            Process.create({
+            NameProcess.findOne({id: req.body.name}).exec(function(err, nameprocess){
+
+
+
+              Process.create({
 
               dprocess: [],
               company: company.id,
               type: req.body.type,
-              name: req.body.name,
+              name: {
+
+                id: nameprocess.id,
+                name: nameprocess.name
+
+              },
 
               initiator: {
 
@@ -317,11 +328,151 @@ var ProcessController = {
 
             }).exec(function(err, process){
 
+
+
+
+
+              User.findOne({id: req.user.id}).exec(function(err, iniciator){
+
+
+
+                iniciator.outProcess.push(process.id);
+
+                iniciator.roleInProcess = null;
+
+                if (undescore.isEqual(req.body.performer, iniciator.id) || undescore.contains(req.body.performer, iniciator.id) ){
+
+
+
+                iniciator.inProcess.push(process.id);
+
+
+                  iniciator.roleInProcess = "performer";
+
+                  iniciator.save(function (err) {});
+
+
+                  Notif.create({user: iniciator.id, text: 'Вам назначен новый процесс, перейдите по ссылке для просмотра ' + '<a href="' + process.url + '">Перейти к процессу</a>'}).exec(function(err, newprocess) {
+
+
+
+
+
+                  });
+
+
+
+              }else {
+
+
+                  userm.forEach(function(item){
+
+
+
+                    item.inProcess.push(process.id);
+
+
+                    item.roleInProcess = "performer";
+
+                    item.save(function (err) {});
+
+
+                    Notif.create({user: item.id, text: 'Вам назначен новый процесс, перейдите по ссылке для просмотра ' + '<a href="' + process.url + '">Перейти к процессу</a>'}).exec(function(err, newprocess) {
+
+
+
+                      sails.sockets.emit(item.socketid, 'privateNotif', {from: req.user.id, msg: newprocess.text, datetime: newprocess.date});
+
+
+
+                    });
+
+
+                    });
+
+
+
+
+
+                }if(undescore.isEqual(req.body.answerable, iniciator.id) || undescore.contains(req.body.answerable, iniciator.id)){
+
+
+
+
+                  iniciator.inProcess.push(process.id);
+
+                  iniciator.roleInProcess = null;
+
+                  iniciator.save(function (err) {});
+
+
+                }else {
+
+                  useran.forEach(function(item) {
+                    item.inProcess.push(process.id);
+
+
+                    item.roleInProcess = null;
+
+                    item.save(function (err) {});
+
+
+                    Notif.create({user: item.id, text: 'Вам назначен новый процесс, перейдите по ссылке для просмотра ' + '<a href="' + process.url + '">Перейти к процессу</a>'}).exec(function(err, newprocess) {
+
+
+
+                      sails.sockets.emit(item.socketid, 'privateNotif', {from: req.user.id, msg: newprocess.text, datetime: newprocess.date});
+
+
+
+                    });
+
+
+
+
+                  });
+
+
+
+                }
+
+
+
+
+
+
+                iniciator.save(function (err) {});
+
+
+              });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
               if (!undescore.isUndefined(req.body.headertable)){
 
 
 
-              CatalogForProcess.findOne({nameProcess: req.body.name}).exec(function(err, ctlforprocess){
+              CatalogForProcess.findOne({nameProcess: nameprocess.name}).exec(function(err, ctlforprocess){
 
 
 
@@ -361,93 +512,14 @@ var ProcessController = {
 
 
 
-              //Сохраняем в исходящих
-              User.findOne({id: req.user.id}).exec(function(err, iniciator){
 
 
 
 
 
 
-                iniciator.outProcess.push(process.id);
 
 
-
-                iniciator.save(function (err) {});
-
-
-
-
-
-//Сохраняем во входящих исполнителя
-                  User.find({id: req.body.performer}).exec(function(err, performer){
-
-
-
-
-                    performer.forEach(function(item){
-
-
-
-
-
-                      item.inProcess.push(process.id);
-
-                    item.roleInProcess = 'performer';
-
-
-
-                      item.save(function (err) {});
-
-
-
-                    });
-
-
-
-
-
-
-
-                    //TODO сделать условие на текущего пользователя
-//Сохраняем во входящих ответственного
-                    User.find({id: req.body.answerable}).exec(function(err, answerable){
-
-
-
-
-                      answerable.forEach(function(item){
-
-
-
-
-                        item.inProcess.push(process.id);
-
-                        item.roleInProcess = 'answer';
-
-
-
-                        item.save(function (err) {});
-
-
-
-                      });
-
-
-
-
-
-
-
-
-
-
-
-
-                return res.redirect('/startprocess');
-
-                  });
-              });
 
               });
 
@@ -458,7 +530,7 @@ var ProcessController = {
 
 
             });
-
+          });
           });
 
 
@@ -469,17 +541,17 @@ var ProcessController = {
 
 
 
-          })
+          });
 
 
 
 
-
+        return res.redirect('/startprocess');
 
 
         })
 
-      });
+
 
 
 

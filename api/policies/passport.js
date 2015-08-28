@@ -39,6 +39,10 @@ module.exports = function (req, res, next) {
 
 
 
+
+
+
+
       // Make the user available throughout the frontend
       res.locals.user = req.user;
 

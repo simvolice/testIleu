@@ -11,17 +11,13 @@ module.exports = function (req, res, next) {
 
 
 
+  User.update({id: req.user.id}, {socketid: sails.sockets.id(req.socket)}).exec(function(err, user) {
 
 
 
-    User.update({id: req.user.id}, {socketid: sails.sockets.id(req.socket)}).exec(function(err, user){
+    return next();
 
-
-        return next();
-
-
-    });
-
+  });
 
 
 
@@ -32,4 +28,8 @@ module.exports = function (req, res, next) {
 
 
 
-};
+
+
+
+
+  };

@@ -25,7 +25,7 @@
                 <div class="portlet box blue-hoki">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="icon-notebook"></i>{{name}}
+                            <i class="icon-notebook"></i>
                         </div>
                         <div class="tools">
                         </div>
@@ -45,10 +45,10 @@
 
                             <div class="panel panel-primary">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title">Тип процесса:</h3>
+                                    <h3 class="panel-title">Имя процесса:</h3>
                                 </div>
                                 <div class="panel-body">
-                                  {{type}}
+                                  {{name.name}}
                                 </div>
                             </div>
 
@@ -89,7 +89,7 @@
                                     <h3 class="panel-title">Инициатор процесса:</h3>
                                 </div>
                                 <div class="panel-body">
-                                  {{initiator}}
+                                  {{initiator.nameUser}}
                                 </div>
                             </div>
 
@@ -219,14 +219,28 @@
 
 
 
-                        {{/process}}
 
 
 
 
 
 
+                        <a href="#dprocess" data-toggle="modal" type="submit" class="btn default red-stripe">Стартовать дочерний</a>
 
+
+
+
+
+
+                        {{#is archive true}}
+
+                          <h1>В архиве</h1>
+
+                        {{/is}}
+
+
+
+{{else}}
                       {{#is roleInProcess "performer"}}
 
 
@@ -238,14 +252,14 @@
                         <form method="post" action="/performer/endprocess">
 
 
-                          {{#process}}
+
 
 
                             <input type="hidden" name="id" value="{{id}}">
 
-                        {{/process}}
 
-                            <button type="submit" class="btn default red-stripe {{disabled}}">Завершить процесс</button>
+
+                            <button type="submit" class="btn default red-stripe">Завершить процесс</button>
 
 
                           </form>
@@ -253,19 +267,16 @@
 
 
 
-                          <a href="#dprocess" data-toggle="modal" type="submit" class="btn default red-stripe">Стартовать дочерний</a>
-
-
 
 
 
                       <form method="post" action="/performer/rework">
-                        {{#process}}
+
 
 
                             <input type="hidden" name="id" value="{{id}}">
 
-                        {{/process}}
+
 
 
                           <div class="form-group">
@@ -301,12 +312,12 @@
 
                           <form action="/answer/plus" method="post">
 
-                            {{#process}}
+
 
 
                                 <input type="hidden" name="id" value="{{id}}">
 
-                            {{/process}}
+
 
                             <button type="submit">Завершить положительно</button>
 
@@ -321,12 +332,12 @@
                         <form action="/answer/minus" method="post">
 
 
-                          {{#process}}
+
 
 
                               <input type="hidden" name="id" value="{{id}}">
 
-                          {{/process}}
+
 
 
                             <button type="submit">Завершить отрицательно</button>
@@ -337,12 +348,12 @@
 
                         <form action="/answer/rework" method="post">
 
-                          {{#process}}
+
 
 
                               <input type="hidden" name="id" value="{{id}}">
 
-                          {{/process}}
+
 
 
                             <div class="form-group">
@@ -367,40 +378,13 @@
 
 
 
-                            <a href="#dprocess" data-toggle="modal" type="submit" class="btn default red-stripe">Стартовать дочерний</a>
-
-
-
-
-
-
-                        {{else}}
-
-
-                          {{#process}}
-
-
-                        <form method="post" action="/iniciator/endprocess">
-
-                            <input type="hidden" name="id" value="{{id}}">
-
-                            <button type="submit" class="btn blue-hoki">Завершить процесс</button>
-
-
-
-                          </form>
-
-
-                        {{/process}}
-
-
                         {{/is}}
                       {{/is}}
 
 
 
 
-
+                        {{/process}}
 
 
 
@@ -528,220 +512,229 @@
                                                 <div class="tab-content">
                                                     <!-- PERSONAL INFO TAB -->
                                                     <div class="tab-pane active" id="tab_1_1">
-                                                        <form role="form" action="/dprocesssave" method="post" enctype="multipart/form-data" onsubmit="return postForm()">
 
-                                                          {{#process}}
 
+                                                      <form action="/dprocesssave" method="post" enctype="multipart/form-data" onsubmit="return postForm()">
 
-                                                              <input type="hidden" name="id" value="{{id}}">
 
-                                                          {{/process}}
+{{#process}}
 
-                                                          {{#each documents}}
-                                                              <input type="hidden" name="primarydoc" value="{{this}}">
-                                                          {{/each}}
+                                                          <input type="hidden" name="id" value="{{id}}">
 
+{{/process}}
 
-                                                            <div class="form-group">
-                                                                <label class="control-label">Тип процесса</label>
 
+                                                          <div class="form-group">
+                                                              <label class="control-label">Тип процесса</label>
 
-                                                                <select id="type" name="type" class="bs-select form-control" data-live-search="true" data-size="auto">
 
-                                                                  {{#each type}}
+                                                              <select id="type" name="type">
 
+                                                                {{#each typeprocess}}
 
-                                                                      <option value="{{#delspace}}{{this}}{{/delspace}}">{{this}}</option>
 
-                                                                  {{/each}}
+                                                                    <option value="{{id}}">{{nameType}}</option>
 
+                                                                {{/each}}
 
 
 
 
-                                                                </select>
 
+                                                              </select>
 
-                                                            </div>
 
+                                                          </div>
 
 
 
 
-                                                            <div class="form-group">
-                                                                <label class="control-label">Наименование процесса</label>
 
+                                                          <div class="form-group">
+                                                              <label class="control-label">Наименование процесса</label>
 
-                                                                <select id="name" name="name" class="form-control">
 
+                                                              <select id="name" name="name" class="form-control">
 
-                                                                  {{#each nameProcess}}
 
+                                                                {{#each nameprocess}}
 
 
-                                                                      <option value="{{value}}" class="{{name}}">{{value}}</option>
 
 
+                                                                    <option value="{{idname}}" class="{{id}}">{{name}}</option>
 
 
-                                                                  {{/each}}
 
 
+                                                                {{/each}}
 
-                                                                </select>
 
 
-                                                            </div>
+                                                              </select>
 
 
+                                                          </div>
 
-                                                            <div class="form-group">
-                                                                <label class="control-label">Котрагенты</label>
 
 
-                                                                <select id="name" name="kontraname" class="bs-select form-control">
+                                                          <input type="hidden" name="connectprocess">
+                                                          <input type="hidden" name="primarydoc">
 
 
-                                                                  {{#each kontra}}
+                                                          <div class="form-group" style="margin-top: 40px">
+                                                              <label class="control-label">Таблица</label>
+                                                              <a href="#portlet-config" class="btn" data-toggle="modal" style="margin-left: 80%; background: #DDDDDD">Работа со справочником</a>
 
 
 
-                                                                      <option value="{{name}}">{{name}}</option>
 
+                                                              <input name="rowfromtable" type="hidden">
+                                                              <input name="headertable" type="hidden">
 
 
+                                                              <table id="newtable" style="border-collapse: collapse;">
 
-                                                                  {{/each}}
 
+                                                                  <thead>
 
 
-                                                                </select>
 
+                                                                  <tr id="tableforname">
 
-                                                            </div>
 
 
+                                                                  </tr>
 
 
 
+                                                                  </thead>
 
 
+                                                                  <tbody id="forvalue">
 
 
-                                                            <div class="form-group">
-                                                                <label class="control-label">Дата и время окончания процесса</label>
-                                                                <div class="">
-                                                                    <div class="input-group date form_datetime">
-                                                                        <input type="text" name="datetime" size="16" readonly class="form-control">
+
+
+
+
+
+
+
+
+
+                                                                  </tbody>
+
+
+
+
+                                                              </table>
+
+
+
+
+
+                                                          </div>
+
+
+
+
+
+
+
+
+
+                                                          <div class="form-group">
+                                                              <label class="control-label">Дата и время окончания процесса</label>
+                                                              <div class="">
+                                                                  <div class="input-group date form_datetime">
+                                                                      <input type="text" name="datetime" size="16" readonly class="form-control">
 												<span class="input-group-btn">
 												<button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
 												</span>
-                                                                    </div>
+                                                                  </div>
 
-                                                                </div>
-                                                            </div>
-
-
-                                                            <div class="form-group">
-                                                                <label class="control-label">Исполнитель</label>
+                                                              </div>
+                                                          </div>
 
 
-                                                                <select name="performer" class="bs-select form-control" data-live-search="true" data-size="auto" multiple>
+                                                          <div class="form-group">
+                                                              <label class="control-label">Исполнитель</label>
 
 
-
-
-                                                                  {{#each employees}}
-
-
-                                                                    {{#if firstname}}
-                                                                        <option value="{{id}}">{{firstname}}{{lastname}}</option>
-                                                                    {{else}}
-                                                                      {{#if username}}
-                                                                          <option value="{{id}}">{{username}}</option>
-                                                                      {{else}}
-                                                                          <option value="{{id}}">{{email}}</option>
-                                                                      {{/if}}
-                                                                    {{/if}}
+                                                              <select name="performer" class="bs-select form-control" data-live-search="true" data-size="auto" multiple>
 
 
 
 
+                                                                {{#each employees}}
 
 
 
-                                                                  {{/each}}
+                                                                    <option value="{{id}}">{{displayname}}</option>
 
 
 
-                                                                </select>
-
-
-                                                            </div>
+                                                                {{/each}}
 
 
 
-                                                            <div class="form-group">
-                                                                <label class="control-label">Ответственные лица</label>
+                                                              </select>
 
 
-                                                                <select name="answerable" class="bs-select form-control" data-live-search="true" data-size="8" multiple>
+                                                          </div>
 
 
 
-                                                                  {{#each employees}}
+                                                          <div class="form-group">
+                                                              <label class="control-label">Ответственные лица</label>
 
 
-                                                                    {{#if firstname}}
-                                                                        <option value="{{id}}">{{firstname}}{{lastname}}</option>
-                                                                    {{else}}
-                                                                      {{#if username}}
-                                                                          <option value="{{id}}">{{username}}</option>
-                                                                      {{else}}
-                                                                          <option value="{{id}}">{{email}}</option>
-                                                                      {{/if}}
-                                                                    {{/if}}
+                                                              <select name="answerable" class="bs-select form-control" data-live-search="true" data-size="8" multiple>
+
+
+
+                                                                {{#each employees}}
+
+
+
+                                                                    <option value="{{id}}">{{displayname}}</option>
+
+
+                                                                {{/each}}
 
 
 
 
 
+                                                              </select>
 
 
-                                                                  {{/each}}
-
-
-
-
-
-                                                                </select>
-
-
-                                                            </div>
+                                                          </div>
 
 
 
 
 
-                                                            <div class="form-group form-md-line-input form-md-floating-label">
+                                                          <div class="form-group form-md-line-input form-md-floating-label">
 
-                                                                <label for="summernote">Текст процесса</label>
-                                                                <textarea id="summernote" name="content" rows="18" class="form-control"></textarea>
+                                                              <label for="summernote">Текст процесса</label>
+                                                              <textarea id="summernote" name="content" rows="18" class="form-control"></textarea>
 
-                                                            </div>
-
-
+                                                          </div>
 
 
-                                                            <div class="form-group">
 
 
-                                                                <div class="fileinput fileinput-new" data-provides="fileinput">
-                                                                    <div class="input-group input-large">
-                                                                        <div class="form-control uneditable-input input-fixed input-medium" data-trigger="fileinput">
-                                                                            <i class="fa fa-file fileinput-exists"></i>&nbsp; <span class="fileinput-filename">
+                                                          <div class="form-group">
+
+
+                                                              <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                                  <div class="input-group input-large">
+                                                                      <div class="form-control uneditable-input input-fixed input-medium" data-trigger="fileinput">
+                                                                          <i class="fa fa-file fileinput-exists"></i>&nbsp; <span class="fileinput-filename">
 														</span>
-                                                                        </div>
+                                                                      </div>
 													<span class="input-group-addon btn default btn-file">
 													<span class="fileinput-new">
 													Выберети документ </span>
@@ -749,14 +742,12 @@
 													Изменить </span>
 													<input type="file" name="document" multiple>
 													</span>
-                                                                        <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput">
-                                                                            Удалить </a>
-                                                                    </div>
-                                                                </div>
+                                                                      <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput">
+                                                                          Удалить </a>
+                                                                  </div>
+                                                              </div>
 
-                                                            </div>
-
-
+                                                          </div>
 
 
 
@@ -764,12 +755,22 @@
 
 
 
-                                                            <div class="margiv-top-10">
-                                                                <button type="submit" class="btn green-haze">
-                                                                    Стартануть процесс </button>
 
-                                                            </div>
-                                                        </form>
+
+                                                          <div class="margiv-top-10">
+                                                              <button type="submit" class="btn green-haze">
+                                                                  Стартануть процесс </button>
+
+                                                          </div>
+                                                      </form>
+
+
+
+
+
+
+                                                      </form>
+
                                                     </div>
                                                     <!-- END PERSONAL INFO TAB -->
 
@@ -886,3 +887,88 @@
 </div>
 </div>
 </div>
+
+
+
+<div id="portlet-config" class="modal container fade" tabindex="-1">
+
+
+
+
+    <div class="modal-body">
+
+
+
+        <div class="profile-content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="portlet light">
+                        <div class="portlet-title tabbable-line">
+                            <div class="caption caption-md">
+                                <i class="icon-globe theme-font hide"></i>
+                                <span class="caption-subject font-blue-madison bold uppercase">Работа со справочником</span>
+                            </div>
+                            <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#tab_1_1" data-toggle="tab">Добавить запись</a>
+                                </li>
+
+
+                            </ul>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="tab-content">
+                                <!-- PERSONAL INFO TAB -->
+                                <div class="tab-pane active" id="tab_1_1">
+                                    <div id="formsave">
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    </div>
+
+
+                                    <div class="margiv-top-10">
+                                        <button id="savenew" class="btn green-haze">
+                                            Сохранить запись </button>
+
+                                    </div>
+
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+</div>
+

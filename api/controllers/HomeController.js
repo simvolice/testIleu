@@ -18,7 +18,15 @@ var HomeController = {
 
 
 
-      res.view('homepage', {company: company});
+
+
+
+
+
+        res.view('homepage', {company: company});
+
+
+
 
 
     });

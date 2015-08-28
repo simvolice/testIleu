@@ -80,7 +80,7 @@ var CompanyController = {
                   } else {
 
 
-                    User.update({id: req.user.id}, {role: 'admin', position: 'Генеральный директор'})
+                    User.update({id: req.user.id}, {role: 'admin', position: 'Основатель компании'})
                       .exec(function (err, users) {
 
 

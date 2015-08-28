@@ -21,77 +21,6 @@ var MyProcessController = {
 
 
 
-
-
-          process.forEach(function(item){
-
-
-
-          user.outProcess.forEach(function(itemOutProcess) {
-
-            if (item.id === itemOutProcess) {
-
-
-
-
-
-              item.outProcess = 'Исходящий';
-
-
-
-
-
-
-            }
-
-          })
-            user.inProcess.forEach(function(itemInProcess) {
-
-
-
-
-
-            if(item.id === itemInProcess){
-
-
-
-                item.inProcess = 'Входящий';
-
-
-
-
-
-              }
-
-              /*else if(item.id === userDueProcess){
-
-
-               item.dueProcess = 'Просроченный';
-
-               }*/
-
-
-
-
-
-
-            })
-
-
-        });
-
-
-
-
-
-
-
-
-
-
-
-
-
         res.view('myprocess', {process: process });
 
 
@@ -144,59 +73,62 @@ var MyProcessController = {
 
 
     User.findOne({id: req.user.id}).exec(function(err, user){
+
+
       Company.findOne({employees: user.id}).exec(function(err, company){
+
+          TypeProcess.find({company: company.id}).exec(function(err, typeprocess) {
+
+
+            NameProcess.find({typeProcess: undescore.pluck(typeprocess, 'id')}).exec(function (err, nameprocess) {
+
+
         Process.findOne({url: sails.getBaseurl() + '/processlist?id=' + req.query.id}).exec(function(err, process) {
-    User.find({id: undescore.pluck(process.answerable, 'valueID')}).exec(function(err, useransw){
-
-        TypeProcess.findOne({company: company.id}).exec(function(err, typeprocess) {
 
 
-          NameProcess.find({typeProcess: typeprocess.id}).exec(function (err, nameprocess) {
+          User.find({id: undescore.pluck(process.answerable, 'valueID')}).exec(function(err, useranswerable){
 
-            User.find({id: company.employees}).exec(function(err, user2){
 
-              Kontragents.find({company: company.id}).exec(function(err, kontra){
+            User.find({id: company.employees}).exec(function(err, employees){
+
 
 Comments.find({process: process.id}).exec(function(err, comments){
 
-  CatalogForProcess.find({}).exec(function(err, process22){
+  CatalogForProcess.find({}).exec(function(err, catalogforprocess){
 
 
 
+    var forChaining = {};
 
-    var findItem = ['Служебка666 55c9fab09b9465f0208daf81', 'simvolice 55c9fab09b9465f0208daf81'];
-
-
-
-
-    var arrHeader = [];
+    var getTypeProcessforChainingList = [];
 
 
 
-    process22.forEach(function(item){
-
-      findItem.forEach(function(item2){
-
-
-        if (item.nameProcess == item2){
+    typeprocess.forEach(function(item){
 
 
 
 
 
-
-
-
-          arrHeader.push(item);
-
+      undescore.where(nameprocess, {typeProcess: item.id}).forEach(function(name){
 
 
 
 
 
+        forChaining = {
+
+          id : item.id,
+
+          name: name.name,
+          idname: name.id
+
+        };
 
 
-        }
+
+        getTypeProcessforChainingList.push(forChaining);
+
 
       });
 
@@ -205,133 +137,40 @@ Comments.find({process: process.id}).exec(function(err, comments){
     });
 
 
-                var obj = {};
 
 
 
+    var arrHeader = [];
+    var disabledButton = '';
 
-                var ret =  nameprocess.map(function(item3, key3){
 
+    catalogforprocess.forEach(function(item){
 
+      process.connectprocess.forEach(function(item2){
 
 
-                  return item3.name.map(function(item2, key2){
+        if (item.nameProcess == item2){
 
 
+          arrHeader.push(item);
 
 
-                    obj = {
 
-                      name: item3.nameType.replace(/\s+/g, ''),
+        }
 
-                      value: item2
+      });
+    });
 
 
 
-                    };
 
 
-                    return obj;
 
 
-                  });
+  res.view('processview', { typeprocess: typeprocess, employees: employees, nameprocess: getTypeProcessforChainingList, gridVal: arrHeader ,comments: comments ,process: process, roleInProcess: user.roleInProcess});
 
 
 
-
-                });
-
-
-
-
-
-                var nameType =  nameprocess.map(function(item){
-
-
-                  return item.nameType;
-
-
-                });
-
-
-
-                var documents =  nameprocess.map(function(item){
-
-
-                  return item.documents;
-
-
-                });
-
-
-
-
-
-
-
-
-
-                var disabledButton = '';
-
-
-            useransw.forEach(function(itemanswer){
-
-
-
-
-              if (undescore.include(itemanswer.inProcess, process.id)){
-
-
-                disabledButton = 'disabled';
-
-
-
-
-
-              }else {
-
-
-                disabledButton = null;
-
-              }
-
-
-
-            });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  res.view('processview', {gridVal: arrHeader ,comments: comments ,process: process, name: process.name, roleInProcess: user.roleInProcess, disabled: disabledButton, type: nameType,  nameProcess: undescore.flatten(ret), employees: user2, id: company.employees, kontra: kontra, documents: undescore.flatten(documents)});
-
-
-          });
 
 });
 
@@ -339,7 +178,9 @@ Comments.find({process: process.id}).exec(function(err, comments){
 
             });
 
+          });
 
+        });
 
 
 
@@ -354,169 +195,13 @@ Comments.find({process: process.id}).exec(function(err, comments){
 
 
         });
-      });
-    });
+
   },
 
 
 
 
-  iniciatorwork: function(req, res, next){
 
-
-    var action = req.param('action');
-
-
-    if (action === 'endprocess') {
-
-
-      User.findOne({id: req.user.id}).exec(function(err, user){
-
-        Company.findOne({employees: user.id}).exec(function(err, company) {
-
-
-          Process.findOne({id: req.body.id}).exec(function(err, process){
-
-
-            Archive.create({
-
-              company: process.company,
-
-              process: process.id,
-
-              url: process.url,
-
-              name: process.name,
-
-              type: process.type,
-
-              dateTimeStart: process.dateTimeStart,
-
-              dueDateTime: process.dueDateTime,
-
-              initiator: user.id,
-
-              answerable: process.answerable,
-
-              performer: process.performer,
-
-              text: process.text,
-
-              files: process.files,
-
-              documents: process.documents
-
-
-
-
-
-
-
-            }).exec(function(err, archive){
-
-
-              var indexProcess = user.outProcess.indexOf(process.id);
-
-
-             user.outProcess.splice(indexProcess, 1);
-
-
-              user.save(function(err){
-
-
-
-
-
-
-
-                User.find({id: undescore.union(undescore.pluck(process.answerable, 'valueID'), undescore.pluck(process.performer, 'valueID'))}).exec(function(err, usermany){
-
-
-
-                  usermany.forEach(function(itemusermany){
-
-
-
-                      var indexProcessmany =  itemusermany.inProcess.indexOf(process.id);
-
-                    itemusermany.inProcess.splice(indexProcessmany, 1);
-
-                    itemusermany.save(function(err){});
-
-
-                  });
-
-
-
-
-                   Process.destroy({id: process.id}).exec(function(err){
-
-
-                     res.redirect('/myprocess');
-
-
-                   });
-
-
-
-
-
-
-
-
-                })
-
-
-
-              });
-
-
-
-
-
-
-
-
-
-
-            })
-
-
-
-
-
-
-
-
-
-
-
-
-
-          })
-
-
-
-
-
-
-
-
-
-
-
-
-
-        });
-        });
-
-        }
-
-
-
-
-
-  },
 
 
 
@@ -546,7 +231,7 @@ Comments.find({process: process.id}).exec(function(err, comments){
             User.find({id: undescore.pluck(process.answerable, 'valueID')}).exec(function(err, useransw){
 
 
-              sails.log(useransw);
+
 
 
               useransw.forEach(function(itemansw){
@@ -554,7 +239,7 @@ Comments.find({process: process.id}).exec(function(err, comments){
 
                 itemansw.roleInProcess = 'answer';
 
-                itemansw.inProcess.push(process.id);
+
 
                 itemansw.save(function(err){});
 
@@ -624,7 +309,18 @@ Comments.find({process: process.id}).exec(function(err, comments){
         Company.findOne({emploees: user.id}).exec(function(err, company){
           Process.update({id: req.body.id}, {dueDateTime: req.body.newdate, status: 'Отправлен на доработку'}).exec(function(err, process){
 
+            Notif.create({user: process.initiator.id, text: 'Вам отправлен процесс на доработку ' + '<a href="' + process.url + '">Перейти к процессу</a>'}).exec(function(err, newprocess) {
 
+
+              User.findOne({id: process.initiator.id}).exec(function(err, iniciator){
+
+
+
+              sails.sockets.emit(iniciator.socketid, 'privateNotif', {from: req.user.id, msg: newprocess.text, datetime: newprocess.date});
+
+
+            });
+            });
 
 
             res.redirect('/myprocess');
@@ -670,7 +366,7 @@ Comments.find({process: process.id}).exec(function(err, comments){
 
       User.findOne({id: req.user.id}).exec(function(err, user){
         Company.findOne({employees: user.id}).exec(function(err, company){
-          Process.update({id: req.body.id}, {status: 'Закончен положительно'}).exec(function(err, process) {
+          Process.update({id: req.body.id}, {status: 'Закончен положительно', archive: true}).exec(function(err, process) {
 
 
 
@@ -687,7 +383,7 @@ Comments.find({process: process.id}).exec(function(err, comments){
 
       User.findOne({id: req.user.id}).exec(function(err, user){
         Company.findOne({employees: user.id}).exec(function(err, company){
-          Process.update({id: req.body.id}, {status: 'Закончен отрицательно'}).exec(function(err, process) {
+          Process.update({id: req.body.id}, {status: 'Закончен отрицательно', archive: true}).exec(function(err, process) {
 
 
 
@@ -707,6 +403,29 @@ Comments.find({process: process.id}).exec(function(err, comments){
       User.findOne({id: req.user.id}).exec(function(err, user){
         Company.findOne({emploees: user.id}).exec(function(err, company){
           Process.update({id: req.body.id}, {dueDateTime: req.body.newdate, status: 'Отправлен на доработку'}).exec(function(err, process){
+
+
+
+            process.performer.forEach(function(item){
+
+
+              Notif.create({user: item.valueID, text: 'Вам отправлен процесс на доработку ' + '<a href="' + process.url + '">Перейти к процессу</a>'}).exec(function(err, newprocess) {
+
+
+                User.findOne({id: item.valueID}).exec(function(err, performer){
+
+
+
+                  sails.sockets.emit(performer.socketid, 'privateNotif', {from: req.user.id, msg: newprocess.text, datetime: newprocess.date});
+
+
+                });
+              });
+
+
+            });
+
+
 
 
 
@@ -756,7 +475,7 @@ Comments.find({process: process.id}).exec(function(err, comments){
     req.file('document')
       .upload({
         adapter: require('skipper-gridfs'),
-        uri: 'mongodb://localhost:27017/ileu4.primarydoc',
+        uri: 'mongodb://localhost:27017/ileu.primarydoc',
         id: req.user.id
       }, function whenDone(err, uploadedFiles) {
 
@@ -766,16 +485,39 @@ Comments.find({process: process.id}).exec(function(err, comments){
 
 
 
+        var arrPrimaryDoc = [];
+        var primarydoc = '';
+        var arrConnectProcess = [];
+
+        var connectProcess = '';
+
+
+
+        if (undescore.isUndefined(req.body.primarydoc)){
+
+          primarydoc = null;
+
+        }else{
+
+
+          arrPrimaryDoc = req.body.primarydoc.split(',');
+
+        }if (undescore.isUndefined(req.body.connectprocess)){
+
+
+          connectProcess = null;
+
+
+        }else{
+
+          arrConnectProcess = req.body.connectprocess.split(',');
+
+        }
+
+
 
         var objPerformer = {};
         var objAnswering = {};
-
-
-
-
-
-
-
 
 
 
@@ -789,7 +531,7 @@ Comments.find({process: process.id}).exec(function(err, comments){
 
             return objPerformer = {
 
-              nameUser: item.firstname + ' ' + item.lastname,
+              nameUser: item.displayname,
               valueID: item.id
 
 
@@ -816,17 +558,13 @@ Comments.find({process: process.id}).exec(function(err, comments){
 
               return objAnswering = {
 
-                nameUser: item.firstname + ' ' + item.lastname,
+                nameUser: item.displayname,
                 valueID: item.id
 
 
 
 
               };
-
-
-
-
 
 
             });
@@ -836,88 +574,90 @@ Comments.find({process: process.id}).exec(function(err, comments){
 
 
 
+
+
+
+
+
+
+
             User.findOne({id: req.user.id}).exec(function(err, user){
               Company.findOne({employees: user.id}).exec(function(err, company){
-                Process.create({
-
-
-                  company: company.id,
-                  type: req.body.type,
-                  name: req.body.name,
-                  initiator: user.firstname + ' ' + user.lastname,
-                  dueDateTime: req.body.datetime,
-                  text: req.body.content,
-
-
-                  performer: nameWithID, //TODO Нужно сделать проверки на единственный элемент
-
-
-                  answerable: nameWithIDAnswer,
-
-                  documents: req.body.primarydoc,
-
-                  files: undescore.pluck(uploadedFiles, 'filename')
+                NameProcess.findOne({id: req.body.name}).exec(function(err, nameprocess){
 
 
 
-                }).exec(function(err, process){
+                  Process.create({
+
+                    dprocess: [],
+                    company: company.id,
+                    type: req.body.type,
+                    name: {
+
+                      id: nameprocess.id,
+                      name: nameprocess.name
+
+                    },
+
+                    initiator: {
+
+                      nameUser: user.displayname,
+                      valueID: user.id
+                    },
+
+                    dueDateTime: req.body.datetime,
+                    text: req.body.content,
 
 
-                  if (err) return res.serverError(err);
+                    performer: nameWithID, //TODO Нужно сделать проверки на единственный элемент
 
 
+                    answerable: nameWithIDAnswer,
 
-                  Process.findOne({id: req.body.id}).exec(function(err, processd){
+                    documents: arrPrimaryDoc || primarydoc,
 
+                    connectprocess: arrConnectProcess || connectProcess,
 
-                    processd.dprocess.push(process.id);
-
-                    processd.save(function(err){});
-
-                  });
-
-
-
-
-
-                  User.findOne({id: req.user.id}).exec(function(err, user2){
-
-
-
-
-                    if (err) return res.serverError(err);
-
-                    user2.outProcess.push(process.id);
-
-                    user2.save(function (err) {
-
-
-
-                      if (err) return res.serverError(err);
-
-
-                      User.find({id: req.body.performer}).exec(function(err, user3){
+                    files: undescore.pluck(uploadedFiles, 'fd')
 
 
 
-
-                        user3.map(function(item){
-
-
-
-                          item.inProcess.push(process.id);
-
-                          item.roleInProcess = 'performer';
+                  }).exec(function(err, process){
 
 
 
-                          item.save(function (err) {
+                    Process.findOne({id: req.body.id}).exec(function(err, processd){
+
+
+                      processd.dprocess.push(process.id);
+
+                      processd.save(function(err){});
+
+                    });
+
+
+                    User.findOne({id: req.user.id}).exec(function(err, iniciator){
 
 
 
+                      iniciator.outProcess.push(process.id);
 
 
-                          });
+                      if (undescore.isEqual(req.body.performer, iniciator.id) || undescore.contains(req.body.performer, iniciator.id) ){
+
+
+
+                        iniciator.inProcess.push(process.id);
+
+
+                        iniciator.roleInProcess = "performer";
+
+                        iniciator.save(function (err) {});
+
+
+                        Notif.create({user: iniciator.id, text: 'Вам назначен новый процесс, перейдите по ссылке для просмотра ' + '<a href="' + process.url + '">Перейти к процессу</a>'}).exec(function(err, newprocess) {
+
+
 
 
 
@@ -925,31 +665,136 @@ Comments.find({process: process.id}).exec(function(err, comments){
 
 
 
+                      }else {
 
-                        return res.redirect('/myprocess');
+
+                        userm.forEach(function(item){
 
 
+
+                          item.inProcess.push(process.id);
+
+
+                          item.roleInProcess = "performer";
+
+                          item.save(function (err) {});
+
+
+                          Notif.create({user: item.id, text: 'Вам назначен новый процесс, перейдите по ссылке для просмотра ' + '<a href="' + process.url + '">Перейти к процессу</a>'}).exec(function(err, newprocess) {
+
+
+
+                            sails.sockets.emit(item.socketid, 'privateNotif', {from: req.user.id, msg: newprocess.text, datetime: newprocess.date});
+
+
+
+                          });
+
+
+                        });
+
+
+
+
+
+                      }
+
+
+
+
+
+
+                      iniciator.save(function (err) {});
+
+
+                    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    if (!undescore.isUndefined(req.body.headertable)){
+
+
+
+                      CatalogForProcess.findOne({nameProcess: nameprocess.name}).exec(function(err, ctlforprocess){
+
+
+
+                        if (ctlforprocess == null){
+
+                          CatalogForProcess.create({company: company.id, nameProcess: nameprocess.name, headerTable: req.body.headertable, rowTable: []}).exec(function(err, ctl){
+
+
+                            ctl.rowTable.push(req.body.rowfromtable);
+                            ctl.save(function(err){});
+
+                          })
+
+
+
+                        } else {
+
+                          ctlforprocess.rowTable.push(req.body.rowfromtable);
+                          ctlforprocess.save(function(err){});
+
+
+
+                        }
 
 
                       });
 
 
 
+                    }
 
-                    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
                   });
 
 
+
+
+
+
+
                 });
-
               });
-
-
-
-
-            })
+            });
 
 
 
@@ -959,12 +804,28 @@ Comments.find({process: process.id}).exec(function(err, comments){
 
 
 
+        });
 
 
 
-        })
 
-      });
+        return res.redirect('/myprocess');
+
+
+      })
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
