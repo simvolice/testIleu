@@ -176,35 +176,59 @@
                                     <td>
 
 
-                                      {{dueDateTime}}
 
 
+                                      {{default dueDateTime "Время не указано"}}
 
                                     </td>
 
 
 
                                     <td>
-                                      {{#performer}}
 
 
 
-                                          <li>{{nameUser}}</li>
+
+                                      {{#empty performer}}
+                                          <li>Исполнители не указанны</li>
+                                      {{else}}
+
+                                        {{#performer}}
+
+                                            <li>{{nameUser}}</li>
 
 
-                                      {{/performer}}
+                                        {{/performer}}
+
+
+                                      {{/empty}}
+
+
+
                                     </td>
 
 
                                     <td>
 
-                                      {{#answerable}}
 
 
-                                          <li>{{nameUser}}</li>
+
+                                      {{#empty answerable}}
+                                          <li>Ответственные не указанны</li>
+                                      {{else}}
+
+                                        {{#answerable}}
 
 
-                                      {{/answerable}}
+                                            <li>{{nameUser}}</li>
+
+                                        {{/answerable}}
+
+
+
+
+                                      {{/empty}}
+
 
 
 
@@ -283,13 +307,6 @@
                                         <a href="{{url}}" class="btn btn-xs yellow" style="margin-bottom: 10px;">
                                             Просмотреть <i class="fa fa-search"></i>
                                         </a>
-
-                                        <a href="javascript:;" class="btn btn-xs red">
-                                            <i class="fa fa-times"></i> Удалить </a>
-
-
-
-
 
 
 

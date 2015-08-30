@@ -24,7 +24,12 @@ var Company = {
     employees: {type: 'array'},
 
 
+    nameprocessYes: {type: 'boolean', defaultsTo: function(){
 
+
+      return false;
+
+    }},
 
 
 

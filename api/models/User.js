@@ -19,7 +19,22 @@ module.exports = {
 
     socketid: {type: 'string'},
 
-    username  : { type: 'string', unique: true },
+
+
+    companyYes: {type: 'boolean', defaultsTo: function(){
+
+
+      return false;
+
+
+    }},
+
+    nameprocessYes: {type: 'boolean', defaultsTo: function(){
+
+
+      return false;
+
+    }},
 
 
 

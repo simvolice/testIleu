@@ -234,10 +234,13 @@ module.exports.routes = {
 
     'post /yesreq': 'NotifController.yesreq',
 
-    'post /noreq': 'NotifController.noreq'
+    'post /noreq': 'NotifController.noreq',
 ////////////////////////////////////////////////////////////////////
 
 
+
+
+  'post /gettableforprocess': 'ProcessController.getTableForStartProcessPage'
 
 
 };

@@ -141,7 +141,7 @@ Comments.find({process: process.id}).exec(function(err, comments){
 
 
     var arrHeader = [];
-    var disabledButton = '';
+
 
 
     catalogforprocess.forEach(function(item){
@@ -160,6 +160,7 @@ Comments.find({process: process.id}).exec(function(err, comments){
 
       });
     });
+
 
 
 
@@ -243,6 +244,24 @@ Comments.find({process: process.id}).exec(function(err, comments){
 
                 itemansw.save(function(err){});
 
+
+                Notif.create({user: itemansw.id, text: 'Вам назначен процесс от исполнителя, перейдите по ссылке для просмотра ' + '<a href="' + process.url + '">Перейти к процессу</a>'}).exec(function(err, newprocess) {
+
+try{
+                    sails.sockets.emit(itemansw.socketid, 'privateNotif', {from: req.user.id, msg: newprocess.text, datetime: newprocess.date});
+                }catch(err){
+
+  sails.log(err.name);
+  sails.log(err.message);
+  sails.log('Клиент или оффлайн или не присвоин сокет айди');
+
+
+}
+
+
+                });
+
+
               });
 
 
@@ -315,9 +334,16 @@ Comments.find({process: process.id}).exec(function(err, comments){
               User.findOne({id: process.initiator.id}).exec(function(err, iniciator){
 
 
-
+try{
               sails.sockets.emit(iniciator.socketid, 'privateNotif', {from: req.user.id, msg: newprocess.text, datetime: newprocess.date});
+              }catch(err){
 
+  sails.log(err.name);
+  sails.log(err.message);
+  sails.log('Клиент или оффлайн или не присвоин сокет айди');
+
+
+}
 
             });
             });
@@ -368,6 +394,50 @@ Comments.find({process: process.id}).exec(function(err, comments){
         Company.findOne({employees: user.id}).exec(function(err, company){
           Process.update({id: req.body.id}, {status: 'Закончен положительно', archive: true}).exec(function(err, process) {
 
+            var arrForUser = [];
+
+
+
+            process.performer.forEach(function(item){
+
+
+              arrForUser.push(item.valueID);
+
+            });
+
+
+
+            arrForUser.push(process.iniciator.valueID);
+
+
+
+            arrForUser.forEach(function(itemID){
+
+
+
+
+            Notif.create({user: itemID, text: 'Процесс закончен положительно и отправлен в архив ' + '<a href="' + process.url + '">Перейти к процессу</a>'}).exec(function(err, newprocess) {
+
+
+              User.findOne({id: itemID}).exec(function(err, userIniciatorAndPerformer){
+
+
+try{
+                sails.sockets.emit(userIniciatorAndPerformer.socketid, 'privateNotif', {from: req.user.id, msg: newprocess.text, datetime: newprocess.date});
+              }catch(err){
+
+  sails.log(err.name);
+  sails.log(err.message);
+  sails.log('Клиент или оффлайн или не присвоин сокет айди');
+
+
+}
+
+              });
+            });
+
+          });
+
 
 
          res.redirect('/myprocess');
@@ -385,6 +455,50 @@ Comments.find({process: process.id}).exec(function(err, comments){
         Company.findOne({employees: user.id}).exec(function(err, company){
           Process.update({id: req.body.id}, {status: 'Закончен отрицательно', archive: true}).exec(function(err, process) {
 
+            var arrForUser = [];
+
+
+
+            process.performer.forEach(function(item){
+
+
+              arrForUser.push(item.valueID);
+
+            });
+
+
+
+            arrForUser.push(process.iniciator.valueID);
+
+
+
+            arrForUser.forEach(function(itemID){
+
+
+
+
+              Notif.create({user: itemID, text: 'Процесс закончен отрицательно и отправлен в архив ' + '<a href="' + process.url + '">Перейти к процессу</a>'}).exec(function(err, newprocess) {
+
+
+                User.findOne({id: itemID}).exec(function(err, userIniciatorAndPerformer){
+
+
+                  try{
+
+                  sails.sockets.emit(userIniciatorAndPerformer.socketid, 'privateNotif', {from: req.user.id, msg: newprocess.text, datetime: newprocess.date});
+
+                }catch(err){
+
+                    sails.log(err.name);
+                    sails.log(err.message);
+                    sails.log('Клиент или оффлайн или не присвоин сокет айди');
+
+
+                  }
+                });
+              });
+
+            });
 
 
             res.redirect('/myprocess');
@@ -415,9 +529,17 @@ Comments.find({process: process.id}).exec(function(err, comments){
                 User.findOne({id: item.valueID}).exec(function(err, performer){
 
 
+try{
 
                   sails.sockets.emit(performer.socketid, 'privateNotif', {from: req.user.id, msg: newprocess.text, datetime: newprocess.date});
+                }catch(err){
 
+  sails.log(err.name);
+  sails.log(err.message);
+  sails.log('Клиент или оффлайн или не присвоин сокет айди');
+
+
+}
 
                 });
               });
@@ -683,9 +805,16 @@ Comments.find({process: process.id}).exec(function(err, comments){
                           Notif.create({user: item.id, text: 'Вам назначен новый процесс, перейдите по ссылке для просмотра ' + '<a href="' + process.url + '">Перейти к процессу</a>'}).exec(function(err, newprocess) {
 
 
-
+try{
                             sails.sockets.emit(item.socketid, 'privateNotif', {from: req.user.id, msg: newprocess.text, datetime: newprocess.date});
+                          }catch(err){
 
+  sails.log(err.name);
+  sails.log(err.message);
+  sails.log('Клиент или оффлайн или не присвоин сокет айди');
+
+
+}
 
 
                           });

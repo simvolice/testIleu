@@ -40,6 +40,7 @@ exports.register = function (req, res, next) {
 
 
 
+
     var email    = req.param('email');
 
     var password = req.param('password');
@@ -107,6 +108,8 @@ var lastname = req.param('lastname');
     inProcess: [],
     dueProcess: []
   }, function (err, user) {
+
+
     if (err) {
       if (err.code === 'E_VALIDATION') {
         if (err.invalidAttributes.email) {

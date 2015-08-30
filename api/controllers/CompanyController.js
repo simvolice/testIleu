@@ -69,7 +69,7 @@ var CompanyController = {
                   if (req.body.position != null) {
 
 
-                    User.update({id: req.user.id}, {role: 'admin', position: req.body.position})
+                    User.update({id: req.user.id}, {role: 'admin', position: req.body.position, companyYes: true})
                       .exec(function (err, users) {
 
 
@@ -80,7 +80,7 @@ var CompanyController = {
                   } else {
 
 
-                    User.update({id: req.user.id}, {role: 'admin', position: 'Основатель компании'})
+                    User.update({id: req.user.id}, {role: 'admin', position: 'Основатель компании', companyYes: true})
                       .exec(function (err, users) {
 
 
@@ -136,7 +136,7 @@ var CompanyController = {
           if (req.body.position != null) {
 
 
-            User.update({id: req.user.id}, {role: 'admin', position: req.body.position})
+            User.update({id: req.user.id}, {role: 'admin', position: req.body.position, companyYes: true})
               .exec(function (err, users) {
 
 
@@ -147,7 +147,7 @@ var CompanyController = {
           } else {
 
 
-            User.update({id: req.user.id}, {role: 'admin', position: 'Генеральный директор'})
+            User.update({id: req.user.id}, {role: 'admin', position: 'Основатель компании', companyYes: true})
               .exec(function (err, users) {
 
 

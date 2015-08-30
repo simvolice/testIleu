@@ -79,9 +79,16 @@ var HomeController = {
 
 
 
-
+try{
             sails.sockets.emit(user.socketid, 'privateNotif', {from: req.user.id, msg: notif.text, datetime: notif.date});
+        }catch(err){
 
+  sails.log(err.name);
+  sails.log(err.message);
+  sails.log('Клиент или оффлайн или не присвоин сокет айди');
+
+
+}
 
 
 

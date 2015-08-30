@@ -158,6 +158,25 @@ var TypeController = {
 
         Company.findOne({employees: user.id}).exec(function(err, company){
 
+
+          company.nameprocessYes = true;
+          company.save(function(err){});
+
+          User.find({id: company.employees}).exec(function(err, manyuser){
+
+            manyuser.forEach(function(item){
+
+              item.nameprocessYes = true;
+              item.save(function(err){});
+
+
+
+            });
+
+
+          });
+
+
           TypeProcess.create({company: company.id, nameType: req.body.typeprocess}).exec(function(err, typeprocess){
 
 

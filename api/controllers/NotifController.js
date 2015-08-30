@@ -142,12 +142,31 @@ var NotifController = {
         User.findOne({id: param.fromreq}).exec(function(err, fromrequser){
 
 
+          fromrequser.companyYes = true;
+          fromrequser.save(function(err){});
+
+          if (company.nameprocessYes == true){
+
+            fromrequser.nameprocessYes = true;
+            fromrequser.save(function(err){});
+
+
+          }
 
 
 
+
+          try{
 
         sails.sockets.emit(fromrequser.socketid, 'privateNotif', {from: req.user.id, msg: yesnotif.text, datetime: yesnotif.date});
+        }catch(err){
 
+            sails.log(err.name);
+            sails.log(err.message);
+            sails.log('Клиент или оффлайн или не присвоин сокет айди');
+
+
+          }
         res.send('ok');
 
 
@@ -178,9 +197,16 @@ var NotifController = {
 
 
 
-
+try{
               sails.sockets.emit(fromrequser.socketid, 'privateNotif', {from: req.user.id, msg: yesnotif.text, datetime: yesnotif.date});
+            }catch(err){
 
+  sails.log(err.name);
+  sails.log(err.message);
+  sails.log('Клиент или оффлайн или не присвоин сокет айди');
+
+
+}
               res.send('ok');
 
 
@@ -236,9 +262,16 @@ var NotifController = {
 
 
 
-
+try{
           sails.sockets.emit(fromrequser.socketid, 'privateNotif', {warning: true ,from: req.user.id, msg: yesnotif.text, datetime: yesnotif.date});
+        }catch(err){
 
+  sails.log(err.name);
+  sails.log(err.message);
+  sails.log('Клиент или оффлайн или не присвоин сокет айди');
+
+
+}
           res.send('ok');
 
 

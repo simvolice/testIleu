@@ -128,7 +128,7 @@ restoreEmail.restoreEmail(req, res, next);
         res.locals.layout = 'auth/auh.handlebars';
 
 
-        res.view('confirmemail');
+        res.view('confirmEmail');
 
 
 

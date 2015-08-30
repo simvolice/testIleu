@@ -15,6 +15,41 @@ var ProcessController = {
 
 
 
+  getTableForStartProcessPage: function(req, res, next){
+
+
+    User.findOne({id: req.user.id}).exec(function(err, user){
+
+
+      Company.findOne({employees: user.id}).exec(function(err, company){
+
+          CatalogForProcess.findOne({company: company.id, nameProcess: req.param('name') }).exec(function(err, catalogforprocess) {
+
+
+
+      var htmlRow = '';
+
+      catalogforprocess.rowTable.forEach(function(item){
+
+
+        htmlRow += item;
+
+
+      });
+
+
+
+
+      res.send('<table class="table table-striped table-bordered table-hover" id="sam"><thead>'+catalogforprocess.headerTable+'</thead><tfoot>'+catalogforprocess.headerTable+'</tfoot><tbody>'+ htmlRow +'</tbody></table>');
+
+
+
+    });
+
+      });
+    });
+
+      },
 
 
 
@@ -27,6 +62,10 @@ var ProcessController = {
 
 
 
+    User.findOne({id: req.user.id}).exec(function(err, user){
+
+
+      Company.findOne({employees: user.id}).exec(function(err, company){
 
     NameProcess.findOne({id: req.param('id')}).exec(function (err, nameprocess) {
 
@@ -44,12 +83,18 @@ var ProcessController = {
 
 
 
+
      nameprocess.headerTablewithoutHtml.forEach(function(item){
 
 
         forSaveTable +=  '<div class="form-group form-md-line-input form-md-floating-label"><input name="id" type="hidden" value="'+ nameprocess.id  +'"><input type="text" name="value[]" class="form-control" id="form_control_1"><input type="hidden" name="namecol[]" value="'+ item +'"><label for="form_control_1">'+ item +'</label><span class="help-block">Введите новое значение для колонки: ' + item + '</span> </div>'
 
     });
+
+
+
+
+
 
 
 
@@ -72,6 +117,8 @@ var ProcessController = {
 
 
 
+          });
+          });
           });
 
   },
@@ -380,8 +427,20 @@ var ProcessController = {
                     Notif.create({user: item.id, text: 'Вам назначен новый процесс, перейдите по ссылке для просмотра ' + '<a href="' + process.url + '">Перейти к процессу</a>'}).exec(function(err, newprocess) {
 
 
+                      try{
 
-                      sails.sockets.emit(item.socketid, 'privateNotif', {from: req.user.id, msg: newprocess.text, datetime: newprocess.date});
+                        sails.sockets.emit(item.socketid, 'privateNotif', {from: req.user.id, msg: newprocess.text, datetime: newprocess.date});
+
+
+                      }catch(err){
+
+                        sails.log(err.name);
+                        sails.log(err.message);
+                        sails.log('Клиент или оффлайн или не присвоин сокет айди');
+
+
+                      }
+
 
 
 
@@ -406,6 +465,16 @@ var ProcessController = {
                   iniciator.save(function (err) {});
 
 
+                  Notif.create({user: iniciator.id, text: 'Вам назначен новый процесс, перейдите по ссылке для просмотра ' + '<a href="' + process.url + '">Перейти к процессу</a>'}).exec(function(err, newprocess) {
+
+
+
+
+
+                  });
+
+
+
                 }else {
 
                   useran.forEach(function(item) {
@@ -420,9 +489,18 @@ var ProcessController = {
                     Notif.create({user: item.id, text: 'Вам назначен новый процесс, перейдите по ссылке для просмотра ' + '<a href="' + process.url + '">Перейти к процессу</a>'}).exec(function(err, newprocess) {
 
 
+                      try{
 
                       sails.sockets.emit(item.socketid, 'privateNotif', {from: req.user.id, msg: newprocess.text, datetime: newprocess.date});
 
+                    }catch(err){
+
+                        sails.log(err.name);
+                        sails.log(err.message);
+                        sails.log('Клиент или оффлайн или не присвоин сокет айди');
+
+
+                      }
 
 
                     });

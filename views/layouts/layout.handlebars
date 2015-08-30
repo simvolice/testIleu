@@ -19,15 +19,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <head>
 
 
-    <style>
 
-        td, th {
-            border: 1px solid #999;
-            padding: 0.5rem;
-            text-align: left;
-        }
-
-    </style>
 
     <meta charset="utf-8"/>
     <title>Илеу. Главная.</title>
@@ -348,27 +340,62 @@ License: You must have a valid license purchased only from themeforest(the above
                 </a>
                 <ul class="sub-menu">
 
+{{#user}}
 
 
-                    <li>
-                        <a href="/typeview">
-                            <i class="icon-shuffle"></i>
-                            Процессы</a>
-                    </li>
+
+                    {{#is companyYes true}}
 
 
-                            <li>
-                                <a href="/myprocess">
-                                    <i class="icon-shuffle"></i>
-                                    Мои процессы</a>
-                            </li>
+                        <li>
+                            <a href="/typeview">
+                                <i class="icon-shuffle"></i>
+                                Процессы</a>
+                        </li>
+
+                    {{else}}
 
 
-                            <li>
-                                <a href="/startprocess">
-                                    <i class="icon-rocket"></i>
-                                    Старт процесса</a>
-                            </li>
+
+
+                    {{/is}}
+
+                    {{/user}}
+
+
+
+
+
+
+
+                  {{#user}}
+
+
+
+                    {{#is nameprocessYes true}}
+                        <li>
+                            <a href="/myprocess">
+                                <i class="icon-shuffle"></i>
+                                Мои процессы</a>
+                        </li>
+
+                        <li >
+                            <a href="/startprocess" >
+                                <i class="icon-rocket"></i>
+                                Старт процесса</a>
+                        </li>
+
+                    {{else}}
+
+
+
+
+                    {{/is}}
+
+                  {{/user}}
+
+
+
 
 
 
@@ -523,6 +550,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="../../assets/admin/pages/scripts/profilesock.js"></script>
 
 <script src="../../assets/admin/pages/scripts/startprocess.js"></script>
+<script src="../../assets/admin/pages/scripts/processview.js"></script>
 
 <script src="../../assets/admin/pages/scripts/homepage.js"></script>
 
@@ -535,6 +563,9 @@ License: You must have a valid license purchased only from themeforest(the above
 
 
 <script src="../../js/TweenMax.min.js"></script>
+<script src="../../js/underscore-min.js"></script>
+
+
 
 
 <script>
@@ -576,6 +607,7 @@ License: You must have a valid license purchased only from themeforest(the above
         StartProcess.init();
 
 
+        ProcessView.init();
 
         TableAdvanced.init();
 
